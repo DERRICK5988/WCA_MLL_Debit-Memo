@@ -1,0 +1,125 @@
+{
+    "_version": "1.64.0",
+    "sap.app": {
+        "id": "mll",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:basic",
+            "version": "1.16.1",
+            "toolsId": "2fe500bc-9ba1-47bb-962c-32aa111283c1"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/sap/opu/odata/sap/YY1_BILLING_DOC_CDS/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [
+                        "YY1_BILLING_DOC_CDS_VAN"
+                    ],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "YY1_BILLING_DOC_CDS_VAN": {
+                "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='YY1_BILLING_DOC_CDS_VAN',Version='0001')/$value/",
+                "type": "ODataAnnotation",
+                "settings": {
+                    "localUri": "localService/YY1_BILLING_DOC_CDS_VAN.xml"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.124.11",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {}
+            }
+        },
+        "config": {
+            "fullWidth": true
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "mll.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {}
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "transition": "slide",
+                "type": "View",
+                "viewType": "XML",
+                "path": "mll.view",
+                "async": true,
+                "viewPath": "mll.view"
+            },
+            "routes": [
+                {
+                    "name": "RouteDebitMemo",
+                    "pattern": ":?query:",
+                    "target": [
+                        "TargetDebitMemo"
+                    ]
+                }
+            ],
+            "targets": {
+                "TargetDebitMemo": {
+                    "id": "DebitMemo",
+                    "name": "DebitMemo"
+                }
+            }
+        },
+        "rootView": {
+            "viewName": "mll.view.App",
+            "type": "XML",
+            "id": "App"
+        }
+    }
+}
