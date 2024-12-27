@@ -11,16 +11,18 @@
     xmlns:sap.ui.fl="sap.ui.fl"
     xmlns:sap.ui.dt="sap.ui.dt"
     xmlns:i18n="sap.ui.model.resource.ResourceModel">
-    <!-- <Page id="page" title="{i18n>title}">
-    </Page> -->
     <f:DynamicPage id="_IDGenDynamicPage1" headerExpanded="true" toggleHeaderOnTitleClick="true" showFooter="true">
+        <!-- DynamicPage Title -->
+        <f:title>
+            <f:DynamicPageTitle id="_IDGenDynamicPageTitle"></f:DynamicPageTitle>
+        </f:title>
         <!-- DynamicPage Header -->
         <f:header>
             <f:DynamicPageHeader id="_IDGenDynamicPageHeader1" pinnable="true">
                 <f:content>
                     <fb:FilterBar id="idDebitMemoFilterBar" persistencyKey="myPersKey" useToolbar="false" search=".onSearch" clear="onClear" showClearOnFB="true" filterChange=".onFilterChange" afterVariantLoad=".onAfterVariantLoad">
                         <fb:filterGroupItems>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem1" name="project" label="{i18n>Project}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem1" name="project" label="{i18n>PostingStatus}" groupName="Group1" visibleInFilterBar="true">
                                 <fb:control>
                                     <MultiInput id="_IDGenMultiInput1" name="project" showValueHelp="true" showSuggestion="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequested($event, true)" showClearIcon="true" suggest=".onSuggest" suggestionItems="{ path: 'DMR>/ProjectVH' }">
                                         <suggestionItems>
@@ -29,9 +31,9 @@
                                     </MultiInput>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem2" name="debitmemo" label="{i18n>DebitMemoRequestNumber}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem2" name="billingdocument" label="{i18n>BillingDocument}" groupName="Group1" visibleInFilterBar="true">
                                 <fb:control>
-                                    <MultiInput id="_IDGenMultiInput2" name="debitmemo" showValueHelp="true" showSuggestion="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequested($event, true)" showClearIcon="true" suggest=".onSuggest" suggestionItems="{ path: 'DMR>/DebitMemoNumberVH' }">
+                                    <MultiInput id="_IDGenMultiInput2" name="billingdocument" showValueHelp="true" showSuggestion="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequested($event, true)" showClearIcon="true" suggest=".onSuggest" suggestionItems="{ path: 'DMR>/DebitMemoNumberVH' }">
                                         <suggestionItems>
                                             <core:ListItem id="_IDGenListItem2" key="{DMR>DebitMemoRequest}" text="{path : 'DMR>DebitMemoRequest'}"/>
                                         </suggestionItems>
@@ -47,87 +49,78 @@
                                     </MultiInput>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem4" name="shiptoparty" label="{i18n>ShipToParty}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem4" name="abrechnungsweg" label="{i18n>Abrechnungsweg}" groupName="Group1" visibleInFilterBar="true">
                                 <fb:control>
-                                    <MultiInput id="idShipToPartyInput" name="shiptoparty" showValueHelp="true" showSuggestion="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequested($event, true)" showClearIcon="true" suggest=".onSuggest" suggestionItems="{ path: 'DMR>/SoldToPartyVH' }">
+                                    <MultiInput id="idShipToPartyInput" name="abrechnungsweg" showValueHelp="true" showSuggestion="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequested($event, true)" showClearIcon="true" suggest=".onSuggest" suggestionItems="{ path: 'DMR>/SoldToPartyVH' }">
                                         <suggestionItems>
                                             <core:ListItem id="_IDGenListItem4" key="{DMR>Customer}" text="{path : 'DMR>Customer'}" additionalText="{ path : 'DMR>CustomerName'}"/>
                                         </suggestionItems>
                                     </MultiInput>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem5" name="billingblock" label="{i18n>BillingBlock}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem5" name="patient" label="{i18n>Patient}" groupName="Group1" visibleInFilterBar="true">
                                 <fb:control>
-                                    <MultiComboBox id="_IDGenMultiComboBox1" name="billingblock" showSecondaryValues="true" width="300px" items="{ path: 'DMR>/BillingBlockVH', sorter: { path: 'BillingBlockReason' }, templateShareable: false, suspended: false }">
+                                    <MultiComboBox id="_IDGenMultiComboBox1" name="patient" showSecondaryValues="true" width="300px" items="{ path: 'DMR>/BillingBlockVH', sorter: { path: 'BillingBlockReason' }, templateShareable: false, suspended: false }">
                                         <core:ListItem id="_IDGenListItem5" key="{DMR>BillingBlockReason}" text="{DMR>BillingBlockReasonDescription}" additionalText="{DMR>BillingBlockReason}"/>
                                     </MultiComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem6" name="orderreason" label="{i18n>OrderReason}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem6" name="createdby" label="{i18n>CreatedBy}" groupName="Group1" visibleInFilterBar="true">
                                 <fb:control>
-                                    <MultiComboBox id="_IDGenMultiComboBox2" name="orderreason" showSecondaryValues="true" width="300px" items="{ path: 'DMR>/OrderReasonVH', sorter: { path: 'SDDocumentReason' }, templateShareable: false, suspended: false }">
+                                    <MultiComboBox id="_IDGenMultiComboBox2" name="createdby" showSecondaryValues="true" width="300px" items="{ path: 'DMR>/OrderReasonVH', sorter: { path: 'SDDocumentReason' }, templateShareable: false, suspended: false }">
                                         <core:ListItem id="_IDGenListItem6" key="{DMR>SDDocumentReason}" text="{DMR>SDDocumentReasonText}" additionalText="{DMR>SDDocumentReason}"/>
                                     </MultiComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem7" name="salesorg" label="{i18n>ServiceOrganization}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem7" name="fixedvaluedate" label="{i18n>FixedValueDate}" groupName="Group1" visibleInFilterBar="true">
                                 <fb:control>
-                                    <MultiInput id="_IDGenMultiInput3" name="serviceorg" showValueHelp="true" showSuggestion="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequested($event, true)" showClearIcon="true" suggest=".onSuggest" suggestionItems="{ path: '/ServiceOrganizationValueHelp' }">
+                                    <MultiInput id="_IDGenMultiInput3" name="fixedvaluedate" showValueHelp="true" showSuggestion="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequested($event, true)" showClearIcon="true" suggest=".onSuggest" suggestionItems="{ path: '/ServiceOrganizationValueHelp' }">
                                         <suggestionItems>
                                             <core:ListItem id="_IDGenListItem7" key="{EngagementProjectServiceOrg}" text="{EngagementProjectServiceOrg}" additionalText="{EngmtProjectServiceOrgName}"/>
                                         </suggestionItems>
                                     </MultiInput>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem8" name="distrchnl" label="{i18n>DistributionChannel}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem8" name="status" label="{i18n>Status}" groupName="Group1" visibleInFilterBar="true">
                                 <fb:control>
-                                    <MultiComboBox id="_IDGenMultiComboBox3" name="distrchnl" showSecondaryValues="true" width="300px" items="{ path: 'DMR>/DistributionChannelVH', sorter: { path: 'DistributionChannel' }, templateShareable: false, suspended: false }">
+                                    <MultiComboBox id="_IDGenMultiComboBox3" name="status" showSecondaryValues="true" width="300px" items="{ path: 'DMR>/DistributionChannelVH', sorter: { path: 'DistributionChannel' }, templateShareable: false, suspended: false }">
                                         <core:ListItem id="_IDGenListItem8" key="{DMR>DistributionChannel}" text="{DMR>DistributionChannel}"/>
                                     </MultiComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem9" name="division" label="{i18n>Division}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem9" name="customerreference" label="{i18n>CustomerReference}" groupName="Group1" visibleInFilterBar="true">
                                 <fb:control>
-                                    <MultiComboBox id="_IDGenMultiComboBox4" name="division" showSecondaryValues="true" width="300px" items="{ path: 'DMR>/DivisionVH', sorter: { path: 'Division' }, templateShareable: false, suspended: false }">
+                                    <MultiComboBox id="_IDGenMultiComboBox4" name="customerreference" showSecondaryValues="true" width="300px" items="{ path: 'DMR>/DivisionVH', sorter: { path: 'Division' }, templateShareable: false, suspended: false }">
                                         <core:ListItem id="_IDGenListItem9" key="{DMR>Division}" text="{DMR>Division}"/>
                                     </MultiComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem10" name="material" label="{i18n>Material}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem10" name="salesorganization" label="{i18n>SalesOrganization}" groupName="Group1" visibleInFilterBar="true">
                                 <fb:control>
-                                    <MultiInput id="_IDGenMultiInput4" name="material" showValueHelp="true" showSuggestion="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequested($event, true)" showClearIcon="true" suggest=".onSuggest" suggestionItems="{ path: 'DMR>/MaterialVH' }">
+                                    <MultiInput id="_IDGenMultiInput4" name="salesorganization" showValueHelp="true" showSuggestion="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequested($event, true)" showClearIcon="true" suggest=".onSuggest" suggestionItems="{ path: 'DMR>/MaterialVH' }">
                                         <suggestionItems>
                                             <core:ListItem id="_IDGenListItem10" key="{DMR>Product}" text="{path : 'DMR>Product'}" additionalText="{ path : 'DMR>ProductName'}"/>
                                         </suggestionItems>
                                     </MultiInput>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem11" name="plant" label="{i18n>Plant}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem11" name="actualcustomer" label="{i18n>ActualCustomer}" groupName="Group1" visibleInFilterBar="true">
                                 <fb:control>
-                                    <MultiComboBox id="_IDGenMultiComboBox5" name="plant" showSecondaryValues="true" width="300px" items="{ path: 'DMR>/PlantVH', sorter: { path: 'Plant' }, templateShareable: false, suspended: false }">
+                                    <MultiComboBox id="_IDGenMultiComboBox5" name="actualcustomer" showSecondaryValues="true" width="300px" items="{ path: 'DMR>/PlantVH', sorter: { path: 'Plant' }, templateShareable: false, suspended: false }">
                                         <core:ListItem id="_IDGenListItem11" key="{DMR>Plant}" text="{DMR>PlantName}" additionalText="{DMR>Plant}"/>
                                     </MultiComboBox>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <!-- <fb:FilterGroupItem name="shippingpoint" label="{i18n>Shpt}" groupName="Group1" visibleInFilterBar="true">
+                            <fb:FilterGroupItem id="_IDGenFilterGroupItem12" name="Product" label="{i18n>Product}" groupName="Group1" visibleInFilterBar="true">
                                 <fb:control>
-                                    <MultiInput name="shippingpoint" showValueHelp="true" showSuggestion="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequested($event, true)" showClearIcon="true" suggestionItems="{ path: '/ServiceOrganizationValueHelp' }">
-                                        <suggestionItems>
-                                            <core:ListItem key="{EngagementProjectServiceOrg}" text="{path : 'EngmtProjectServiceOrgName'}" additionalText="{ path : 'EngagementProjectServiceOrg'}"/>
-                                        </suggestionItems>
-                                    </MultiInput>
-                                </fb:control>
-                            </fb:FilterGroupItem> -->
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem12" name="profitcenter" label="{i18n>ProfitCenter}" groupName="Group1" visibleInFilterBar="true">
-                                <fb:control>
-                                    <MultiInput id="_IDGenMultiInput5" name="profitcenter" showValueHelp="true" showSuggestion="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequested($event, true)" showClearIcon="true" suggest=".onSuggest" suggestionItems="{ path: 'DMR>/ProfitCenterVH' }">
+                                    <MultiInput id="_IDGenMultiInput5" name="Product" showValueHelp="true" showSuggestion="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequested($event, true)" showClearIcon="true" suggest=".onSuggest" suggestionItems="{ path: 'DMR>/ProfitCenterVH' }">
                                         <suggestionItems>
                                             <core:ListItem id="_IDGenListItem12" key="{DMR>ProfitCenter}" text="{path : 'DMR>ProfitCenter'}" additionalText="{ path : 'DMR>ProfitCenterLongName'}"/>
                                         </suggestionItems>
                                     </MultiInput>
                                 </fb:control>
                             </fb:FilterGroupItem>
-                            <fb:FilterGroupItem id="_IDGenFilterGroupItem13" name="projaccount" label="{i18n>ProjectAccountant}" groupName="Group1" visibleInFilterBar="true">
+                            <!-- <fb:FilterGroupItem id="_IDGenFilterGroupItem13" name="projaccount" label="{i18n>ProjectAccountant}" groupName="Group1" visibleInFilterBar="true">
                                 <fb:control>
                                     <MultiInput id="_IDGenMultiInput13" name="projaccount" showValueHelp="true" showSuggestion="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequested($event, true)" showClearIcon="true" suggest=".onSuggest" suggestionItems="{ path: 'DMR>/BusinessUserNameVH' }">
                                         <suggestionItems>
@@ -153,16 +146,6 @@
                                         <core:Item id="_IDGenItem3" key="Empty" text='' />
                                     </ComboBox>
                                 </fb:control>
-                            </fb:FilterGroupItem>
-                            <!-- <fb:FilterGroupItem name="dmrheaderind" label="{i18n>HeaderIndicator}" groupName="Group1" visibleInFilterBar="true">
-                                <fb:control>
-                                    <CheckBox selected="{DebitMemo>/DMRHeaderIndicator}" valueState="Information" />
-                                </fb:control>
-                            </fb:FilterGroupItem>
-                            <fb:FilterGroupItem name="dmritemind" label="{i18n>ItemIndicator}" groupName="Group1" visibleInFilterBar="true">
-                                <fb:control>
-                                    <CheckBox selected="{DebitMemo>/DMRItemIndicator}" valueState="Information" />
-                                </fb:control>
                             </fb:FilterGroupItem> -->
                         </fb:filterGroupItems>
                     </fb:FilterBar>
@@ -176,14 +159,15 @@
                     <OverflowToolbar id="_IDGenOverflowToolbar1">
                         <Title id="_IDGenTitle1" text="{= ${DebitMemo>/Items} &amp;&amp; ${DebitMemo>/Items}.length > 0 ?  ${i18n>DebitMemo} + ' (' + ${DebitMemo>/Items}.length + ')' : ${i18n>DebitMemo} + ' (0)'}" level="H2"/>
                         <ToolbarSeparator id="_IDGenToolbarSeparator1"/>
-                        <Title id="_IDGenTitle2" text="{i18n>Personalization}"/>
-                        <ToolbarSeparator id="_IDGenToolbarSeparator2"/>
-                        <vm:VariantManagement id="_IDGenVariantManagement1" for="idDebitMemoTable"/>
-                        <ToolbarSpacer id="_IDGenToolbarSpacer1"/>
+                        <!-- <Title id="_IDGenTitle2" text="{i18n>Personalization}"/>
+                        <ToolbarSeparator id="_IDGenToolbarSeparator2"/> -->
+                        <!-- <vm:VariantManagement id="_IDGenVariantManagement1" for="idDebitMemoTable"/>
+                        <ToolbarSpacer id="_IDGenToolbarSpacer1"/> -->
                         <!-- <Button text="Smart" type="Default" press=".onNavSmart" /> -->
-                        <Button id="_IDGenButton1" icon="sap-icon://excel-attachment" press="onPressExportExcel($event, ${DebitMemo>/}, 'DownloadExcel', 'ExportExcel')" tooltip="Download"/>
-                        <Button id="_IDGenButton2" icon="sap-icon://save" press=".onSave" visible="{DebitMemo>/bEditable}" tooltip="{i18n>Save}"/>
-                        <Button id="idDebitMemoBtn" text="{i18n>DebitMemo}" press="OnPressMenu($event, 'DebitMemoMenu', 'idDebitMemoBtn')" ariaHasPopup="Menu"/>
+                        <!-- <Button id="_IDGenButton1" icon="sap-icon://excel-attachment" press="onPressExportExcel($event, ${DebitMemo>/}, 'DownloadExcel', 'ExportExcel')" tooltip="Download"/> -->
+                        <!-- <Button id="_IDGenButton2" icon="sap-icon://save" press=".onSave" visible="{DebitMemo>/bEditable}" tooltip="{i18n>Save}"/> -->
+                        <!-- <Button id="idActionButton" icon="sap-icon://overflow" text="{i18n>Action}" press="OnActionMenu($event, 'DebitMemoMenu', 'idDebitMemoBtn')" ariaHasPopup="Menu"/> -->
+                        <Button id="idActionButton" icon="sap-icon://overflow" press="OnActionMenu($event, 'DebitMemoMenu', 'idDebitMemoBtn')" ariaHasPopup="Menu"/>
                         <Button id="_IDGenButton3" icon="sap-icon://action-settings" press=".openPersoDialog($event, 'idDebitMemoTable')"/>
                     </OverflowToolbar>
                 </t:extension>
@@ -192,249 +176,93 @@
                 </t:noData>
                 <t:columns>
                     <t:Column id="idDebitMemoRequest" autoResizable="true" width="250px" sortProperty="{DebitMemo>DebitMemoRequest}">
-                        <Label id="_IDGenLabel1" text="{i18n>DebitMemoRequestNumber}" tooltip="{i18n>DebitMemoRequestNumber}"/>
+                        <Label id="_IDGenLabel1" text="{i18n>DebitMemoRequest}" tooltip="{i18n>DebitMemoRequest}"/>
                         <t:template>
                             <Text id="_IDGenText1" text="{DebitMemo>DebitMemoRequest}" tooltip="{DebitMemo>DebitMemoRequest}" wrapping="false"/>
                         </t:template>
                     </t:Column>
-                    <t:Column id="idDebitMemoRequestItem" autoResizable="true" width="100px">
-                        <Label id="_IDGenLabel2" text="{i18n>ItemNumber}" tooltip="{i18n>ItemNumber}" wrapping="false"/>
+                    <t:Column id="idAbrechnungsweg" autoResizable="true" width="100px">
+                        <Label id="_IDGenLabel2" text="{i18n>Abrechnungsweg}" tooltip="{i18n>Abrechnungsweg}" wrapping="false"/>
                         <t:template>
                             <Text id="_IDGenText2" text="{DebitMemo>DebitMemoRequestItem}"/>
                         </t:template>
                     </t:Column>
-                    <t:Column id="idPremilinaryBilling" autoResizable="true" width="200px">
-                        <Label id="_IDGenLabel3" text="{i18n>PremilinaryBilling}" tooltip="{i18n>PremilinaryBilling}"/>
+                    <t:Column id="idLABID" autoResizable="true" width="200px">
+                        <Label id="_IDGenLabel3" text="{i18n>LABID}" tooltip="{i18n>LABID}"/>
                         <t:template>
                             <Link id="_IDGenLink1" text="{DebitMemo>PBDNumber}" emphasized="true" target="_blank" href="{= ${DebitMemo>/sBillingLink} + '?' + ${DebitMemo>PBDNumber} }" />
                         </t:template>
                     </t:Column>
-                    <t:Column id="idBillingDate" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel4" text="{i18n>BillingDate}" tooltip="{i18n>BillingDate}"/>
+                    <t:Column id="idSoldToParty" autoResizable="true" width="150px">
+                        <Label id="_IDGenLabel4" text="{i18n>SoldToParty}" tooltip="{i18n>SoldToParty}"/>
                         <t:template>
                             <Text id="_IDGenText3" text="{path: 'DebitMemo>BillingDocumentDate', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd.MM.yyyy', UTC: false}}" wrapping="false"/>
                         </t:template>
                     </t:Column>
-                    <t:Column id="idSalesGroup" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel5" text="{i18n>SalesGroup}" tooltip="{i18n>SalesGroup}"/>
+                    <t:Column id="idSalesOrganization" autoResizable="true" width="150px">
+                        <Label id="_IDGenLabel21" text="{i18n>SalesOrganization}" tooltip="{i18n>SalesOrganization}"/>
+                        <t:template>
+                            <Text id="_IDGenText20" text="{DebitMemo>SalesOrganization}" tooltip="{DebitMemo>SalesOrganization}" wrapping="false"/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column id="idActualCustomer" autoResizable="true" width="150px">
+                        <Label id="_IDGenLabel5" text="{i18n>ActualCustomer}" tooltip="{i18n>ActualCustomer}"/>
                         <t:template>
                             <Text id="_IDGenText4" text="{DebitMemo>SalesGroup}" wrapping="false"/>
                         </t:template>
                     </t:Column>
-                    <t:Column id="idSalesOffice" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel6" text="{i18n>SalesOffice}" tooltip="{i18n>SalesOffice}"/>
+                    <t:Column id="idBillingDocumentItem" autoResizable="true" width="150px">
+                        <Label id="_IDGenLabel6" text="{i18n>BillingDocumentItem}" tooltip="{i18n>BillingDocumentItem}"/>
                         <t:template>
                             <Text id="_IDGenText5" text="{DebitMemo>SalesOffice}" wrapping="false"/>
                         </t:template>
                     </t:Column>
-                    <t:Column id="idSoldToParty" autoResizable="true" width="200px">
-                        <Label id="_IDGenLabel7" text="{i18n>SoldToParty}" tooltip="{i18n>SoldToParty}"/>
-                        <t:template>
-                            <Text id="_IDGenText6" text="{DebitMemo>SoldToParty}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idShipToParty" autoResizable="true" width="200px">
-                        <Label id="_IDGenLabel8" text="{i18n>ShipToParty}" tooltip="{i18n>ShipToParty}"/>
+                    <t:Column id="idProductDesc" autoResizable="true" width="200px">
+                        <Label id="_IDGenLabel8" text="{i18n>BillingDocumentItemText}" tooltip="{i18n>BillingDocumentItemText}"/>
                         <t:template>
                             <Text id="_IDGenText7" text="{DebitMemo>SoldToParty}" wrapping="false"/>
                         </t:template>
                     </t:Column>
-                    <t:Column id="idCustomerReference" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel9" text="{i18n>CustomerReference}" tooltip="{i18n>CustomerReference}"/>
+                    <t:Column id="idBillingQuantity" autoResizable="true" width="150px">
+                        <Label id="_IDGenLabel30" text="{i18n>BillingQuantity}" tooltip="{i18n>BillingQuantity}"/>
                         <t:template>
-                            <Text id="_IDGenText8" text="{DebitMemo>CustomerReference}" wrapping="false"/>
+                            <Text id="_IDGenText29" text="{DebitMemo>BillingQuantity} {DebitMemo>BillingQuantityUnit}" wrapping="false"/>
                         </t:template>
                     </t:Column>
-                    <t:Column id="idCustomerReferenceDate" autoResizable="true" width="250px">
-                        <Label id="_IDGenLabel10" text="{i18n>CustomerReferenceDate}" tooltip="{i18n>CustomerReferenceDate}"/>
-                        <t:template>
-                            <Text id="_IDGenText9" text="{path: 'DebitMemo>CustomerReferenceDate', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd.MM.yyyy', UTC: false}}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idBillingBlock" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel11" text="{i18n>BillingBlock}" tooltip="{i18n>BillingBlock}"/>
-                        <t:template>
-                            <Text id="_IDGenText10" text="{DebitMemo>BillingBlockDescription}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idServiceOrganization" autoResizable="true" width="100px">
-                        <Label id="_IDGenLabel12" text="{i18n>ServiceOrganization}" tooltip="{i18n>ServiceOrganization}"/>
-                        <t:template>
-                            <Text id="_IDGenText11" text="{DebitMemo>SalesOrganization}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idDistributionChannel" autoResizable="true" width="100px">
-                        <Label id="_IDGenLabel13" text="{i18n>DistributionChannel}" tooltip="{i18n>DistributionChannel}"/>
-                        <t:template>
-                            <Text id="_IDGenText12" text="{DebitMemo>DistributionChannel}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idDivision" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel14" text="{i18n>Division}" tooltip="{i18n>Division}"/>
-                        <t:template>
-                            <Text id="_IDGenText13" text="{DebitMemo>OrganizationDivision}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idServiceRenderedDate" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel15" text="{i18n>ServiceRenderedDate}" tooltip="{i18n>ServiceRenderedDate}"/>
-                        <t:template>
-                            <Text id="_IDGenText14" text="{path: 'DebitMemo>ServicesRenderedDate', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd.MM.yyyy', UTC: false}}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idPricingDate" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel16" text="{i18n>PricingDate}" tooltip="{i18n>PricingDate}"/>
-                        <t:template>
-                            <Text id="_IDGenText15" text="{path: 'DebitMemo>PricingDate', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd.MM.yyyy', UTC: false}}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idTaskIDServicedesk" autoResizable="true" width="200px">
-                        <Label id="_IDGenLabel19" text="{i18n>TaskIDServicedesk}" tooltip="{i18n>TaskIDServicedesk}"/>
-                        <t:template>
-                            <Text id="_IDGenText18" text="{DebitMemo>TaskIdServiceDesk}" tooltip="{DebitMemo>TaskIdServiceDesk}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idAlternativeShipToParty" autoResizable="true" width="200px">
-                        <Label id="_IDGenLabel20" text="{i18n>AlternativeShip-to-Party}" tooltip="{i18n>AlternativeShip-to-Party}"/>
-                        <t:template>
-                            <Text id="_IDGenText19" text="{DebitMemo>AlternativeShipToParty}" tooltip="{DebitMemo>AlternativeShipToParty}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idCostCenterexternal" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel21" text="{i18n>CostCenterexternal}" tooltip="{i18n>CostCenterexternal}"/>
-                        <t:template>
-                            <Text id="_IDGenText20" text="{DebitMemo>ExternalCostCenter}" tooltip="{DebitMemo>ExternalCostCenter}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idFurtherNotes" autoResizable="true" width="250px">
-                        <Label id="_IDGenLabel22" text="{i18n>FurtherNotes}" tooltip="{i18n>FurtherNotes}"/>
-                        <t:template>
-                            <Text id="_IDGenText21" text="{DebitMemo>FurtherNotes}" tooltip="{DebitMemo>FurtherNotes}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idServicePeriodStart" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel23" text="{i18n>ServicePeriodStart}" tooltip="{i18n>ServicePeriodStart}"/>
-                        <t:template>
-                            <Text id="_IDGenText22" text="{path: 'DebitMemo>ServicePeriodStartDate', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'MMM dd', UTC: false}}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idServicePeriodEnd" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel24" text="{i18n>ServicePeriodEnd}" tooltip="{i18n>ServicePeriodEnd}"/>
-                        <t:template>
-                            <Text id="_IDGenText23" text="{path: 'DebitMemo>ServicePeriodEndDate', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'MMM dd', UTC: false}}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idBDU" autoResizable="true" width="200px">
-                        <Label id="_IDGenLabel25" text="{i18n>BDU}" tooltip="{i18n>BDU}"/>
-                        <t:template>
-                            <Text id="_IDGenText24" text="{DebitMemo>BDU}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idWBSCustomerProject" autoResizable="true" width="200px">
-                        <Label id="_IDGenLabel26" text="{i18n>WBSCustomerProject}" tooltip="{i18n>WBSCustomerProject}"/>
-                        <t:template>
-                            <Text id="_IDGenText25" text="" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idITTower" autoResizable="true" width="200px">
-                        <Label id="_IDGenLabel27" text="{i18n>ITTower}" tooltip="{i18n>ITTower}"/>
-                        <t:template>
-                            <Text id="_IDGenText26" text="{DebitMemo>ITTower}" tooltip="{DebitMemo>ITTower}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idC4CPersonalnumber" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel28" text="{i18n>C4CPersonalnumber}" tooltip="{i18n>C4CPersonalnumber}"/>
-                        <t:template>
-                            <Text id="_IDGenText27" text="{DebitMemo>C4CPersonalNummer}" tooltip="{DebitMemo>C4CPersonalNummer}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idMaterial" autoResizable="true" width="300px">
-                        <Label id="_IDGenLabel29" text="{i18n>Material}" tooltip="{i18n>Material}"/>
-                        <t:template>
-                            <Text id="_IDGenText28" text="{DebitMemo>MaterialDescription} ({DebitMemo>Material})" tooltip="{DebitMemo>MaterialDescription} ({DebitMemo>Material})" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idRequestedQuantity" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel30" text="{i18n>Qty}" tooltip="{i18n>Qty}"/>
-                        <t:template>
-                            <Text id="_IDGenText29" text="{DebitMemo>RequestedQuantity} {DebitMemo>RequestedQuantityUnit}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idItemDescription" autoResizable="true" width="250px">
-                        <Label id="_IDGenLabel31" text="{i18n>ItemDescription}" tooltip="{i18n>ItemDescription}"/>
-                        <t:template>
-                            <Text id="_IDGenText30" text="{DebitMemo>DebitMemoRequestItemText}" tooltip="{DebitMemo>DebitMemoRequestItemText}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idMaterialByCustomer" autoResizable="true" width="250px">
-                        <Label text="{i18n>MaterialByCustomer}" tooltip="{i18n>MaterialByCustomer}"/>
-                        <t:template>
-                            <Text text="{DebitMemo>MaterialByCustomer}" tooltip="{DebitMemo>MaterialByCustomer}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idNetPrice" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel32" text="{i18n>NetPrice}" tooltip="{i18n>NetPrice}"/>
+                    <t:Column id="idNetAmount" autoResizable="true" width="150px">
+                        <Label id="_IDGenLabel32" text="{i18n>NetAmount}" tooltip="{i18n>NetAmount}"/>
                         <t:template>
                             <ObjectNumber id="_IDGenObjectNumber1" textAlign="End" number="{ path: 'DebitMemo>NetAmount', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 2, maxFractionDigits: 2 }}" unit="{DebitMemo>TransactionCurrency}"/>
                         </t:template>
                     </t:Column>
-                    <t:Column id="idPlant" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel33" text="{i18n>Plant}" tooltip="{i18n>Plant}"/>
+                    <t:Column id="idGrossAmount" autoResizable="true" width="150px">
+                        <Label text="{i18n>GrossAmount}" tooltip="{i18n>GrossAmount}"/>
                         <t:template>
-                            <Text id="_IDGenText31" text="{DebitMemo>Plant}" wrapping="false"/>
+                            <ObjectNumber textAlign="End" number="{ path: 'DebitMemo>GrossAmount', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 2, maxFractionDigits: 2 }}" unit="{DebitMemo>TransactionCurrency}"/>
                         </t:template>
                     </t:Column>
-                    <t:Column id="idShpt" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel34" text="{i18n>Shpt}" tooltip="{i18n>Shpt}"/>
+                    <t:Column id="idDistributionChannel" autoResizable="true" width="100px">
+                        <Label id="_IDGenLabel13" text="{i18n>Patient}" tooltip="{i18n>Patient}"/>
                         <t:template>
-                            <Text id="_IDGenText32" text="{DebitMemo>ShipToParty}" tooltip="{DebitMemo>ShipToParty}" wrapping="false"/>
+                            <Text id="_IDGenText12" text="{DebitMemo>PatientID} {DebitMemo>PatientName}" wrapping="false"/>
                         </t:template>
                     </t:Column>
-                    <t:Column id="idProfitCenter" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel35" text="{i18n>ProfitCenter}" tooltip="{i18n>ProfitCenter}"/>
+                    <t:Column id="idFixedValueDate" autoResizable="true" width="150px">
+                        <Label id="_IDGenLabel15" text="{i18n>FixedValueDate}" tooltip="{i18n>FixedValueDate}"/>
                         <t:template>
-                            <Text id="_IDGenText33" text="{DebitMemo>ProfitCenter}" wrapping="false"/>
+                            <Text id="_IDGenText14" text="{path: 'DebitMemo>FixedValueDate', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd.MM.yyyy', UTC: false}}" wrapping="false"/>
                         </t:template>
                     </t:Column>
-                    <t:Column id="idWBSElement" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel36" text="{i18n>WBSElement}" tooltip="{i18n>WBSElement}"/>
+                    <t:Column id="idCreatedBy" autoResizable="true" width="200px">
+                        <Label id="_IDGenLabel19" text="{i18n>CreatedBy}" tooltip="{i18n>CreatedBy}"/>
                         <t:template>
-                            <Text id="_IDGenText34" text="{DebitMemo>WBSElement}" wrapping="false"/>
+                            <Text id="_IDGenText18" text="{DebitMemo>CreatedBy}" tooltip="{DebitMemo>CreatedBy}" wrapping="false"/>
                         </t:template>
                     </t:Column>
-                    <t:Column id="idCoCategory" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel37" text="{i18n>CoCategory}" tooltip="{i18n>CoCategory}"/>
+                    <t:Column id="idStatus" autoResizable="true" width="200px">
+                        <Label id="_IDGenLabel20" text="{i18n>Status}" tooltip="{i18n>Status}"/>
                         <t:template>
-                            <Text id="_IDGenText35" text="{DebitMemo>CoCategory}" tooltip="{DebitMemo>CoCategory}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idPricingDateItem" autoResizable="true" width="200px">
-                        <Label id="_IDGenLabel17" text="{i18n>PricingDateItem}" tooltip="{i18n>PricingDateItem}"/>
-                        <t:template>
-                            <Text id="_IDGenText16" text="{path: 'DebitMemo>PricngDateItem', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd.MM.yyyy', UTC: false}}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idServiceRenderedDateItem" autoResizable="true" width="200px">
-                        <Label id="_IDGenLabel18" text="{i18n>ServiceRenderedDateItem}" tooltip="{i18n>ServiceRenderedDateItem}"/>
-                        <t:template>
-                            <Text id="_IDGenText17" text="{path: 'DebitMemo>ServiceRendredDateItem', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd.MM.yyyy', UTC: false}}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idBillingDateItem" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel38" text="{i18n>BillingDateItem}" tooltip="{i18n>BillingDateItem}"/>
-                        <t:template>
-                            <Text id="_IDGenText36" text="{path: 'DebitMemo>BillingDocumentDateItem', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd.MM.yyyy', UTC: false}}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idOverallStatus" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel39" text="{i18n>OverallStatus}" tooltip="{i18n>OverallStatus}"/>
-                        <t:template>
-                            <Text id="_IDGenText37" text="{DebitMemo>OverallStatus}" tooltip="{i18n>OverallStatus}" wrapping="false"/>
-                        </t:template>
-                    </t:Column>
-                    <t:Column id="idCreationDate" autoResizable="true" width="150px">
-                        <Label id="_IDGenLabel40" text="{i18n>CreationDate}" tooltip="{i18n>CreationDate}"/>
-                        <t:template>
-                            <Text id="_IDGenText38" text="{path: 'DebitMemo>CreationDate', type: 'sap.ui.model.type.DateTime', formatOptions: {pattern: 'dd.MM.yyyy', UTC: false}}" wrapping="false"/>
+                            <Text id="_IDGenText19" text="{DebitMemo>Status}" tooltip="{DebitMemo>Status}" wrapping="false"/>
                         </t:template>
                     </t:Column>
                 </t:columns>

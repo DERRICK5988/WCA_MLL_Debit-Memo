@@ -1,0 +1,4 @@
+<core:FragmentDefinition xmlns="sap.ui.comp.valuehelpdialog"
+	xmlns:core="sap.ui.core">
+	<ValueHelpDialog id="idValueHelpDialog" ok=".onValueHelpOkPress" cancel=".onValueHelpCancelPress" afterClose=".onValueHelpAfterClose" draggable="true" resizable="true" tokenDisplayBehaviour="descriptionOnly"></ValueHelpDialog>
+</core:FragmentDefinition>

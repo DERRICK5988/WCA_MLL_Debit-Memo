@@ -1,25 +1,25 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Tue Dec 24 2024 15:26:06 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Fri Dec 27 2024 11:07:24 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>@sap/generator-fiori-freestyle|
 |**App Generator Version**<br>1.16.1|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Template Used**<br>simple|
-|**Service Type**<br>SAP System (ABAP On Premise)|
-|**Service URL**<br>https://my403379.s4hana.cloud.sap/sap/opu/odata/sap/YY1_BILLING_DOC_CDS|
+|**Service Type**<br>None|
+|**Service URL**<br>N/A|
 |**Module Name**<br>mll|
-|**Application Title**<br>Invoice Correction|
+|**Application Title**<br>Invoice correction|
 |**Namespace**<br>|
 |**UI5 Theme**<br>sap_horizon|
-|**UI5 Version**<br>1.124.11|
+|**UI5 Version**<br>1.131.1|
 |**Enable Code Assist Libraries**<br>False|
-|**Enable TypeScript**<br>True|
+|**Enable TypeScript**<br>False|
 |**Add Eslint configuration**<br>False|
 
 ## mll
 
-WCMS-86: Invoice Correction Process
+WCMS-86 Debit Memo - Invoice correction process
 
 ### Starting the generated app
 
@@ -27,12 +27,6 @@ WCMS-86: Invoice Correction Process
 
 ```
     npm start
-```
-
-- It is also possible to run the application using mock data that reflects the OData Service URL supplied during application generation.  In order to run the application with Mock Data, run the following from the generated app root folder:
-
-```
-    npm run start-mock
 ```
 
 #### Pre-requisites:

@@ -1,5 +1,5 @@
 {
-    "_version": "1.64.0",
+    "_version": "1.65.0",
     "sap.app": {
         "id": "mll",
         "type": "application",
@@ -13,25 +13,16 @@
         "sourceTemplate": {
             "id": "@sap/generator-fiori:basic",
             "version": "1.16.1",
-            "toolsId": "2fe500bc-9ba1-47bb-962c-32aa111283c1"
+            "toolsId": "34052ccb-dd06-4f61-926a-4f2bf23b0c0e"
         },
         "dataSources": {
-            "mainService": {
-                "uri": "/sap/opu/odata/sap/YY1_BILLING_DOC_CDS/",
+            "YY1_BillDocItem_API_CDS": {
+                "uri": "/sap/opu/odata/sap/YY1_BillDocItem_API_CDS",
                 "type": "OData",
                 "settings": {
-                    "annotations": [
-                        "YY1_BILLING_DOC_CDS_VAN"
-                    ],
+                    "annotations": [],
                     "localUri": "localService/metadata.xml",
                     "odataVersion": "2.0"
-                }
-            },
-            "YY1_BILLING_DOC_CDS_VAN": {
-                "uri": "/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Annotations(TechnicalName='YY1_BILLING_DOC_CDS_VAN',Version='0001')/$value/",
-                "type": "ODataAnnotation",
-                "settings": {
-                    "localUri": "localService/YY1_BILLING_DOC_CDS_VAN.xml"
                 }
             }
         }
@@ -54,15 +45,15 @@
     },
     "sap.ui5": {
         "flexEnabled": true,
+        "config": {
+            "fullWidth": true
+        },
         "dependencies": {
-            "minUI5Version": "1.124.11",
+            "minUI5Version": "1.131.1",
             "libs": {
                 "sap.m": {},
                 "sap.ui.core": {}
             }
-        },
-        "config": {
-            "fullWidth": true
         },
         "contentDensities": {
             "compact": true,
@@ -76,9 +67,16 @@
                 }
             },
             "": {
-                "dataSource": "mainService",
                 "preload": true,
-                "settings": {}
+                "dataSource": "YY1_BillDocItem_API_CDS",
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
             }
         },
         "resources": {
