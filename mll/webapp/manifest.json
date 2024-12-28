@@ -1,0 +1,135 @@
+{
+    "_version": "1.65.0",
+    "sap.app": {
+        "id": "mll",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:basic",
+            "version": "1.16.1",
+            "toolsId": "e83f40e0-377d-4c92-83d8-25a05a107829"
+        },
+        "dataSources": {
+            "YY1_BillDocItem_API_CDS": {
+                "uri": "/sap/opu/odata/sap/YY1_BillDocItem_API_CDS",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "2.0"
+                }
+            },
+            "ValueHelpConfig": {
+                "uri": "model/ValueHelpConfig.json",
+                "type": "JSON"
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "config": {
+            "fullWidth": true
+        },
+        "dependencies": {
+            "minUI5Version": "1.131.1",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "mll.i18n.i18n"
+                }
+            },
+            "": {
+                "preload": true,
+                "dataSource": "YY1_BillDocItem_API_CDS",
+                "settings": {
+                    "defaultBindingMode": "TwoWay",
+                    "defaultCountMode": "Inline",
+                    "refreshAfterChange": false,
+                    "metadataUrlParams": {
+                        "sap-value-list": "none"
+                    }
+                }
+            },
+            "ValueHelpConfig": {
+                "type": "sap.ui.model.json.JSONModel",
+                "dataSource": "ValueHelpConfig",
+                "preload": true,
+                "settings": {
+                    "defaultBindingMode": "OneWay"
+                }
+            }
+        },
+        "resources": {
+            "css": [
+                {
+                    "uri": "css/style.css"
+                }
+            ]
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.m.routing.Router",
+                "controlAggregation": "pages",
+                "controlId": "app",
+                "transition": "slide",
+                "type": "View",
+                "viewType": "XML",
+                "path": "mll.view",
+                "async": true,
+                "viewPath": "mll.view"
+            },
+            "routes": [
+                {
+                    "name": "DebitMemo",
+                    "pattern": "",
+                    "target": [
+                        "DebitMemo"
+                    ]
+                }
+            ],
+            "targets": {
+                "DebitMemo": {
+                    "viewId": "debitmemo",
+                    "viewName": "DebitMemo"
+                }
+            }
+        },
+        "rootView": {
+            "viewName": "mll.view.App",
+            "type": "XML",
+            "id": "App"
+        }
+    }
+}
