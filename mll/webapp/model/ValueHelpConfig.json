@@ -1,396 +1,234 @@
 {	
-	"projectstage": {
-		"EntitySet": "/ProjectStageValueHelp",
+	"postingstatus": {
+		"EntitySet": "YY1_POSTING_STATUS_CDS>/YY1_POSTING_STATUS",
 		"isItemFilterable": true,
 		"FilterOperator": "EQ",
 		"bSuspend": false,
+		"isValueHelp": false,
 		"isComboBox": true,
-		"sTitle": "ProjectStage",
-		"sKey": "EngagementProjectStage",
-		"sFilter": "EngagementProjectStage",
-		"sDescription": "EngagementProjectStageText",
+		"sTitle": "PostingStatus",
+		"sKey": "AccountingPostingStatus",
+		"sFilter": "AccountingPostingStatus",
+		"sDescription": "AccountingPostingStatusDesc",
 		"aCols": [{
-			"label": "{i18n>ProjectStage}",
-			"template": "EngagementProjectStage",
+			"label": "{i18n>PostingStatus}",
+			"template": "YY1_POSTING_STATUS_CDS>AccountingPostingStatus",
 			"width": "6rem"
 		}, {
 			"label": "{i18n>Description}",
-			"template": "EngagementProjectStageText",
+			"template": "YY1_POSTING_STATUS_CDS>AccountingPostingStatusDesc",
 			"width": "20rem"
 		}]
 	},
-	"project": {
-		"EntitySet": "DMR>/ProjectVH",
-		"isItemFilterable": true,
-		"FilterOperator": "StartsWith",
-		"bSuspend": false,
-		"isValueHelp": true,
-		"sTitle": "Project",
-		"sFilter": "WBSElement",
-		"sKey": "EngagementProject",
-		"sDescription": "EngagementProjectName",
-		"aCols": [{
-			"label": "{i18n>Project}",
-			"template": "DMR>EngagementProject",
-			"width": "6rem"
-		}, {
-			"label": "{i18n>Description}",
-			"template": "DMR>EngagementProjectName",
-			"width": "20rem"
-		}]
-	},
-	"wbselement": {
-		"EntitySet": "DMR>/WorkPackageVH",
+	"billingdocument": {
+		"EntitySet": "YY1_BILLINGDOC_CDS>/YY1_BILLINGDOC",
 		"isItemFilterable": true,
 		"FilterOperator": "EQ",
-		"bSuspend": false,
+		"bSuspend": true,
 		"isValueHelp": true,
-		"sTitle": "WBSElement",
-		"sFilter": "WorkPackage",
-		"sKey": "WorkPackage",
-		"sDescription": "WorkPackageName",
+		"isComboBox": false,
+		"sTitle": "BillingDocument",
+		"sKey": "BillingDocument",
+		"sFilter": "BillingDocument",
+		"sSort": { "key": "YY1_BILLINGDOC_CDS>BillingDocument", "descending": true },
+		"sDescription": "",
 		"aCols": [{
-			"label": "{i18n>WBSElement}",
-			"template": "DMR>WorkPackage",
+			"label": "{i18n>BillingDocument}",
+			"template": "YY1_BILLINGDOC_CDS>BillingDocument",
 			"width": "10rem"
-		}, {
-			"label": "{i18n>Description}",
-			"template": "DMR>WorkPackageName",
-			"width": "20rem"
-		}]
-	},
-	"projectmanager": {
-		"EntitySet": "/ProjectManagerValueHelp",
-		"isItemFilterable": true,
-		"FilterOperator": "EQ",
-		"bSuspend": false,
-		"isValueHelp": true,
-		"sTitle": "ProjectManager",
-		"sFilter": "ProjectManager",
-		"sKey": "ProjectManager",
-		"sDescription": "PersonFullName",
-		"aCols": [{
-			"label": "{i18n>ProjectManager}",
-			"template": "ProjectManager",
-			"width": "10rem"
-		}, {
-			"label": "{i18n>Description}",
-			"template": "PersonFullName",
-			"width": "20rem"
-		}]
-	},
-	"projectcategory": {
-		"EntitySet": "/ProjectCategoryValueHelp",
-		"isItemFilterable": true,
-		"FilterOperator": "EQ",
-		"bSuspend": false,
-		"isComboBox": true,
-		"sTitle": "ProjectCategory",
-		"sFilter": "ProjectCategory",
-		"sKey": "ProjectCategory",
-		"sDescription": "ProjectCategoryFullName",
-		"aCols": [{
-			"label": "{i18n>ProjectCategory}",
-			"template": "ProjectCategory",
-			"width": "6rem"
-		}, {
-			"label": "{i18n>Description}",
-			"template": "ProjectCategoryFullName",
-			"width": "20rem"
-		}]
-	},
-	"customer": {
-		"EntitySet": "/ProjectCustomerValueHelp",
-		"isItemFilterable": true,
-		"FilterOperator": "EQ",
-		"bSuspend": false,
-		"isValueHelp": true,
-		"sTitle": "Customer",
-		"sFilter": "Customer",
-		"sKey": "Customer",
-		"sDescription": "CustomerName",
-		"aCols": [{
-			"label": "{i18n>Customer}",
-			"template": "Customer",
-			"width": "6rem"
-		}, {
-			"label": "{i18n>Description}",
-			"template": "CustomerName",
-			"width": "20rem"
-		}]
-	},
-	"debitmemo": {
-		"EntitySet": "DMR>/DebitMemoNumberVH",
-		"isItemFilterable": true,
-		"FilterOperator": "EQ",
-		"bSuspend": false,
-		"isValueHelp": true,
-		"sFilter": "DebitMemoRequest",
-		"sKey": "DebitMemoRequest",
-		"sTitle": "DebitMemoRequestNumber",
-		"aCols": [{
-			"label": "{i18n>DebitMemoRequestNumber}",
-			"template": "DMR>DebitMemoRequest",
-			"width": "20rem"
 		}]
 	},
 	"soldtoparty": {
-		"EntitySet": "DMR>/SoldToPartyVH",
-		"isItemFilterable": false,
+		"EntitySet": "YY1_SOLDTOPARTY_CDS>/YY1_SOLDTOPARTY",
+		"isItemFilterable": true,
 		"FilterOperator": "EQ",
-		"bSuspend": false,
+		"bSuspend": true,
 		"isValueHelp": true,
+		"isComboBox": false,
 		"sTitle": "SoldToParty",
 		"sKey": "Customer",
-		"sFilter": "SoldToParty",
+		"sFilter": "Customer",
 		"sDescription": "CustomerName",
 		"aCols": [{
 			"label": "{i18n>SoldToParty}",
-			"template": "DMR>Customer",
+			"template": "YY1_SOLDTOPARTY_CDS>Customer",
 			"width": "10rem"
-		}, {
-			"label": "{i18n>Description}",
-			"template": "DMR>CustomerName",
-			"width": "20rem"
-		}]
-	},
-	"shiptoparty": {
-		"EntitySet": "DMR>/SoldToPartyVH",
-		"isItemFilterable": false,
-		"FilterOperator": "EQ",
-		"bSuspend": false,
-		"isValueHelp": true,
-		"sTitle": "ShipToParty",
-		"sFilter": "ShipToParty",
-		"sKey": "Customer",
-		"sDescription": "CustomerName",
-		"aCols": [{
-			"label": "{i18n>ShipToParty}",
-			"template": "DMR>Customer",
-			"width": "10rem"
-		}, {
-			"label": "{i18n>Description}",
-			"template": "DMR>CustomerName",
-			"width": "20rem"
-		}]
-	},
-	"billingblock": {
-		"EntitySet": "DMR>/BillingBlockVH",
-		"isItemFilterable": false,
-		"FilterOperator": "EQ",
-		"bSuspend": false,
-		"isComboBox": true,
-		"sTitle": "BillingBlock",
-		"sFilter": "BillingBlock",
-		"sKey": "BillingBlockReason",
-		"sDescription": "BillingBlockReasonDescription",
-		"aCols": [{
-			"label": "{i18n>BillingBlock}",
-			"template": "DMR>BillingBlockReason",
-			"width": "10rem"
-		}, {
-			"label": "{i18n>Description}",
-			"template": "DMR>BillingBlockReasonDescription",
-			"width": "20rem"
-		}]
-	},
-	"orderreason": {
-		"EntitySet": "DMR>/OrderReasonVH",
-		"isItemFilterable": false,
-		"FilterOperator": "EQ",
-		"bSuspend": false,
-		"isComboBox": true,
-		"sTitle": "OrderReason",
-		"sFilter": "SDDocumentReason",
-		"sKey": "SDDocumentReason",
-		"sDescription": "SDDocumentReasonText",
-		"aCols": [{
-			"label": "{i18n>OrderReason}",
-			"template": "DMR>SDDocumentReason",
-			"width": "10rem"
-		}, {
-			"label": "{i18n>Description}",
-			"template": "DMR>SDDocumentReasonText",
-			"width": "20rem"
-		}]
-	},
-	"serviceorg": {
-		"EntitySet": "/ServiceOrganizationValueHelp",
-		"isItemFilterable": true,
-		"FilterOperator": "EQ",
-		"bSuspend": false,
-		"isValueHelp": true,
-		"sTitle": "ServiceOrganization",
-		"sKey": "EngagementProjectServiceOrg",
-		"sDescription": "EngmtProjectServiceOrgName",
-		"aCols": [{
-			"label": "{i18n>ServiceOrganization}",
-			"template": "EngagementProjectServiceOrg",
-			"width": "6rem"
 		},
 		{
 			"label": "{i18n>Description}",
-			"template": "EngmtProjectServiceOrgName",
+			"template": "YY1_SOLDTOPARTY_CDS>CustomerName",
 			"width": "20rem"
 		}]
 	},
-	"distrchnl": {
-		"EntitySet": "DMR>/DistributionChannelVH",
-		"isItemFilterable": false,
+	"abrechnungsweg": {
+		"EntitySet": "YY1_ABRECHNUNGSWEGV_CDS>/YY1_ABRECHNUNGSWEGV",
+		"isItemFilterable": true,
 		"FilterOperator": "EQ",
-		"bSuspend": false,
-		"isComboBox": true,
-		"sFilter": "DistributionChannel",
-		"sTitle": "DistributionChannel",
-		"sKey": "DistributionChannel",
+		"bSuspend": true,
+		"isValueHelp": true,
+		"isComboBox": false,
+		"sTitle": "Abrechnungsweg",
+		"sKey": "YY1_Abrechnungsweg_BDH",
+		"sFilter": "YY1_Abrechnungsweg_BDH",
+		"sDescription": "",
 		"aCols": [{
-			"label": "{i18n>DistributionChannel}",
-			"template": "DMR>DistributionChannel",
-			"width": "15rem"
+			"label": "{i18n>Abrechnungsweg}",
+			"template": "YY1_ABRECHNUNGSWEGV_CDS>YY1_Abrechnungsweg_BDH",
+			"width": "10rem"
 		}]
 	},
-	"division": {
-		"EntitySet": "DMR>/DivisionVH",
-		"isItemFilterable": false,
+	"patient": {
+		"EntitySet": "YY1_V_PATIENT_ID_CDS>/YY1_V_PATIENT_ID",
+		"isItemFilterable": true,
 		"FilterOperator": "EQ",
-		"bSuspend": false,
-		"isComboBox": true,
-		"sTitle": "Division",
-		"sFilter": "OrganizationDivision",
-		"sKey": "Division",
+		"bSuspend": true,
+		"isValueHelp": true,
+		"isComboBox": false,
+		"sTitle": "Patient",
+		"sKey": "YY1_PATIENT_ID_BDI",
+		"sFilter": "YY1_PATIENT_ID_BDI",
+		"sDescription": "YY1_PATIENT_NAME_BDI",
 		"aCols": [{
-			"label": "{i18n>Division}",
-			"template": "DMR>Division",
-			"width": "6rem"
+			"label": "{i18n>Patient}",
+			"template": "YY1_V_PATIENT_ID_CDS>YY1_PATIENT_ID_BDI",
+			"width": "10rem"
+		},
+		{
+			"label": "{i18n>Description}",
+			"template": "YY1_V_PATIENT_ID_CDS>YY1_PATIENT_NAME_BDI",
+			"width": "20rem"
 		}]
 	},
-	"material": {
-		"EntitySet": "DMR>/MaterialVH",
+	"fixedvaluedate": {
+		"isItemFilterable": true,
+		"FilterOperator": "BT",
+		"bSuspend": false,
+		"isValueHelp": false,
+		"isComboBox": false,
+		"isDate": true,
+		"sTitle": "FixedValueDate",
+		"sKey": "FixedValueDate",
+		"sFilter": "FixedValueDate"
+	},
+	"customerreference": {
+		"EntitySet": "YY1_CUSTOMER_REF_CDS>/YY1_CUSTOMER_REF",
+		"isItemFilterable": true,
+		"FilterOperator": "EQ",
+		"bSuspend": true,
+		"isValueHelp": true,
+		"isComboBox": false,
+		"sTitle": "CustomerReference",
+		"sKey": "CustomerReference",
+		"sFilter": "CustomerReference",
+		"sDescription": "",
+		"aCols": [{
+			"label": "{i18n>CustomerReference}",
+			"template": "YY1_CUSTOMER_REF_CDS>CustomerReference",
+			"width": "10rem"
+		}]
+	},
+	"salesorganization": {
+		"EntitySet": "YY1_V_SALES_ORG_CDS>/YY1_V_SALES_ORG",
 		"isItemFilterable": true,
 		"FilterOperator": "EQ",
 		"bSuspend": false,
+		"isComboBox": true,
+		"sTitle": "SalesOrganization",
+		"sKey": "SalesOrganization",
+		"sFilter": "SalesOrganization",
+		"sDescription": "SalesOrganizationName",
+		"aCols": [{
+			"label": "{i18n>SalesOrganization}",
+			"template": "YY1_V_SALES_ORG_CDS>SalesOrganization",
+			"width": "10rem"
+		},
+		{
+			"label": "{i18n>Description}",
+			"template": "YY1_V_SALES_ORG_CDS>SalesOrganizationName",
+			"width": "20rem"
+		}]
+	},
+	"labid": {
+		"EntitySet": "YY1_LABIDV_CDS>/YY1_LABIDV",
+		"isItemFilterable": true,
+		"FilterOperator": "EQ",
+		"bSuspend": true,
 		"isValueHelp": true,
-		"sTitle": "Material",
-		"sFilter": "Material",
+		"isComboBox": false,
+		"sTitle": "Labid",
+		"sKey": "YY1_LABID_BDI",
+		"sFilter": "YY1_LABID_BDI",
+		"sDescription": "",
+		"aCols": [{
+			"label": "{i18n>Labid}",
+			"template": "YY1_LABIDV_CDS>YY1_LABID_BDI",
+			"width": "10rem"
+		}]
+	},
+	"actualcustomer": {
+		"EntitySet": "YY1_ACTUAL_CUST_CDS>/YY1_ACTUAL_CUST",
+		"isItemFilterable": true,
+		"FilterOperator": "EQ",
+		"bSuspend": true,
+		"isValueHelp": true,
+		"isComboBox": false,
+		"sTitle": "ActualCustomer",
+		"sKey": "YY1_ActualCustomer_BDI",
+		"sFilter": "YY1_ActualCustomer_BDI",
+		"sDescription": "YY1_ActualCustomerName_BDI",
+		"aCols": [{
+			"label": "{i18n>ActualCustomer}",
+			"template": "YY1_ACTUAL_CUST_CDS>YY1_ActualCustomer_BDI",
+			"width": "10rem"
+		},
+		{
+			"label": "{i18n>Description}",
+			"template": "YY1_ACTUAL_CUST_CDS>YY1_ActualCustomerName_BDI",
+			"width": "20rem"
+		}]
+	},
+	"product": {
+		"EntitySet": "YY1_PRODUCT_CDS>/YY1_PRODUCT",
+		"isItemFilterable": true,
+		"FilterOperator": "EQ",
+		"bSuspend": true,
+		"isValueHelp": true,
+		"isComboBox": false,
+		"sTitle": "ActualCustomer",
 		"sKey": "Product",
-		"sDescription": "ProductName",
+		"sFilter": "Product",
+		"sDescription": "Description",
 		"aCols": [{
-			"label": "{i18n>Material}",
-			"template": "DMR>Product",
-			"width": "8rem"
-		}, {
+			"label": "{i18n>Product}",
+			"template": "YY1_PRODUCT_CDS>Product",
+			"width": "10rem"
+		},
+		{
 			"label": "{i18n>Description}",
-			"template": "DMR>ProductName",
+			"template": "YY1_PRODUCT_CDS>Description",
 			"width": "20rem"
 		}]
 	},
-	"plant": {
-		"EntitySet": "DMR>/PlantVH",
+	"billingstatus": {
+		"EntitySet": "YY1_BILLINGDOC_STATUS_CDS>/YY1_BILLINGDOC_STATUS",
 		"isItemFilterable": true,
 		"FilterOperator": "EQ",
 		"bSuspend": false,
+		"isValueHelp": false,
 		"isComboBox": true,
-		"sTitle": "Plant",
-		"sFilter": "Plant",
-		"sKey": "PlantName",
-		"sDescription": "ProductName",
+		"sTitle": "BillingStatus",
+		"sKey": "OverallBillingStatus",
+		"sFilter": "OverallBillingStatus",
+		"sDescription": "Description",
 		"aCols": [{
-			"label": "{i18n>Plant}",
-			"template": "DMR>Plant",
-			"width": "6rem"
-		}, {
-			"label": "{i18n>Description}",
-			"template": "DMR>PlantName",
-			"width": "20rem"
-		}]
-	},
-	"shippingpoint": {
-		"EntitySet": "",
-		"isItemFilterable": true,
-		"FilterOperator": "EQ",
-		"bSuspend": false,
-		"isValueHelp": true,
-		"sTitle": "Shpt",
-		"aCols": [{
-			"label": "{i18n>Shpt}",
-			"template": "",
-			"width": "10rem"
-		}, {
-			"label": "{i18n>Description}",
-			"template": "",
-			"width": "20rem"
-		}]
-	},
-	"profitcenter": {
-		"EntitySet": "DMR>/ProfitCenterVH",
-		"isItemFilterable": true,
-		"FilterOperator": "EQ",
-		"bSuspend": false,
-		"isValueHelp": true,
-		"sTitle": "ProfitCenter",
-		"sFilter": "ProfitCenter",
-		"sKey": "ProfitCenter",
-		"sDescription": "ProfitCenterLongName",
-		"aCols": [{
-			"label": "{i18n>ProfitCenter}",
-			"template": "DMR>ProfitCenter",
-			"width": "10rem"
-		}, 
-		{
-			"label": "Controlling Area",
-			"template": "DMR>ControllingArea",
-			"width": "15rem"
-		},
-		{
-			"label": "{i18n>Description}",
-			"template": "DMR>ProfitCenterLongName",
-			"width": "20rem"
-		}]
-	},
-	"projaccount": {
-		"EntitySet": "DMR>/BusinessUserNameVH",
-		"isItemFilterable": true,
-		"FilterOperator": "EQ",
-		"bSuspend": false,
-		"isValueHelp": true,
-		"sTitle": "BusinessPartner",
-		"sFilter": "BusinessPartnerFullName",
-		"sKey": "PersonFullName",
-		"sDescription": "PersonFullName",
-		"aCols": [{
-			"label": "{i18n>BusinessPartner}",
-			"template": "DMR>BusinessPartner",
+			"label": "{i18n>BillingStatus}",
+			"template": "YY1_BILLINGDOC_STATUS_CDS>OverallBillingStatus",
 			"width": "10rem"
 		},
 		{
-			"label": "{i18n>BusinessPartnerName}",
-			"template": "DMR>PersonFullName",
+			"label": "{i18n>Description}",
+			"template": "YY1_BILLINGDOC_STATUS_CDS>Description",
 			"width": "20rem"
 		}]
-	},
-	"projmanager": {
-		"EntitySet": "DMR>/BusinessUserNameVH",
-		"isItemFilterable": true,
-		"FilterOperator": "EQ",
-		"bSuspend": false,
-		"isValueHelp": true,
-		"sTitle": "BusinessPartner",
-		"sFilter": "BusinessPartnerFullName",
-		"sKey": "PersonFullName",
-		"sDescription": "PersonFullName",
-		"aCols": [{
-			"label": "{i18n>BusinessPartner}",
-			"template": "DMR>BusinessPartner",
-			"width": "10rem"
-		},
-		{
-			"label": "{i18n>BusinessPartnerName}",
-			"template": "DMR>PersonFullName",
-			"width": "20rem"
-		}]
-	},
-	"source": {
-		"FilterOperator": "EQ",
-		"isCheckBox": true
 	}
 }

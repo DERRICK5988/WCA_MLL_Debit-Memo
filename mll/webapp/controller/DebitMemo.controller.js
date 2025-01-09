@@ -21,7 +21,6 @@ sap.ui.define([
     return BaseController.extend("mll.controller.DebitMemo", {
         formatter: formatter,
         onInit: function () {
-            debugger;
             // Model used to manipulate control states. The chosen values make sure,
             // detail page is busy indication immediately so there is no break in
             // between the busy indication for loading the view's meta data
@@ -34,11 +33,15 @@ sap.ui.define([
                     this.getView().byId(oGroupItems.getControl().getId()).addValidator(this._onMultiInputValidate);
                 }
             }.bind(this));
-            // this.getModel("DebitMemo").attachPropertyChange("/aDmrWiz/aDmrWizItem", this._handleWizItemChanged, this);
+            // this.getModel("DebitMemo").attachPropertyChange("/aCreditMemoHdrWiz/aCreditMemoHdrWizItem", this._handleWizItemChanged, this);
             this.oValueHelpModel = this.getOwnerComponent().getModel("ValueHelpConfig");
             this.DmrMetadataExtention = this.getModel("DmrMetadataExtention");
             // this.getRouter().getRoute("DebitMemo").attachPatternMatched(this._onDebitMemoMatched, this);
-            // this.registerForP13nDetail.call(this, "idDebitMemoTable");
+            this.getView().addEventDelegate({
+                onAfterRendering: function (oEvent) {
+                    this.registerForP13nDetail.call(this, "idDebitMemoTable");
+                }.bind(this)
+            });
         },
         onExit: function () {
             sap.ui.getCore().getMessageManager().removeAllMessages();
@@ -82,30 +85,45 @@ sap.ui.define([
          */
         onPressDmrMenu: function (oEvent, sAction, sFragmentName) {
             var oDebitMemoModel = this.getModel("DebitMemo");
-
-            sap.ui.getCore().getMessageManager().removeAllMessages();
+            // if (sAction === "Cancel")
+            // MessageBox["warning"](this.getResourceBundle().getText("CancelDmrConfirmation"), {
+            //     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+            //     onClose: function (oAction) {
+            //         if (oAction === MessageBox.Action.YES) {
+            //             var oDebitMemoModel = this.getModel("DebitMemo");
+            //             sap.ui.getCore().getMessageManager().removeAllMessages();
+            //         }
+            //     }.bind(this)
+            // });
             // oDebitMemoModel.setProperty("/sAction", sAction);
-            // // Clear before set initial selected items
+            // Clear before set initial selected items
             // this.getModel("DebitMemo").setProperty("/aInitialSelection", []);
             // if (sAction === "Edit" || sAction === "Copy") {
-            //     var oDmr = this._returnSelectedItem();
-            //     if (oDmr.bDiffDmr) {
-            //         MessageBox.error(this.getResourceBundle().getText("MsgOneDoc"));
-            //         return;
-            //     }
-            //     this.getModel("DebitMemo").setProperty("/aInitialSelection", JSON.parse(JSON.stringify(oDmr.aSelectedItems)));
-            //     if (sAction === "Copy") {
-            //         oDmr.aSelectedItems.forEach(function (oItems) {
-            //             oItems.BillingDocumentDateItem = formatter.addMonth(oItems.BillingDocumentDateItem, 1);
-            //         });
-            //     }
-            //     oDebitMemoModel.setProperty("/aSelectedItems", oDmr.aSelectedItems);
-            //     oDebitMemoModel.setProperty("/aDmrWiz", { ...oDebitMemoModel.getProperty("/aDmrWiz"), ...oDmr.aSelectedItems[0] });
-            //     oDebitMemoModel.setProperty("/aDmrWiz/aDmrItems", oDmr.aSelectedItems);
-            // } else if (sAction === "Create") {
-            //     oDebitMemoModel.setProperty("/aDmrWiz", {
+            var oDmr = this._returnSelectedItem("idDebitMemoTable");
+            // if (oDmr.bDiffDmr) {
+            //     MessageBox.error(this.getResourceBundle().getText("MsgOneDoc"));
+            //     return;
+            // }
+            oDebitMemoModel.setProperty("/aInitialSelection", JSON.parse(JSON.stringify(oDmr.aSelectedItems)));
+            // if (sAction === "Copy") {
+            //     oDmr.aSelectedItems.forEach(function (oItems) {
+            //         oItems.BillingDocumentDateItem = formatter.addMonth(oItems.BillingDocumentDateItem, 1);
+            //     });
+            // }
+
+            oDebitMemoModel.setProperty("/aSelectedItems", oDmr.aSelectedItems);
+            oDebitMemoModel.setProperty("/aCreditMemoHdrWiz", {
+                ...oDebitMemoModel.getProperty("/aCreditMemoHdrWiz"),
+                ...oDmr.aSelectedItems[0],
+                ...{ CreditMemoRequestType: "CR", bSelected: false }
+            });
+            oDebitMemoModel.setProperty("/aCreditMemoHdrWiz/aCreditMemoItm", oDmr.aSelectedItems);
+
+            // } 
+            // else if (sAction === "Create") {
+            //     oDebitMemoModel.setProperty("/aCreditMemoHdrWiz", {
             //         SalesOrganization: "1010", DistributionChannel: "11", OrganizationDivision: "00", SalesOffice: "1010", SalesGroup: "0001",
-            //         aDmrItems: []
+            //         aCreditMemoItm: []
             //     });
             // } else if (sAction === "DelItem" || sAction === "DelHeader") {
             //     oDebitMemoModel.setProperty("/sAction", sAction);
@@ -157,16 +175,18 @@ sap.ui.define([
         onValueHelpAfterClose: function (oEvent) {
             oEvent.getSource().destroy();
         },
-        onRowSelected: function (oEvent) {
-            oEvent.getSource().getSelectedIndices().length > 0 ? this.getModel("DebitMemo").setProperty("/bSelected", true) : this.getModel("DebitMemo").setProperty("/bSelected", false);
+        onDmrRowSelected: function (oEvent) {
+            this.getModel("DebitMemo").setProperty("/bSelected", oEvent.getSource().getSelectedIndices().length > 0);
+            this.getModel("DebitMemo").setProperty("/bValidate", !this._returnSelectedItem("idDebitMemoTable").bDiff);
         },
-
-
-        onSearch: async function (oEvent) { 
+        onCreditMemoRowSelected: function (oEvent) {
+            this.getModel("DebitMemo").setProperty("/aCreditMemoHdrWiz/bSelected", oEvent.getSource().getSelectedIndices().length > 0);
+        },
+        onSearch: async function (oEvent) {
             var aFilterGroupItems = this.byId("idDebitMemoFilterBar").getAggregation("filterGroupItems"),
                 aKeys = Object.keys(this.oValueHelpModel.getData()),
                 aFilters = [];
-debugger;
+
             for (var index in aFilterGroupItems) {
                 var oFilterGroupItems = aFilterGroupItems[index];
                 if (!aKeys.includes(oFilterGroupItems.getName())) {
@@ -174,29 +194,10 @@ debugger;
                 }
                 var oValueHelp = this.oValueHelpModel.getData()[oFilterGroupItems.getName()];
                 if (oValueHelp.isValueHelp && oFilterGroupItems.getControl().getTokens().length > 0) {
-                    if ((oFilterGroupItems.getName() === "projaccount" || oFilterGroupItems.getName() === "projmanager")) {
-                        oFilterGroupItems.getControl().getTokens().map(function (oTokens) {
-                            // aFilters.push(new Filter(oValueHelp.sFilter, oValueHelp.FilterOperator, oTokens.getKey()));
-                            aFilters.push(new Filter(oValueHelp.sFilter, oValueHelp.FilterOperator, oTokens.getText()));
-                        });
-                        aFilters.push(new Filter("EngagementProjectTeamRole", oValueHelp.FilterOperator, (oFilterGroupItems.getName() === "projaccount") ? "0SAP_RL_006" : "YP_RL_0001"));
-
-                        var resource = {
-                            oModel: this.getModel("DMR"), sPath: "/ProjectRolesVH",
-                            aFilters: aFilters,
-                        }
-                        var aEng = await this.fetchResources.call(this, resource);
-                        aFilters = [];
-                        aEng.results.map(function (o) {
-                            aFilters.push(new Filter("WBSElement", "StartsWith", o.EngagementProject));
-                        })
-                        continue;
-                    } else {
-                        oFilterGroupItems.getControl().getTokens().map(function (oTokens) {
-                            aFilters.push(new Filter(oValueHelp.sFilter, oValueHelp.FilterOperator, oTokens.getKey()));
-                        });
-                        continue;
-                    }
+                    oFilterGroupItems.getControl().getTokens().map(function (oTokens) {
+                        aFilters.push(new Filter(oValueHelp.sFilter, oValueHelp.FilterOperator, oTokens.getKey()));
+                    });
+                    continue;
                 }
                 if (oValueHelp.isComboBox && oFilterGroupItems.getControl().getSelectedKeys().length > 0) {
                     oFilterGroupItems.getControl().getSelectedKeys().map(function (sValue) {
@@ -204,28 +205,23 @@ debugger;
                     });
                 }
                 if (oValueHelp.isCheckBox) {
-                    switch (oFilterGroupItems.getControl().getSelectedKey()) {
-                        case "GAP":
-                            aFilters.push(new Filter({
-                                filters: [
-                                    new Filter("DMRHeaderIndicator", oValueHelp.FilterOperator, true),
-                                    new Filter("DMRItemIndicator", oValueHelp.FilterOperator, true)
-                                ],
-                                and: false
-                            }));
-                            break;
-                        case "Standard":
-                            aFilters.push(new Filter("DMRHeaderIndicator", oValueHelp.FilterOperator, false));
-                            aFilters.push(new Filter("DMRItemIndicator", oValueHelp.FilterOperator, false));
-                            break;
-                        default:
-                            break;
+                }
+                if (oValueHelp.isDate) {
+                    var dDateValue = oFilterGroupItems.getControl().getDateValue(),
+                        dSecondDateValue = oFilterGroupItems.getControl().getSecondDateValue();
+
+                    if (!dDateValue && !dSecondDateValue) {
+                        continue;
                     }
+                    aFilters.push(new Filter(oValueHelp.sFilter, oValueHelp.FilterOperator,
+                        this.formatter.formatDate1(dDateValue, "yyyy-MM-dd'T'HH:mm:ss"),
+                        this.formatter.formatDate1(dSecondDateValue, "yyyy-MM-dd'T'HH:mm:ss")
+                    ));
                 }
             }
             this.oBusyDialog.setText(this.getResourceBundle().getText("FetctDmrMsg")).open();
-            // await this._fetchDebitMemoPreBilling({ "debitMemo": { aFilters: aFilters, oParams: { $top: 100 } }, oModel: this.getModel("DMR") });
-            await this._fetchDebitMemoPreBilling({ "debitMemo": { aFilters: aFilters }, oModel: this.getModel("DMR") });
+            await this._fetchDebitMemoPreBilling({ "debitMemo": { aFilters: aFilters }, oModel: this.getModel("YY1_V_BILLINGDOC_DMR_CDS") });
+            // await this._fetchDebitMemoPreBilling({ "debitMemo": { aFilters: aFilters, oParams: { threshold: 200 } }, oModel: this.getModel("YY1_V_BILLINGDOC_DMR_CDS") });
         },
         OnPressMenu: function (oEvent, sFragmentName, sId) {
             this.loadDialog.call(this, sFragmentName, sId)
@@ -233,6 +229,8 @@ debugger;
         onSuggest: function (oEvent) {
             var sTerm = oEvent.getParameter("suggestValue");
             var aFilters = [];
+            var aSorters = [];
+
             if (sTerm) {
                 aFilters.push(new Filter(this.oValueHelpModel.getData()[oEvent.getSource().getName()].sKey, FilterOperator.Contains, sTerm));
                 if (this.oValueHelpModel.getData()[oEvent.getSource().getName()].sDescription) {
@@ -243,6 +241,7 @@ debugger;
             oEvent.getSource().setFilterSuggests(false);
         },
         onMessagesButtonPress: function (oEvent) {
+            debugger;
             // var oMessagesButton = oEvent.getSource();
             var oMessagesButton = this.getView().byId("idMessagePopOver");
             this._messagePopover = new MessagePopover({
@@ -258,212 +257,179 @@ debugger;
             oMessagesButton.addDependent(this._messagePopover);
             this._messagePopover.toggle(oMessagesButton);
         },
-        onPressWizItemBtn: function (oEvent, aDmrWiz, sBtn, sFragmentName) {
+        onPressWizItemBtn: function (oEvent, aCreditMemoHdrWiz, sBtn, sFragmentName) {
             var oDebitMemoModel = this.getModel("DebitMemo"),
-                oDmrEntity = { ...Object.assign(this.setEntityProp({ oModel: this.getModel("DebitMemoMetadata"), sEntitySet: 'DebitMemoRequest' }), { DebitMemoRequest: aDmrWiz.DebitMemoRequest }) },
-                aDmrProperties = this.getModel("DebitMemoMetadata").find(o => o.name === "DebitMemoRequest").property,
-                sAction = oDebitMemoModel.getProperty("/sAction");
+                oTable = this.byId("idCreditMemoItemTable");
+            // oDmrEntity = { ...Object.assign(this.setEntityProp({ oModel: this.getModel("DebitMemoMetadata"), sEntitySet: 'DebitMemoRequest' }), { DebitMemoRequest: aCreditMemoHdrWiz.DebitMemoRequest }) },
+            // aDmrProperties = this.getModel("DebitMemoMetadata").find(o => o.name === "DebitMemoRequest").property,
+            // sAction = oDebitMemoModel.getProperty("/sAction");
 
             if (sBtn === "Add") {
-                if (sAction === "Edit" || sAction === "Copy") {
-                    if (aDmrWiz.aDmrItems.length > 0) {
-                        var oDmrItemLastLine = JSON.parse(JSON.stringify({ ...aDmrWiz.aDmrItems[+aDmrWiz.aDmrItems.length - 1] }));
-                        oDebitMemoModel.getProperty("/aCopyLine").forEach(sProperty => {
-                            if (oDmrItemLastLine[sProperty] && aDmrProperties.find(o => o.name === sProperty).type === "Edm.DateTime") {
-                                /* Increment month and last day of the month for copy and edit*/
-                                oDmrEntity[sProperty] = formatter.addMonth(new Date(oDmrItemLastLine[sProperty]), 1, true);
-                            } else {
-                                oDmrEntity[sProperty] = formatter.validateType(oDmrItemLastLine[sProperty], aDmrProperties.find(o => o.name === sProperty).type)
-                            }
-                        })
-                    }
-                }
-                aDmrWiz.aDmrItems.push(Object.assign(oDmrEntity, { RequestedQuantity: (oDmrEntity.RequestedQuantity > 0) ? oDmrEntity.RequestedQuantity : 0, AutoFill: false, bLineExist: false }));
+                // if (sAction === "Edit" || sAction === "Copy") {
+                //     if (aCreditMemoHdrWiz.aCreditMemoItm.length > 0) {
+                //         var oDmrItemLastLine = JSON.parse(JSON.stringify({ ...aCreditMemoHdrWiz.aCreditMemoItm[+aCreditMemoHdrWiz.aCreditMemoItm.length - 1] }));
+                //         oDebitMemoModel.getProperty("/aCopyLine").forEach(sProperty => {
+                //             if (oDmrItemLastLine[sProperty] && aDmrProperties.find(o => o.name === sProperty).type === "Edm.DateTime") {
+                //                 /* Increment month and last day of the month for copy and edit*/
+                //                 oDmrEntity[sProperty] = formatter.addMonth(new Date(oDmrItemLastLine[sProperty]), 1, true);
+                //             } else {
+                //                 oDmrEntity[sProperty] = formatter.validateType(oDmrItemLastLine[sProperty], aDmrProperties.find(o => o.name === sProperty).type)
+                //             }
+                //         })
+                //     }
+                // }
+                // aCreditMemoHdrWiz.aCreditMemoItm.push(Object.assign(oDmrEntity, { RequestedQuantity: (oDmrEntity.RequestedQuantity > 0) ? oDmrEntity.RequestedQuantity : 0, AutoFill: false, bLineExist: false }));
             } else if (sBtn === "Forecast") {
-                this.loadDialog.call(this, sFragmentName).then(function (oDialog) { oDialog.open(); });
+                // this.loadDialog.call(this, sFragmentName).then(function (oDialog) { oDialog.open(); });
             } else if (sBtn === "Reset") {
-                aDmrWiz.aDmrItems = this.getModel("DebitMemo").getProperty("/aInitialSelection").map(item => {
+                aCreditMemoHdrWiz.aCreditMemoItm = this.getModel("DebitMemo").getProperty("/aInitialSelection").map(item => {
                     return Object.fromEntries(
                         Object.entries(item).map(([key, value]) => {
                             return key.includes("Date") && (value) ? [key, new Date(value)] : [key, value];
                         })
                     );
                 });
-            } else if (sBtn === "Delete") { --aDmrWiz.aDmrItems.length }
+            } else if (sBtn === "Delete") {
+                // --aCreditMemoHdrWiz.aCreditMemoItm.length 
+                var aIndices = oTable.getSelectedIndices().sort((a, b) => b - a);
+                var aItems = oDebitMemoModel.getProperty("/aCreditMemoHdrWiz/aCreditMemoItm");
+
+                aIndices.forEach((i) => {
+                    if (i >= 0 && i < aItems.length) {
+                        aItems.splice(i, 1);
+                    }
+                });
+                oDebitMemoModel.setProperty("/aCreditMemoHdrWiz/aCreditMemoItm", aItems);
+                oTable.clearSelection();
+            }
             // If any service rendered date larger than current year/ month then enabled
-            if (aDmrWiz.aDmrItems.length > 0) {
-                this._validateBtnEnabled(aDmrWiz.aDmrItems);
+            if (aCreditMemoHdrWiz.aCreditMemoItm.length > 0) {
+                // this._validateBtnEnabled(aCreditMemoHdrWiz.aCreditMemoItm);
             }
             oDebitMemoModel.refresh(true);
         },
-        onPressForeCastYes: function (oEvent, oDebitMemo, sId) {
-            oDebitMemo.aDmrWiz.aDmrItems.map(function (o) {
-                var oMonthYear = { month: o.ServiceRendredDateItem.getMonth(), year: o.ServiceRendredDateItem.getFullYear() };
-                var currentMonthYear = { month: new Date().getMonth(), year: new Date().getFullYear() };
-                if (oMonthYear.year > currentMonthYear.year || (oMonthYear.year === currentMonthYear.year && oMonthYear.month > currentMonthYear.month)) {
-                    o = Object.assign(o, oDebitMemo.oForecast);
-                }
-            })
-            this.getModel("DebitMemo").refresh(true);
-            this.byId(sId).destroy();
-        },
-        handleWizardSave: async function (oEvent, oDmrWiz) {
-            var object = {},
-                oPayload = {},
-                aDmrProperties = this.getModel("DebitMemoMetadata").find(o => o.name === "DebitMemoRequest").property;
+        // onPressForeCastYes: function (oEvent, oDebitMemo, sId) {
+        //     oDebitMemo.aCreditMemoHdrWiz.aCreditMemoItm.map(function (o) {
+        //         var oMonthYear = { month: o.ServiceRendredDateItem.getMonth(), year: o.ServiceRendredDateItem.getFullYear() };
+        //         var currentMonthYear = { month: new Date().getMonth(), year: new Date().getFullYear() };
+        //         if (oMonthYear.year > currentMonthYear.year || (oMonthYear.year === currentMonthYear.year && oMonthYear.month > currentMonthYear.month)) {
+        //             o = Object.assign(o, oDebitMemo.oForecast);
+        //         }
+        //     })
+        //     this.getModel("DebitMemo").refresh(true);
+        //     this.byId(sId).destroy();
+        // },
+        handleWizardSave: async function (oEvent, oCreditMemoWiz) {
+            debugger;
+            var object = { oPayload: {} };
+            // oPayload = {},
+            // aDmrProperties = this.getModel("CreditMemoMetadata").find(o => o.name === "A_CreditMemoRequestType").property;
             sap.ui.getCore().getMessageManager().removeAllMessages();
-            object.oModel = this.getModel("DMR");
-            this.getModel("DMR").setUseBatch(false);
-            if (this.getModel("DebitMemo").getProperty("/sAction") === "Create") {
+            object.oModel = this.getModel("API_CREDIT_MEMO_REQUEST_SRV");
+            // this.getModel("DMR").setUseBatch(false);
+            // if (this.getModel("DebitMemo").getProperty("/sAction") === "Create") {
 
-                this.oBusyDialog.setText(this.getResourceBundle().getText("CreatingDmrMsg")).open();
-                object.sKey = (oDmrWiz.aDmrItems.length > 0) ? "/DebitMemoRequest" : "/DebitMemoRequestHeader"
-                try {
-                    this.getModel("DmrMetadataExtention").getData().filter(o => o.createPayload && o.isHeader).forEach(function (oDmrMetadaExt) {
-                        object.oPayload = { ...object.oPayload, ...{ [oDmrMetadaExt.property]: formatter.validateType(oDmrWiz[oDmrMetadaExt.property], aDmrProperties.find(o => o.name === oDmrMetadaExt.property).type) } };
-                    }.bind(this))
-                    if (oDmrWiz.aDmrItems.length > 0) {
-                        oDmrWiz.aDmrItems.forEach(function (oItem) {
-                            if (!object.oPayload.to_Item) {
-                                object.oPayload = Object.assign(object.oPayload, { to_Item: [] });
-                            }
-                            this.getModel("DmrMetadataExtention").getData().filter(o => o.createPayload && !o.isHeader).forEach(function (oDmrMetadaExt) {
-                                Object.assign(oPayload, { [oDmrMetadaExt.property]: formatter.validateType(oItem[oDmrMetadaExt.property], aDmrProperties.find(o => o.name === oDmrMetadaExt.property).type) }, { AutoFill: false });
-                            }.bind(this))
-                            object.oPayload.to_Item.push(oPayload);
-                        }.bind(this));
-                    }
-                    this.createRec(object).then(async function (oResponse) {
-                        if (oResponse.Success) {
-                            MessageBox.success(oResponse.Message);
-                            this.handleCloseDialog({}, "idDebitMemoWizard")
-                        }
-                        this.getModel("DebitMemo").setProperty("/bStepBtnVisible", false);
-                        this.getModel("DebitMemo").setProperty("/aDmrWiz", { aDmrItems: [] });
-                        this.getModel("DebitMemo").refresh(true);
-                        this.oBusyDialog.close();
-                        this._pressMessagePopUp()
-                    }.bind(this)).catch(function (oError) {
-                        this.getModel("Message").getData().map(o => Object.assign(o, { description: JSON.parse(o.description).Error }));
-                        this.oBusyDialog.close();
-                        this._pressMessagePopUp()
-                    }.bind(this))
-                } catch (error) {
-                    MessageBox.error(error);
-                    this.oBusyDialog.close();
+            this.oBusyDialog.setText(this.getResourceBundle().getText("CreatingDmrMsg")).open();
+            // object.sKey = (oCreditMemoWiz.aCreditMemoItm.length > 0) ? "/DebitMemoRequest" : "/DebitMemoRequestHeader"
+            object.sEntity = "/A_CreditMemoRequest";
+            try {
+                // this.getModel("DmrMetadataExtention").getData().filter(o => o.createPayload && o.isHeader).forEach(function (oDmrMetadaExt) {
+                //     object.oPayload = { ...object.oPayload, ...{ [oDmrMetadaExt.property]: formatter.validateType(oCreditMemoWiz[oDmrMetadaExt.property], aDmrProperties.find(o => o.name === oDmrMetadaExt.property).type) } };
+                // }.bind(this))
+                var { BillingDocument, YY1_LABID_BDI } = oCreditMemoWiz.aCreditMemoItm[0];
+                object.oPayload = {
+                    "CreditMemoRequestType": oCreditMemoWiz.CreditMemoRequestType,
+                    "SalesOrganization": oCreditMemoWiz.SalesOrganization,
+                    "DistributionChannel": oCreditMemoWiz.DistributionChannel,
+                    "OrganizationDivision": oCreditMemoWiz.Division,
+                    "SoldToParty": oCreditMemoWiz.SoldToParty,
+                    "PurchaseOrderByCustomer": BillingDocument && YY1_LABID_BDI ? `${BillingDocument}_${YY1_LABID_BDI}` : BillingDocument,
+                    // "ReferenceSDDocument": "1234578012321",
+                    "to_Item": []
                 }
-            }
-            else if (this.getModel("DebitMemo").getProperty("/sAction") === "Copy") {
-                this.oBusyDialog.setText(this.getResourceBundle().getText("CopyItemMsg")).open();
-                try {
-                    var promise = Promise.resolve();
-                    oDmrWiz.aDmrItems.forEach(function (oItem) {
-                        promise = promise.then(function () {
-                            object.sKey = "/CopyDebitMemoRequest";
-                            object.oPayload = Object.assign(object.oPayload || {}, this._getCopyPayload({ oItem: oItem, aDmrProperties: aDmrProperties }), { AutoFill: false });
-                            object.oItem = oItem;
-                            return this._createRec(object);
-                        }.bind(this));
-                    }.bind(this));
-                    promise.then(async function (oResp) {
-                        if (this.getModel("DebitMemo").getProperty("/aSelectedItems").some(o => o.Status === "Success")) {
-                            await this.onSearch();
-                        }
-                        this.oBusyDialog.close();
-                        this._pressMessagePopUp();
-                        this.getModel("DebitMemo").refresh(true);
-                    }.bind(this));
-                } catch (error) {
-                    MessageBox.error(error);
-                    this.oBusyDialog.close();
-                }
-            }
-            else if (this.getModel("DebitMemo").getProperty("/sAction") === "Edit") {
-                this.oBusyDialog.setText(this.getResourceBundle().getText(oDmrWiz.aDmrItems.some(o => !o.bLineExist) ? "UpdateAndCreatingDmrMsg" : "UpdateDmrMsg")).open();
-                try {
-                    var promise = Promise.resolve();
-                    this.getModel("DmrMetadataExtention").getData().filter(o => o.updatePayload && o.isHeader).forEach(function (oDmrMetadaExt) {
-                        object.oPayload = Object.assign(object.oPayload || {}, {
-                            [oDmrMetadaExt.property]: formatter.validateType(oDmrWiz[oDmrMetadaExt.property], aDmrProperties.find(o => o.name === oDmrMetadaExt.property).type)
+                if (oCreditMemoWiz.aCreditMemoItm.length > 0) {
+                    oCreditMemoWiz.aCreditMemoItm.forEach(function (oItem) {
+                        object.oPayload.to_Item.push({
+                            "CreditMemoRequestItem": oItem.BillingDocumentItem,
+                            "Material": oItem.Product,
+                            "RequestedQuantity": oItem.BillingQuantity,
+                            "RequestedQuantityUnit": oItem.BillingQuantityUnit,
+                            "NetAmount": oItem.NetAmount.toString(),
+                            "TransactionCurrency": oItem.TransactionCurrency,
+                            "YY1_LABID_SDI": oItem.YY1_LABID_BDI
                         });
-                    }.bind(this))
-                    oDmrWiz.aDmrItems.forEach(function (oItem) {
-                        promise = promise.then(function () {
-                            if (oItem.bLineExist) {
-                                object.sKey = object.oModel.createKey("/DebitMemoRequest", {
-                                    DebitMemoRequest: oItem.DebitMemoRequest, DebitMemoRequestItem: oItem.DebitMemoRequestItem
-                                });
-                                this.getModel("DmrMetadataExtention").getData().filter(o => o.updatePayload && !o.isHeader).forEach(function (oDmrMetadaExt) {
-                                    Object.assign(oPayload, { [oDmrMetadaExt.property]: formatter.validateType(oItem[oDmrMetadaExt.property], aDmrProperties.find(o => o.name === oDmrMetadaExt.property).type) });
-                                }.bind(this))
-                                object.oPayload = Object.assign(object.oPayload || {}, oPayload, { AutoFill: false });
-                                object.oItem = oItem;
-                                return this._updateRec(object);
-                            } else {
-                                object.sKey = "/CopyDebitMemoRequest";
-                                object.oPayload = Object.assign(object.oPayload || {}, this._getCopyPayload({ oItem: oItem, aDmrProperties: aDmrProperties }), { AutoFill: false });
-                                object.oItem = oItem;
-                                return this._createRec(object);
-                            }
-                        }.bind(this))
                     }.bind(this));
-                    promise.then(async function (oResp) {
-
-                        if (this.getModel("DebitMemo").getProperty("/aSelectedItems").some(o => o.Status === "Success")) {
-                            await this.onSearch();
-                        }
-                        this.oBusyDialog.close();
-                        this._pressMessagePopUp();
-                        this.getModel("DebitMemo").refresh(true);
-                    }.bind(this));
-                } catch (error) {
-                    MessageBox.error(error);
-                    this.oBusyDialog.close();
                 }
+                await this.createRec(object).then(async function (oResponse) {
+                    debugger;
+                    // if (oResponse.Success) {
+                    //     MessageBox.success(oResponse.Message);
+                    //     this.handleCloseDialog({}, "idDebitMemoWizard")
+                    // }
+                    // MessageBox.success("Create Memo Request: " + oResponse.CreditMemoRequest + " is created");
+                    this.getModel("DebitMemo").setProperty("/bStepBtnVisible", false);
+                    // this.getModel("DebitMemo").setProperty("/aCreditMemoHdrWiz", { aCreditMemoItm: [] });
+                    this.getModel("DebitMemo").refresh(true);
+                    this.oBusyDialog.close();
+                    this._pressMessagePopUp()
+                }.bind(this)).catch(function (oError) {
+                    // debugger;
+                    this.getModel("Message").getData().map(o => Object.assign(o, {
+                        // description: `Status code: ${o.technicalDetails.statusCode}: ${JSON.parse(oError.responseText).error.message.value}`
+                        description: `Status code: ${o.technicalDetails.statusCode} - ${oError.responseText}`
+                    }));
+                    // this.getModel("Message").setProperty("/");
+                    this.oBusyDialog.close();
+                    this._pressMessagePopUp()
+                }.bind(this))
+            } catch (error) {
+                MessageBox.error(error);
+                this.oBusyDialog.close();
             }
+            // }
         },
         onPressExportExcel: function (oEvent, aDebitMemo, sAction, sFragmentName) {
             this.getModel("DebitMemo").setProperty("/sAction", sAction);
             this.loadDialog.call(this, sFragmentName).then(function (oDialog) { oDialog.open(); });
         },
-        handleExcelDownload: async function (oEvent) {
-            var oDebitMemo = this.getModel("DebitMemo"),
-                oExcel = oDebitMemo.getProperty("/oExcel"),
-                aFilters = [],
-                aResource;
+        // handleExcelDownload: async function (oEvent) {
+        //     var oDebitMemo = this.getModel("DebitMemo"),
+        //         oExcel = oDebitMemo.getProperty("/oExcel"),
+        //         aFilters = [],
+        //         aResource;
 
-            if (!oExcel.lowDebitMemoRequest && !oExcel.highDebitMemoRequest && !oExcel.CreationStartDate && !oExcel.CreationEndDate) {
-                MessageBox["warning"](this.getResourceBundle().getText("ExcelMsgHeader"), {
-                    actions: [MessageBox.Action.YES, MessageBox.Action.NO],
-                    onClose: async function (oAction) {
-                        if (oAction === MessageBox.Action.YES) {
-                            this.oBusyDialog.setText(this.getResourceBundle().getText("FetctDmrMsg")).open();
-                            aResource = await this._fetchDebitMemoPreBilling({ "debitMemo": { aFilters: aFilters, oParams: { $top: 999999 } }, oModel: this.getModel("DMR") });
-                            this._generateExcel(aResource);
-                        } else {
-                            this.oBusyDialog.close();
-                        }
-                    }.bind(this)
-                });
-            } else {
-                this.oBusyDialog.setText(this.getResourceBundle().getText("FetctDmrMsg")).open();
-                if (oExcel.lowDebitMemoRequest && oExcel.highDebitMemoRequest) {
-                    aFilters.push(new Filter("DebitMemoRequest", FilterOperator.BT, oExcel.lowDebitMemoRequest, oExcel.highDebitMemoRequest));
-                } else if (oExcel.lowDebitMemoRequest) {
-                    aFilters.push(new Filter("DebitMemoRequest", FilterOperator.EQ, oExcel.lowDebitMemoRequest));
-                }
-                if (oExcel.CreationStartDate && oExcel.CreationEndDate) {
-                    aFilters.push(new Filter("CreationDate", FilterOperator.BT, formatter.formatDate1(oExcel.CreationStartDate, "yyyy-MM-dd"), formatter.formatDate1(oExcel.CreationEndDate, "yyyy-MM-dd")));
-                }
-                aResource = await this._fetchDebitMemoPreBilling({ "debitMemo": { aFilters: aFilters }, oModel: this.getModel("DMR") });
-                if (aResource.length === 0) {
-                    MessageBox.information(this.getResourceBundle().getText("ExcelNoDataFound"));
-                    this.oBusyDialog.close();
-                    return;
-                }
-                this._generateExcel(aResource);
-            }
-        },
+        //     if (!oExcel.lowDebitMemoRequest && !oExcel.highDebitMemoRequest && !oExcel.CreationStartDate && !oExcel.CreationEndDate) {
+        //         MessageBox["warning"](this.getResourceBundle().getText("ExcelMsgHeader"), {
+        //             actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+        //             onClose: async function (oAction) {
+        //                 if (oAction === MessageBox.Action.YES) {
+        //                     this.oBusyDialog.setText(this.getResourceBundle().getText("FetctDmrMsg")).open();
+        //                     aResource = await this._fetchDebitMemoPreBilling({ "debitMemo": { aFilters: aFilters, oParams: { $top: 999999 } }, oModel: this.getModel("DMR") });
+        //                     this._generateExcel(aResource);
+        //                 } else {
+        //                     this.oBusyDialog.close();
+        //                 }
+        //             }.bind(this)
+        //         });
+        //     } else {
+        //         this.oBusyDialog.setText(this.getResourceBundle().getText("FetctDmrMsg")).open();
+        //         if (oExcel.lowDebitMemoRequest && oExcel.highDebitMemoRequest) {
+        //             aFilters.push(new Filter("DebitMemoRequest", FilterOperator.BT, oExcel.lowDebitMemoRequest, oExcel.highDebitMemoRequest));
+        //         } else if (oExcel.lowDebitMemoRequest) {
+        //             aFilters.push(new Filter("DebitMemoRequest", FilterOperator.EQ, oExcel.lowDebitMemoRequest));
+        //         }
+        //         if (oExcel.CreationStartDate && oExcel.CreationEndDate) {
+        //             aFilters.push(new Filter("CreationDate", FilterOperator.BT, formatter.formatDate1(oExcel.CreationStartDate, "yyyy-MM-dd"), formatter.formatDate1(oExcel.CreationEndDate, "yyyy-MM-dd")));
+        //         }
+        //         aResource = await this._fetchDebitMemoPreBilling({ "debitMemo": { aFilters: aFilters }, oModel: this.getModel("DMR") });
+        //         if (aResource.length === 0) {
+        //             MessageBox.information(this.getResourceBundle().getText("ExcelNoDataFound"));
+        //             this.oBusyDialog.close();
+        //             return;
+        //         }
+        //         this._generateExcel(aResource);
+        //     }
+        // },
         /* =========================================================== */
         /* begin: internal methods                                     */
         /* =========================================================== */
@@ -475,12 +441,14 @@ debugger;
                 Promise.all(this._getResourcePath(object).map(resource => this.fetchResources.call(this, resource))).then(async function (oResp) {
                     var [aResource] = oResp.map(({ results }) => results);
 
-                    if (this.getModel("DebitMemo").getProperty("/sAction") && this.getModel("DebitMemo").getProperty("/sAction") === "DownloadExcel") {
-                        resolve(aResource);
-                    } else {
-                        resolve(this.getModel("DebitMemo").setProperty("/Items", aResource.map(o => Object.assign(o, { Status: "None", Message: "", bLineExist: o.DebitMemoRequestItem === "0" ? false : true }))));
-                        this.getModel("DebitMemo").refresh(true);
-                    }
+                    // if (this.getModel("DebitMemo").getProperty("/sAction") && this.getModel("DebitMemo").getProperty("/sAction") === "DownloadExcel") {
+                    //     resolve(aResource);
+                    // } else {
+                    //     resolve(this.getModel("DebitMemo").setProperty("/Items", aResource.map(o => Object.assign(o, { Status: "None", Message: "", bLineExist: o.DebitMemoRequestItem === "0" ? false : true }))));
+                    //     this.getModel("DebitMemo").refresh(true);
+                    // }
+                    resolve(this.getModel("DebitMemo").setProperty("/Items", aResource.map(o => Object.assign(o, { Status: "None", Message: "", bLineExist: o.DebitMemoRequestItem === "0" ? false : true }))));
+                    this.getModel("DebitMemo").refresh(true);
                     this.oBusyDialog.close();
                 }.bind(this)).catch(function (oErr) {
                     this.oBusyDialog.close();
@@ -491,9 +459,9 @@ debugger;
         },
         _getResourcePath: function (Object) {
             return [{
-                oModel: Object.oModel, sPath: "/DebitMemoRequest",
+                oModel: Object.oModel, sPath: "/YY1_V_BILLINGDOC_DMR",
                 aFilters: Object["debitMemo"].aFilters || [],
-                aSort: [new Sorter("DebitMemoRequest", true), new Sorter("DebitMemoRequestItem", false)],
+                aSort: [new Sorter("BillingDocument", true), new Sorter("BillingDocumentItem", false)],
                 oParams: Object["debitMemo"].oParams || {}
             }];
         },
@@ -611,7 +579,7 @@ debugger;
                         this._oWizard.discardProgress(this._oWizard.getSteps()[0]);
                         // Reset
                         DebitMemo.bStepBtnVisible = false;
-                        DebitMemo.aDmrWiz = { aDmrItems: [] };
+                        DebitMemo.aCreditMemoHdrWiz = { aCreditMemoItm: [] };
                         this.handleCloseDialog(oEvent, sId);
                     }
                 }.bind(this)
@@ -673,21 +641,21 @@ debugger;
                 return Promise.resolve();
             }.bind(this));
         },
-        _returnSelectedItem: function () {
-            var oTable = this.byId('idDebitMemoTable'),
+        _returnSelectedItem: function (sTableID) {
+            var oTable = this.byId(sTableID),
                 aSelectedIndices = oTable.getSelectedIndices(),
-                aDmr = aSelectedIndices.map(index => oTable.getContextByIndex(index)).map(o => o.getObject().DebitMemoRequest).filter((value, index, self) => self.indexOf(value) === index),
+                aDiffBillDoc = aSelectedIndices.map(index => oTable.getContextByIndex(index)).map(o => o.getObject().BillingDocument).filter((value, index, self) => self.indexOf(value) === index),
                 aSelectedItems = aSelectedIndices.map(index => oTable.getContextByIndex(index)).map(o => Object.assign(oTable.getModel("DebitMemo").getProperty(o.sPath), { Status: "None", Message: "" })),
                 aSelectedHdr = aSelectedItems.reduce((accumulator, item) => {
-                    if (!accumulator.some(uniqueItem => uniqueItem.DebitMemoRequest === item.DebitMemoRequest)) {
+                    if (!accumulator.some(uniqueItem => uniqueItem.BillingDocument === item.BillingDocument)) {
                         accumulator.push(item);
                     }
                     return accumulator;
                 }, []);
 
             aSelectedItems = aSelectedItems.map(o => Object.assign(o, { Status: "None", Message: "" }));
-            this._validateBtnEnabled(aSelectedItems);
-            return { bDiffDmr: aDmr.length > 1 ? true : false, aSelectedHdr: aSelectedHdr, aSelectedItems: aSelectedItems }
+            // this._validateBtnEnabled(aSelectedItems);
+            return { bDiff: aDiffBillDoc.length > 1 ? true : false, aSelectedHdr: aSelectedHdr, aSelectedItems: aSelectedItems }
         },
         _handleWizItemChanged: function (oEvent) {
             var oContext = oEvent.getParameter("context");

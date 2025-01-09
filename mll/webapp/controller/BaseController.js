@@ -17,7 +17,8 @@ sap.ui.define([
     "sap/m/p13n/MetadataHelper",
     "sap/m/p13n/SelectionController",
     "../model/models",
-], function (Controller, History, JSONModel, formatter, Filter, FilterOperator, FilterBar, FilterGroupItem, Message, Fragment, SearchField, ColumnListItem, Input, Label, Engine, MetadataHelper, SelectionController, models) {
+    "sap/ui/model/Sorter",
+], function (Controller, History, JSONModel, formatter, Filter, FilterOperator, FilterBar, FilterGroupItem, Message, Fragment, SearchField, ColumnListItem, Input, Label, Engine, MetadataHelper, SelectionController, models, Sorter) {
     "use strict";
 
     return Controller.extend("mll.controller.BaseController", {
@@ -89,8 +90,7 @@ sap.ui.define([
 
                 aCols = oValueHelpModel.aCols;
             Fragment.load({
-                // name: [oResourceBundle.getText("fragmentPath"), "ValueHelpDialog"].join(""),
-                name: "sycor.gap0160.fragments.ValueHelpDialog",
+                name: "mll.fragments.ValueHelpDialog",
                 controller: this
             }).then(function name(oFragment) {
                 var oCol = aCols[1] || aCols[0];
@@ -142,6 +142,9 @@ sap.ui.define([
                 var oBindingInfo = {
                     path: oValueHelpModel.EntitySet,
                     filters: [],
+                    sorter: oValueHelpModel.sSort
+                        ? [new Sorter(oValueHelpModel.sSort.key, oValueHelpModel.sSort.descending)]
+                        : [],
                     suspended: oValueHelpModel.bSuspend,
                     events: {
                         dataReceived: function () {
@@ -150,6 +153,11 @@ sap.ui.define([
                     }
                 };
                 this.oValueHelpDialogue.getTableAsync().then(function (oTable) {
+                    debugger;
+                    // oTable.setVisibleRowCount(100);              // Show 20 rows at a time
+                    oTable.setRowMode("Fixed");
+                    oTable.setThreshold(100);                    // Pre-fetch extra rows
+                    oTable.setEnableBusyIndicator(true);
                     oTable.setEnableSelectAll(true);
                     oTable.setModel(new JSONModel({
                         cols: aCols
@@ -208,7 +216,7 @@ sap.ui.define([
          */
         createRec: function (object) {
             return new Promise(function (resolve, reject) {
-                object.oModel.create(object.sKey, object.oPayload, {
+                object.oModel.create(object.sEntity, object.oPayload, {
                     success: function (oResp) {
                         resolve(oResp);
                     }.bind(this),
@@ -289,8 +297,8 @@ sap.ui.define([
                 // if (this.oValueHelpModel.getData()[aClear[index]].isCheckBox) {
                 //     oFilterBar.setSelected(false);
                 // }
-                // Input
-                if (this.oValueHelpModel.getData()[aClear[index]].isInput) {
+                // Input or Date
+                if (this.oValueHelpModel.getData()[aClear[index]].isInput || this.oValueHelpModel.getData()[aClear[index]].isDate) {
                     oFilterBar.setValue(null);
                 }
             }
@@ -330,7 +338,7 @@ sap.ui.define([
             return object.oModel.find(o => o.name === object.sEntitySet).property;
         },
 
-        loadDialog: function(sFragmentName, sBtnId) {
+        loadDialog: function (sFragmentName, sBtnId) {
             var oView = this.getView();
             return Fragment.load({
                 id: oView.getId(),
@@ -348,41 +356,41 @@ sap.ui.define([
                 return oDialog;
             }.bind(this));
         },
-        registerForP13nDetail: function(sId) {
+        registerForP13nDetail: function (sId) {
             var oTable = this.byId(sId);
-            this.oMetadataHelper = new MetadataHelper(models.createMetadataHelper("DebitMemoPersonalization").map((o, i) => Object.assign(o, { label: this.getResourceBundle().getText(o.label) })));
+            this.oMetadataHelper = new MetadataHelper(models.createMetadataHelper.call(this, "DebitMemoPersonalization").map((o, i) => o));
 
             Engine.getInstance().register(oTable, {
-				helper: this.oMetadataHelper,
-				controller: {
-					Columns: new SelectionController({
-						targetAggregation: "columns",
-						control: oTable
-					})
-				}
-			});
+                helper: this.oMetadataHelper,
+                controller: {
+                    Columns: new SelectionController({
+                        targetAggregation: "columns",
+                        control: oTable
+                    })
+                }
+            });
             Engine.getInstance().attachStateChange(this.handleStateChange.bind(this, sId));
         },
-        handleStateChange: function(sId, oEvt) {
-			var oTable = this.byId(sId);
-			var oState = oEvt.getParameter("state");
-            var aMetadataHelper = models.createMetadataHelper("DebitMemoPersonalization");
+        handleStateChange: function (sId, oEvt) {
+            var oTable = this.byId(sId);
+            var oState = oEvt.getParameter("state");
+            // var aMetadataHelper = models.createMetadataHelper.call(this, "DebitMemoPersonalization");
 
-			oTable.getColumns().forEach(function(oColumn){
-				oColumn.setVisible(false);
-			}.bind(this));
+            oTable.getColumns().forEach(function (oColumn) {
+                oColumn.setVisible(false);
+            }.bind(this));
 
-			oState.Columns.forEach(function(oProp, iIndex){
-				var oCol = this.byId(oProp.key);
-				oCol.setVisible(true);
-			}.bind(this));
+            oState.Columns.forEach(function (oProp, iIndex) {
+                var oCol = this.byId(oProp.key);
+                oCol.setVisible(true);
+            }.bind(this));
 
-			// oTable.getBinding("rows");
-		},
-		_getKey: function(oControl) {
-			return this.getView().getLocalId(oControl.getId());
-		},
-    
+            // oTable.getBinding("rows");
+        },
+        _getKey: function (oControl) {
+            return this.getView().getLocalId(oControl.getId());
+        },
+
         /* =========================================================== */
         /* begin: internal methods                                     */
         /* =========================================================== */

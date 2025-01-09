@@ -14,7 +14,7 @@ sap.ui.define([
 		constructor: function (oComponent) {
 			this._oResourceBundle = oComponent.getModel("i18n").getResourceBundle();
 			this._oComponent = oComponent;
-			this._oComponent.getModel().metadataLoaded().then(this._onDebitMemoMetadataLoaded.bind(this));
+			this._oComponent.getModel("API_CREDIT_MEMO_REQUEST_SRV").metadataLoaded().then(this._onCreditMemoMetadataLoaded.bind(this));
 		},
 
 		/**
@@ -22,8 +22,8 @@ sap.ui.define([
 		 * @param {sap.ui.base.Event} The parsed metadata object
 		 * @private
 		 */
-		_onDebitMemoMetadataLoaded: function() {
-			this._oComponent.setModel(this._oComponent.getModel().getServiceMetadata().dataServices.schema[0].entityType, "DebitMemoMetadata");
+		_onCreditMemoMetadataLoaded: function() {
+			this._oComponent.setModel(this._oComponent.getModel("API_CREDIT_MEMO_REQUEST_SRV").getServiceMetadata().dataServices.schema[0].entityType, "CreditMemoMetadata");
 		}
 	});
 });

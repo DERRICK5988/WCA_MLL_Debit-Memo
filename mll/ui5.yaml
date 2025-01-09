@@ -9,7 +9,7 @@ server:
     - name: fiori-tools-proxy
       afterMiddleware: compression
       configuration:
-        ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
+        ignoreCertError: true # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
         ui5:
           path:
             - /resources
@@ -17,6 +17,58 @@ server:
           url: https://ui5.sap.com
         backend:
           - path: /sap
+            url: https://my403379-api.s4hana.cloud.sap
+            destination: S4HC-Customizing-my403379-Basic
+            authenticationType: BasicAuthentication
+          - path: /sap/opu/odata/sap/YY1_POSTING_STATUS_CDS
+            url: https://my403379-api.s4hana.cloud.sap
+            destination: S4HC-Customizing-my403379-Basic
+            authenticationType: BasicAuthentication
+          - path: /sap/opu/odata/sap/YY1_BILLINGDOC_CDS
+            url: https://my403379-api.s4hana.cloud.sap
+            destination: S4HC-Customizing-my403379-Basic
+            authenticationType: BasicAuthentication
+          - path: /sap/opu/odata/sap/YY1_SOLDTOPARTY_CDS
+            url: https://my403379-api.s4hana.cloud.sap
+            destination: S4HC-Customizing-my403379-Basic
+            authenticationType: BasicAuthentication
+          - path: /sap/opu/odata/sap/YY1_ABRECHNUNGSWEGV_CDS
+            url: https://my403379-api.s4hana.cloud.sap
+            destination: S4HC-Customizing-my403379-Basic
+            authenticationType: BasicAuthentication
+          - path: /sap/opu/odata/sap/YY1_CUSTOMER_REF_CDS
+            url: https://my403379-api.s4hana.cloud.sap
+            destination: S4HC-Customizing-my403379-Basic
+            authenticationType: BasicAuthentication
+          - path: /sap/opu/odata/sap/YY1_V_SALES_ORG_CDS
+            url: https://my403379-api.s4hana.cloud.sap
+            destination: S4HC-Customizing-my403379-Basic
+            authenticationType: BasicAuthentication
+          - path: /sap/opu/odata/sap/YY1_DEBIT_MEMO_CDS
+            url: https://my403379-api.s4hana.cloud.sap
+            destination: S4HC-Customizing-my403379-Basic
+            authenticationType: BasicAuthentication
+          - path: /sap/opu/odata/sap/YY1_LABIDV_CDS
+            url: https://my403379-api.s4hana.cloud.sap
+            destination: S4HC-Customizing-my403379-Basic
+            authenticationType: BasicAuthentication
+          - path: /sap/opu/odata/sap/YY1_ACTUAL_CUST_CDS
+            url: https://my403379-api.s4hana.cloud.sap
+            destination: S4HC-Customizing-my403379-Basic
+            authenticationType: BasicAuthentication
+          - path: /sap/opu/odata/sap/YY1_PRODUCT_CDS
+            url: https://my403379-api.s4hana.cloud.sap
+            destination: S4HC-Customizing-my403379-Basic
+            authenticationType: BasicAuthentication
+          - path: /sap/opu/odata/sap/YY1_BILLINGDOC_STATUS_CDS
+            url: https://my403379-api.s4hana.cloud.sap
+            destination: S4HC-Customizing-my403379-Basic
+            authenticationType: BasicAuthentication
+          - path: /sap/opu/odata/sap/YY1_V_BILLINGDOC_DMR_CDS
+            url: https://my403379-api.s4hana.cloud.sap
+            destination: S4HC-Customizing-my403379-Basic
+            authenticationType: BasicAuthentication
+          - path: /sap/opu/odata/sap/API_CREDIT_MEMO_REQUEST_SRV
             url: https://my403379-api.s4hana.cloud.sap
             destination: S4HC-Customizing-my403379-Basic
             authenticationType: BasicAuthentication
