@@ -1,408 +1,380 @@
 {
-    "_version": "1.65.0",
-    "sap.app": {
-        "id": "mll",
-        "type": "application",
-        "i18n": "i18n/i18n.properties",
-        "applicationVersion": {
-            "version": "0.0.1"
-        },
-        "title": "{{appTitle}}",
-        "description": "{{appDescription}}",
-        "resources": "resources.json",
-        "sourceTemplate": {
-            "id": "@sap/generator-fiori:basic",
-            "version": "1.16.1",
-            "toolsId": "e83f40e0-377d-4c92-83d8-25a05a107829"
-        },
-        "dataSources": {
-            "ValueHelpConfig": {
-                "uri": "model/ValueHelpConfig.json",
-                "type": "JSON"
-            },
-            "YY1_POSTING_STATUS_CDS": {
-                "uri": "/sap/opu/odata/sap/YY1_POSTING_STATUS_CDS",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/YY1_POSTING_STATUS_CDS/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            },
-            "YY1_BILLINGDOC_CDS": {
-                "uri": "/sap/opu/odata/sap/YY1_BILLINGDOC_CDS",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/YY1_BILLINGDOC_CDS/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            },
-            "YY1_V_PATIENT_ID_CDS": {
-                "uri": "/sap/opu/odata/sap/YY1_V_PATIENT_ID_CDS",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/YY1_V_PATIENT_ID_CDS/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            },
-            "YY1_SOLDTOPARTY_CDS": {
-                "uri": "/sap/opu/odata/sap/YY1_SOLDTOPARTY_CDS",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/YY1_SOLDTOPARTY_CDS/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            },
-            "YY1_ABRECHNUNGSWEGV_CDS": {
-                "uri": "/sap/opu/odata/sap/YY1_ABRECHNUNGSWEGV_CDS",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/YY1_ABRECHNUNGSWEGV_CDS/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            },
-            "YY1_CUSTOMER_REF_CDS": {
-                "uri": "/sap/opu/odata/sap/YY1_CUSTOMER_REF_CDS",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/YY1_CUSTOMER_REF_CDS/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            },
-            "YY1_V_SALES_ORG_CDS": {
-                "uri": "/sap/opu/odata/sap/YY1_V_SALES_ORG_CDS",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/YY1_V_SALES_ORG_CDS/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            },
-            "YY1_DEBIT_MEMO_CDS": {
-                "uri": "/sap/opu/odata/sap/YY1_DEBIT_MEMO_CDS",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/YY1_DEBIT_MEMO_CDS/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            },
-            "YY1_LABIDV_CDS": {
-                "uri": "/sap/opu/odata/sap/YY1_LABIDV_CDS",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/YY1_LABIDV_CDS/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            },
-            "YY1_ACTUAL_CUST_CDS": {
-                "uri": "/sap/opu/odata/sap/YY1_ACTUAL_CUST_CDS",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/YY1_ACTUAL_CUST_CDS/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            },
-            "YY1_PRODUCT_CDS": {
-                "uri": "/sap/opu/odata/sap/YY1_PRODUCT_CDS",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/YY1_PRODUCT_CDS/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            },
-            "YY1_BILLINGDOC_STATUS_CDS": {
-                "uri": "/sap/opu/odata/sap/YY1_BILLINGDOC_STATUS_CDS",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/YY1_BILLINGDOC_STATUS_CDS/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            },
-            "YY1_V_BILLINGDOC_DMR_CDS": {
-                "uri": "/sap/opu/odata/sap/YY1_V_BILLINGDOC_DMR_CDS",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/YY1_V_BILLINGDOC_DMR_CDS/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            },
-            "API_CREDIT_MEMO_REQUEST_SRV": {
-                "uri": "/sap/opu/odata/sap/API_CREDIT_MEMO_REQUEST_SRV",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/API_CREDIT_MEMO_REQUEST_SRV/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            }
-        }
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "mll",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
     },
-    "sap.ui": {
-        "technology": "UI5",
-        "icons": {
-            "icon": "",
-            "favIcon": "",
-            "phone": "",
-            "phone@2": "",
-            "tablet": "",
-            "tablet@2": ""
-        },
-        "deviceTypes": {
-            "desktop": true,
-            "tablet": true,
-            "phone": true
-        }
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.16.1",
+      "toolsId": "e83f40e0-377d-4c92-83d8-25a05a107829"
     },
-    "sap.ui5": {
-        "flexEnabled": true,
-        "config": {
-            "fullWidth": true
-        },
-        "dependencies": {
-            "minUI5Version": "1.131.1",
-            "libs": {
-                "sap.m": {},
-                "sap.ui.core": {}
-            }
-        },
-        "contentDensities": {
-            "compact": true,
-            "cozy": true
-        },
-        "models": {
-            "i18n": {
-                "type": "sap.ui.model.resource.ResourceModel",
-                "settings": {
-                    "bundleName": "mll.i18n.i18n"
-                }
-            },
-            "ValueHelpConfig": {
-                "type": "sap.ui.model.json.JSONModel",
-                "dataSource": "ValueHelpConfig",
-                "preload": true,
-                "settings": {
-                    "defaultBindingMode": "OneWay"
-                }
-            },
-            "YY1_POSTING_STATUS_CDS": {
-                "dataSource": "YY1_POSTING_STATUS_CDS",
-                "preload": true,
-                "settings": {
-                    "defaultBindingMode": "OneWay",
-                    "defaultCountMode": "Inline",
-                    "refreshAfterChange": false,
-                    "metadataUrlParams": {
-                        "sap-value-list": "none"
-                    }
-                }
-            },
-            "YY1_BILLINGDOC_CDS": {
-                "dataSource": "YY1_BILLINGDOC_CDS",
-                "preload": true,
-                "settings": {
-                    "defaultBindingMode": "TwoWay",
-                    "defaultCountMode": "Inline",
-                    "refreshAfterChange": false,
-                    "metadataUrlParams": {
-                        "sap-value-list": "none"
-                    }
-                }
-            },
-            "YY1_V_PATIENT_ID_CDS": {
-                "dataSource": "YY1_V_PATIENT_ID_CDS",
-                "preload": true,
-                "settings": {
-                    "defaultBindingMode": "TwoWay",
-                    "defaultCountMode": "Inline",
-                    "refreshAfterChange": false,
-                    "metadataUrlParams": {
-                        "sap-value-list": "none"
-                    }
-                }
-            },
-            "YY1_SOLDTOPARTY_CDS": {
-                "dataSource": "YY1_SOLDTOPARTY_CDS",
-                "preload": true,
-                "settings": {
-                    "defaultBindingMode": "TwoWay",
-                    "defaultCountMode": "Inline",
-                    "refreshAfterChange": false,
-                    "metadataUrlParams": {
-                        "sap-value-list": "none"
-                    }
-                }
-            },
-            "YY1_ABRECHNUNGSWEGV_CDS": {
-                "dataSource": "YY1_ABRECHNUNGSWEGV_CDS",
-                "preload": true,
-                "settings": {
-                    "defaultBindingMode": "TwoWay",
-                    "defaultCountMode": "Inline",
-                    "refreshAfterChange": false,
-                    "metadataUrlParams": {
-                        "sap-value-list": "none"
-                    }
-                }
-            },
-            "YY1_CUSTOMER_REF_CDS": {
-                "dataSource": "YY1_CUSTOMER_REF_CDS",
-                "preload": true,
-                "settings": {
-                    "defaultBindingMode": "TwoWay",
-                    "defaultCountMode": "Inline",
-                    "refreshAfterChange": false,
-                    "metadataUrlParams": {
-                        "sap-value-list": "none"
-                    }
-                }
-            },
-            "YY1_V_SALES_ORG_CDS": {
-                "dataSource": "YY1_V_SALES_ORG_CDS",
-                "preload": true,
-                "settings": {
-                    "defaultBindingMode": "TwoWay",
-                    "defaultCountMode": "Inline",
-                    "refreshAfterChange": false,
-                    "metadataUrlParams": {
-                        "sap-value-list": "none"
-                    }
-                }
-            },
-            "YY1_DEBIT_MEMO_CDS": {
-                "dataSource": "YY1_DEBIT_MEMO_CDS",
-                "preload": true,
-                "settings": {
-                    "defaultBindingMode": "TwoWay",
-                    "defaultCountMode": "Inline",
-                    "refreshAfterChange": false,
-                    "metadataUrlParams": {
-                        "sap-value-list": "none"
-                    }
-                }
-            },
-            "YY1_LABIDV_CDS": {
-                "dataSource": "YY1_LABIDV_CDS",
-                "preload": true,
-                "settings": {
-                    "defaultBindingMode": "TwoWay",
-                    "defaultCountMode": "Inline",
-                    "refreshAfterChange": false,
-                    "metadataUrlParams": {
-                        "sap-value-list": "none"
-                    }
-                }
-            },
-            "YY1_ACTUAL_CUST_CDS": {
-                "dataSource": "YY1_ACTUAL_CUST_CDS",
-                "preload": true,
-                "settings": {
-                    "defaultBindingMode": "TwoWay",
-                    "defaultCountMode": "Inline",
-                    "refreshAfterChange": false,
-                    "metadataUrlParams": {
-                        "sap-value-list": "none"
-                    }
-                }
-            },
-            "YY1_PRODUCT_CDS": {
-                "dataSource": "YY1_PRODUCT_CDS",
-                "preload": true,
-                "settings": {
-                    "defaultBindingMode": "TwoWay",
-                    "defaultCountMode": "Inline",
-                    "refreshAfterChange": false,
-                    "metadataUrlParams": {
-                        "sap-value-list": "none"
-                    }
-                }
-            },
-            "YY1_BILLINGDOC_STATUS_CDS": {
-                "dataSource": "YY1_BILLINGDOC_STATUS_CDS",
-                "preload": true,
-                "settings": {
-                    "defaultBindingMode": "TwoWay",
-                    "defaultCountMode": "Inline",
-                    "refreshAfterChange": false,
-                    "metadataUrlParams": {
-                        "sap-value-list": "none"
-                    }
-                }
-            },
-            "YY1_V_BILLINGDOC_DMR_CDS": {
-                "dataSource": "YY1_V_BILLINGDOC_DMR_CDS",
-                "preload": true,
-                "settings": {
-                    "defaultBindingMode": "TwoWay",
-                    "defaultCountMode": "Inline",
-                    "refreshAfterChange": false,
-                    "metadataUrlParams": {
-                        "sap-value-list": "none"
-                    }
-                }
-            },
-            "API_CREDIT_MEMO_REQUEST_SRV": {
-                "dataSource": "API_CREDIT_MEMO_REQUEST_SRV",
-                "preload": true,
-                "settings": {
-                    "defaultBindingMode": "TwoWay",
-                    "defaultCountMode": "Inline",
-                    "refreshAfterChange": false,
-                    "metadataUrlParams": {
-                        "sap-value-list": "none"
-                    }
-                }
-            }
-        },
-        "resources": {
-            "css": [
-                {
-                    "uri": "css/style.css"
-                }
-            ]
-        },
-        "routing": {
-            "config": {
-                "routerClass": "sap.m.routing.Router",
-                "controlAggregation": "pages",
-                "controlId": "app",
-                "transition": "slide",
-                "type": "View",
-                "viewType": "XML",
-                "path": "mll.view",
-                "async": true,
-                "viewPath": "mll.view"
-            },
-            "routes": [
-                {
-                    "name": "DebitMemo",
-                    "pattern": "",
-                    "target": [
-                        "DebitMemo"
-                    ]
-                }
-            ],
-            "targets": {
-                "DebitMemo": {
-                    "viewId": "debitmemo",
-                    "viewName": "DebitMemo"
-                }
-            }
-        },
-        "rootView": {
-            "viewName": "mll.view.App",
-            "type": "XML",
-            "id": "App"
+    "dataSources": {
+      "ValueHelpConfig": {
+        "uri": "model/ValueHelpConfig.json",
+        "type": "JSON"
+      },
+      "YY1_PRODUCT_CDS": {
+        "uri": "/sap/opu/odata/sap/YY1_PRODUCT_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YY1_PRODUCT_CDS/metadata.xml",
+          "odataVersion": "2.0"
         }
+      },
+      "YY1_SOLDTOPARTY_CDS": {
+        "uri": "/sap/opu/odata/sap/YY1_SOLDTOPARTY_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YY1_SOLDTOPARTY_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "YY1_V_BILLINGDOC_DMR_CDS": {
+        "uri": "/sap/opu/odata/sap/YY1_V_BILLINGDOC_DMR_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YY1_V_BILLINGDOC_DMR_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "YY1_V_SALES_ORG_CDS": {
+        "uri": "/sap/opu/odata/sap/YY1_V_SALES_ORG_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YY1_V_SALES_ORG_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "API_CREDIT_MEMO_REQUEST_SRV": {
+        "uri": "/sap/opu/odata/sap/API_CREDIT_MEMO_REQUEST_SRV/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/API_CREDIT_MEMO_REQUEST_SRV/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "YY1_ABRECHNUNGSWEGV_CDS": {
+        "uri": "/sap/opu/odata/sap/YY1_ABRECHNUNGSWEGV_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YY1_ABRECHNUNGSWEGV_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "YY1_BILLINGDOC_CDS": {
+        "uri": "/sap/opu/odata/sap/YY1_BILLINGDOC_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YY1_BILLINGDOC_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "YY1_BILLINGDOC_STATUS_CDS": {
+        "uri": "/sap/opu/odata/sap/YY1_BILLINGDOC_STATUS_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YY1_BILLINGDOC_STATUS_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "YY1_DEBIT_MEMO_CDS": {
+        "uri": "/sap/opu/odata/sap/YY1_DEBIT_MEMO_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YY1_DEBIT_MEMO_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "YY1_POSTING_STATUS_CDS": {
+        "uri": "/sap/opu/odata/sap/YY1_POSTING_STATUS_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YY1_POSTING_STATUS_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "YY1_V_PATIENT_ID_CDS": {
+        "uri": "/sap/opu/odata/sap/YY1_V_PATIENT_ID_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YY1_V_PATIENT_ID_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "YY1_LABIDV_CDS": {
+        "uri": "/sap/opu/odata/sap/YY1_LABIDV_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YY1_LABIDV_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "YY1_ACTUAL_CUST_CDS": {
+        "uri": "/sap/opu/odata/sap/YY1_ACTUAL_CUST_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YY1_ACTUAL_CUST_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "YY1_CUSTOMER_REF_CDS": {
+        "uri": "/sap/opu/odata/sap/YY1_CUSTOMER_REF_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YY1_CUSTOMER_REF_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
     }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "config": {
+      "fullWidth": true
+    },
+    "dependencies": {
+      "minUI5Version": "1.131.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "mll.i18n.i18n"
+        }
+      },
+      "ValueHelpConfig": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "ValueHelpConfig",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "OneWay"
+        }
+      },
+      "YY1_PRODUCT_CDS": {
+        "dataSource": "YY1_PRODUCT_CDS",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false,
+          "metadataUrlParams": {
+            "sap-value-list": "none"
+          }
+        }
+      },
+      "YY1_SOLDTOPARTY_CDS": {
+        "dataSource": "YY1_SOLDTOPARTY_CDS",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false,
+          "metadataUrlParams": {
+            "sap-value-list": "none"
+          }
+        }
+      },
+      "YY1_V_BILLINGDOC_DMR_CDS": {
+        "dataSource": "YY1_V_BILLINGDOC_DMR_CDS",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false,
+          "metadataUrlParams": {
+            "sap-value-list": "none"
+          }
+        }
+      },
+      "YY1_V_SALES_ORG_CDS": {
+        "dataSource": "YY1_V_SALES_ORG_CDS",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false,
+          "metadataUrlParams": {
+            "sap-value-list": "none"
+          }
+        }
+      },
+      "API_CREDIT_MEMO_REQUEST_SRV": {
+        "dataSource": "API_CREDIT_MEMO_REQUEST_SRV",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false,
+          "metadataUrlParams": {
+            "sap-value-list": "none"
+          }
+        }
+      },
+      "YY1_ABRECHNUNGSWEGV_CDS": {
+        "dataSource": "YY1_ABRECHNUNGSWEGV_CDS",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false,
+          "metadataUrlParams": {
+            "sap-value-list": "none"
+          }
+        }
+      },
+      "YY1_BILLINGDOC_CDS": {
+        "dataSource": "YY1_BILLINGDOC_CDS",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false,
+          "metadataUrlParams": {
+            "sap-value-list": "none"
+          }
+        }
+      },
+      "YY1_BILLINGDOC_STATUS_CDS": {
+        "dataSource": "YY1_BILLINGDOC_STATUS_CDS",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false,
+          "metadataUrlParams": {
+            "sap-value-list": "none"
+          }
+        }
+      },
+      "YY1_DEBIT_MEMO_CDS": {
+        "dataSource": "YY1_DEBIT_MEMO_CDS",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false,
+          "metadataUrlParams": {
+            "sap-value-list": "none"
+          }
+        }
+      },
+      "YY1_POSTING_STATUS_CDS": {
+        "dataSource": "YY1_POSTING_STATUS_CDS",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
+          "refreshAfterChange": false,
+          "metadataUrlParams": {
+            "sap-value-list": "none"
+          }
+        }
+      },
+      "YY1_V_PATIENT_ID_CDS": {
+        "dataSource": "YY1_V_PATIENT_ID_CDS",
+        "preload": true,
+        "settings": {}
+      },
+      "YY1_LABIDV_CDS": {
+        "dataSource": "YY1_LABIDV_CDS",
+        "preload": true,
+        "settings": {}
+      },
+      "YY1_ACTUAL_CUST_CDS": {
+        "dataSource": "YY1_ACTUAL_CUST_CDS",
+        "preload": true,
+        "settings": {}
+      },
+      "YY1_CUSTOMER_REF_CDS": {
+        "dataSource": "YY1_CUSTOMER_REF_CDS",
+        "preload": true,
+        "settings": {}
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "transition": "slide",
+        "type": "View",
+        "viewType": "XML",
+        "path": "mll.view",
+        "async": true,
+        "viewPath": "mll.view"
+      },
+      "routes": [
+        {
+          "name": "DebitMemo",
+          "pattern": "",
+          "target": [
+            "DebitMemo"
+          ]
+        }
+      ],
+      "targets": {
+        "DebitMemo": {
+          "viewId": "debitmemo",
+          "viewName": "DebitMemo"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "mll.view.App",
+      "type": "XML",
+      "id": "App"
+    }
+  }
 }

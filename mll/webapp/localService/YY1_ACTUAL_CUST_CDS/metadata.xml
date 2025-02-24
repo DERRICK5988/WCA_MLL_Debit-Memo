@@ -42,7 +42,7 @@
                 <Property Name="ID" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="YY1_ActualCustomer_BDI" Type="Edm.String" MaxLength="10" sap:attribute-for="YY1_ActualCustomer_BDI" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Actual Customer"/>
                 <Property Name="YY1_ActualCustomerName_BDI" Type="Edm.String" MaxLength="60" sap:attribute-for="YY1_ActualCustomerName_BDI" sap:required-in-filter="false" sap:label="Actual Customer Name"/>
-                <Property Name="GroupCount" Type="Edm.Byte" sap:aggregation-role="measure" sap:attribute-for="YY1_ActualCustomer_BDI" sap:required-in-filter="false" sap:label="Group Count" sap:filterable="false"/>
+                <Property Name="GroupCount" Type="Edm.Byte" sap:aggregation-role="measure" sap:attribute-for="YY1_ActualCustomer_BDI" sap:required-in-filter="false" sap:label="GroupCount" sap:filterable="false"/>
             </EntityType>
             <EntityContainer Name="YY1_ACTUAL_CUST_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
                 <EntitySet Name="YY1_ACTUAL_CUST" EntityType="YY1_ACTUAL_CUST_CDS.YY1_ACTUAL_CUSTType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>

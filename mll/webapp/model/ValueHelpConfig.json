@@ -38,6 +38,23 @@
 			"width": "10rem"
 		}]
 	},
+	"collectiveinvoice": {
+		"EntitySet": "YY1_COLLECTIVE_INVOICE_IND_CDS>/YY1_COLLECTIVE_INVOICE_IND",
+		"isItemFilterable": true,
+		"FilterOperator": "EQ",
+		"bSuspend": false,
+		"isValueHelp": false,
+		"isComboBox": true,
+		"sTitle": "CollectiveInvoiceInd",
+		"sKey": "YY1_COLLECTIVEINVOICE_BDH",
+		"sFilter": "YY1_COLLECTIVEINVOICE_BDH",
+		"sDescription": "YY1_COLLECTIVE_INVOICE_IND",
+		"aCols": [{
+			"label": "{i18n>PostingStatus}",
+			"template": "YY1_COLLECTIVE_INVOICE_IND_CDS>YY1_COLLECTIVE_INVOICE_IND",
+			"width": "6rem"
+		}]
+	},
 	"soldtoparty": {
 		"EntitySet": "YY1_SOLDTOPARTY_CDS>/YY1_SOLDTOPARTY",
 		"isItemFilterable": true,
@@ -68,8 +85,8 @@
 		"isValueHelp": true,
 		"isComboBox": false,
 		"sTitle": "Abrechnungsweg",
-		"sKey": "YY1_Abrechnungsweg_BDH",
-		"sFilter": "YY1_Abrechnungsweg_BDH",
+		"sKey": "YY1_Abrechnungsweg_BDI",
+		"sFilter": "YY1_Abrechnungsweg_BDI",
 		"sDescription": "",
 		"aCols": [{
 			"label": "{i18n>Abrechnungsweg}",
@@ -94,7 +111,7 @@
 			"width": "10rem"
 		},
 		{
-			"label": "{i18n>Description}",
+			"label": "{i18n>PatientName}",
 			"template": "YY1_V_PATIENT_ID_CDS>YY1_PATIENT_NAME_BDI",
 			"width": "20rem"
 		}]
@@ -123,7 +140,7 @@
 		"sDescription": "",
 		"aCols": [{
 			"label": "{i18n>CustomerReference}",
-			"template": "YY1_CUSTOMER_REF_CDS>CustomerReference",
+			"template": "YY1_CUSTOMER_REF_CDS>PurchaseOrderByCustomer",
 			"width": "10rem"
 		}]
 	},

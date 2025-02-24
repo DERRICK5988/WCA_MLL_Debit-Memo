@@ -3,17 +3,17 @@
   "authenticationMethod": "route",
   "routes": [
     {
-      "source": "^undefined/(.*)$",
-      "target": "undefined/$1",
-      "destination": "S4HC-Customizing-my403379-Basic",
-      "authenticationType": "xsuaa",
-      "csrfProtection": false
-    },
-    {
       "source": "^/resources/(.*)$",
       "target": "/resources/$1",
       "authenticationType": "none",
       "destination": "ui5"
+    },
+    {
+      "source": "^/sap/(.*)$",
+      "target": "/sap/$1",
+      "destination": "S4HC-Customizing-my403379-Basic",
+      "csrfProtection": false,
+      "authenticationType": "none"
     },
     {
       "source": "^/test-resources/(.*)$",
@@ -25,7 +25,7 @@
       "source": "^(.*)$",
       "target": "$1",
       "service": "html5-apps-repo-rt",
-      "authenticationType": "xsuaa"
+      "authenticationType": "none"
     }
   ]
 }

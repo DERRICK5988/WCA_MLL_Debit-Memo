@@ -35,6 +35,14 @@
     </edmx:Reference>
     <edmx:DataServices m:DataServiceVersion="2.0">
         <Schema Namespace="YY1_V_BILLINGDOC_DMR_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="YY1_COLLECTIVEINVOICE_VType" sap:label="YY1_COLLECTIVEINVOICE" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Code"/>
+                </Key>
+                <Property Name="Code" Type="Edm.String" Nullable="false" MaxLength="3" sap:text="Code_Text" sap:label="COLLECTIVE INVOICE INDICATOR"/>
+                <Property Name="Code_Text" Type="Edm.String" MaxLength="60" sap:label="COLLECTIVE INVOICE INDICATOR (Desc.)" sap:creatable="false" sap:updatable="false"/>
+                <Property Name="IsDisabled" Type="Edm.Boolean" sap:label="Is Disabled" sap:quickinfo="Custom Field: Code Disabled Indicator"/>
+            </EntityType>
             <EntityType Name="YY1_V_BILLINGDOC_DMRType" sap:label="[WCMS-86] DMR - Billing Document" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="BillingDocument"/>
@@ -43,9 +51,11 @@
                 <Property Name="BillingDocument" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Billing Document"/>
                 <Property Name="BillingDocumentItem" Type="Edm.String" Nullable="false" MaxLength="6" sap:display-format="NonNegative" sap:required-in-filter="false" sap:text="ProductDescription" sap:label="Item" sap:quickinfo="Billing Item"/>
                 <Property Name="BillingDocumentType" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Billing Type"/>
+                <Property Name="BillingDocumentTypeName" Type="Edm.String" MaxLength="40" sap:required-in-filter="false" sap:label="Billing Type Description" sap:quickinfo="Description"/>
                 <Property Name="Product" Type="Edm.String" MaxLength="40" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Product" sap:quickinfo="Product Number"/>
                 <Property Name="ProductDescription" Type="Edm.String" MaxLength="40" sap:required-in-filter="false" sap:label="Product Description" sap:quickinfo="Short Text for Sales Order Item"/>
                 <Property Name="DebitMemoRequest" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Debit Memo Request" sap:quickinfo="Document Number of Reference Document"/>
+                <Property Name="CreditMemoRequest" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Credit Memo Request"/>
                 <Property Name="YY1_Abrechnungsweg_BDI" Type="Edm.String" MaxLength="20" sap:required-in-filter="false" sap:label="Abrechnungsweg"/>
                 <Property Name="YY1_LABID_BDI" Type="Edm.String" MaxLength="30" sap:required-in-filter="false" sap:label="LABID" sap:quickinfo="LAB ID"/>
                 <Property Name="SoldToParty" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Sold-to-Party" sap:quickinfo="Sold-to Party"/>
@@ -53,13 +63,15 @@
                 <Property Name="BillingQuantity" Type="Edm.Decimal" Precision="13" Scale="3" sap:required-in-filter="false" sap:unit="BillingQuantityUnit" sap:label="Invoiced Quantity" sap:quickinfo="Actual Invoiced Quantity"/>
                 <Property Name="BillingQuantityUnit" Type="Edm.String" MaxLength="3" sap:required-in-filter="false" sap:label="Sales Unit" sap:semantics="unit-of-measure"/>
                 <Property Name="NetAmount" Type="Edm.Decimal" Precision="16" Scale="3" sap:required-in-filter="false" sap:unit="TransactionCurrency" sap:label="Net Value" sap:quickinfo="Net Value of Billing item in Document Currency"/>
+                <Property Name="CancelledAmount" Type="Edm.Decimal" Precision="12" Scale="3" sap:required-in-filter="false" sap:unit="TransactionCurrency" sap:label="Cancelled Amount" sap:quickinfo="Net Price"/>
                 <Property Name="GrossAmount" Type="Edm.Decimal" Precision="16" Scale="3" sap:required-in-filter="false" sap:unit="TransactionCurrency" sap:label="Gross Value" sap:quickinfo="Gross Value of the Billing Item in Document Currency"/>
                 <Property Name="TransactionCurrency" Type="Edm.String" MaxLength="5" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Document Currency" sap:quickinfo="SD Document Currency" sap:semantics="currency-code"/>
                 <Property Name="YY1_PATIENT_ID_BDI" Type="Edm.String" MaxLength="20" sap:required-in-filter="false" sap:label="Patient ID"/>
                 <Property Name="YY1_PATIENT_NAME_BDI" Type="Edm.String" MaxLength="60" sap:required-in-filter="false" sap:label="Patient Name" sap:quickinfo="Name"/>
+                <Property Name="YY1_PATIENT_BIRTH_DATE_BDI" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:required-in-filter="false" sap:label="Patient Birth Date" sap:quickinfo="Birth Date"/>
                 <Property Name="FixedValueDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:required-in-filter="false" sap:label="Fixed Value Date"/>
                 <Property Name="AccountingPostingStatus" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Posting Status" sap:quickinfo="Posting Status of Billing Document"/>
-                <Property Name="AccountingPostingStatusDesc" Type="Edm.String" MaxLength="20" sap:required-in-filter="false" sap:label="Posting Status Description" sap:quickinfo="Status Description"/>
+                <Property Name="AccountingPostingStatusDesc" Type="Edm.String" MaxLength="20" sap:required-in-filter="false" sap:label="Description" sap:quickinfo="Status Description"/>
                 <Property Name="CustomerReference" Type="Edm.String" MaxLength="35" sap:required-in-filter="false" sap:label="Customer Reference"/>
                 <Property Name="SalesOrganization" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Sales Organization"/>
                 <Property Name="SalesOrganizationName" Type="Edm.String" MaxLength="20" sap:required-in-filter="false" sap:label="Sales Organization Description"/>
@@ -72,13 +84,116 @@
                 <Property Name="DivisionName" Type="Edm.String" MaxLength="20" sap:required-in-filter="false" sap:label="Division Description"/>
                 <Property Name="DistributionChannel" Type="Edm.String" MaxLength="2" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Distribution Channel"/>
                 <Property Name="DistributionChannelName" Type="Edm.String" MaxLength="20" sap:required-in-filter="false" sap:label="Distribution Channel Description"/>
+                <Property Name="YY1_COLLECTIVEINVOICE_BDI" Type="Edm.String" MaxLength="3" sap:required-in-filter="false" sap:text="to_YY1_COLLECTIVEINVOICE_BDI/Code_Text" sap:label="Collective Invoice Indicator (Item)" sap:quickinfo="COLLECTIVE INVOICE INDICATOR" sap:value-list="standard"/>
+                <Property Name="YY1_COLLECTIVEINVOICE_BDH" Type="Edm.String" MaxLength="3" sap:required-in-filter="false" sap:text="to_YY1_COLLECTIVEINVOICE_BDH/Code_Text" sap:label="Collective Invoice Indicator (Header)" sap:quickinfo="COLLECTIVE INVOICE INDICATOR" sap:value-list="standard"/>
+                <NavigationProperty Name="to_YY1_COLLECTIVEINVOICE_BDH" Relationship="YY1_V_BILLINGDOC_DMR_CDS.assoc_3648A4C51E46AC2C282AA8A4583E630C" FromRole="FromRole_assoc_3648A4C51E46AC2C282AA8A4583E630C" ToRole="ToRole_assoc_3648A4C51E46AC2C282AA8A4583E630C"/>
+                <NavigationProperty Name="to_YY1_COLLECTIVEINVOICE_BDI" Relationship="YY1_V_BILLINGDOC_DMR_CDS.assoc_910DF395AD5BACFF74F91B5AA3AEA48D" FromRole="FromRole_assoc_910DF395AD5BACFF74F91B5AA3AEA48D" ToRole="ToRole_assoc_910DF395AD5BACFF74F91B5AA3AEA48D"/>
             </EntityType>
+            <Association Name="assoc_910DF395AD5BACFF74F91B5AA3AEA48D" sap:content-version="1">
+                <End Type="YY1_V_BILLINGDOC_DMR_CDS.YY1_V_BILLINGDOC_DMRType" Multiplicity="1" Role="FromRole_assoc_910DF395AD5BACFF74F91B5AA3AEA48D"/>
+                <End Type="YY1_V_BILLINGDOC_DMR_CDS.YY1_COLLECTIVEINVOICE_VType" Multiplicity="0..1" Role="ToRole_assoc_910DF395AD5BACFF74F91B5AA3AEA48D"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_910DF395AD5BACFF74F91B5AA3AEA48D">
+                        <PropertyRef Name="Code"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_910DF395AD5BACFF74F91B5AA3AEA48D">
+                        <PropertyRef Name="YY1_COLLECTIVEINVOICE_BDI"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
+            <Association Name="assoc_3648A4C51E46AC2C282AA8A4583E630C" sap:content-version="1">
+                <End Type="YY1_V_BILLINGDOC_DMR_CDS.YY1_V_BILLINGDOC_DMRType" Multiplicity="1" Role="FromRole_assoc_3648A4C51E46AC2C282AA8A4583E630C"/>
+                <End Type="YY1_V_BILLINGDOC_DMR_CDS.YY1_COLLECTIVEINVOICE_VType" Multiplicity="0..1" Role="ToRole_assoc_3648A4C51E46AC2C282AA8A4583E630C"/>
+                <ReferentialConstraint>
+                    <Principal Role="ToRole_assoc_3648A4C51E46AC2C282AA8A4583E630C">
+                        <PropertyRef Name="Code"/>
+                    </Principal>
+                    <Dependent Role="FromRole_assoc_3648A4C51E46AC2C282AA8A4583E630C">
+                        <PropertyRef Name="YY1_COLLECTIVEINVOICE_BDH"/>
+                    </Dependent>
+                </ReferentialConstraint>
+            </Association>
             <EntityContainer Name="YY1_V_BILLINGDOC_DMR_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
+                <EntitySet Name="YY1_COLLECTIVEINVOICE_V" EntityType="YY1_V_BILLINGDOC_DMR_CDS.YY1_COLLECTIVEINVOICE_VType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:searchable="true" sap:content-version="1"/>
                 <EntitySet Name="YY1_V_BILLINGDOC_DMR" EntityType="YY1_V_BILLINGDOC_DMR_CDS.YY1_V_BILLINGDOC_DMRType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
+                <AssociationSet Name="assoc_3648A4C51E46AC2C282AA8A4583E630C" Association="YY1_V_BILLINGDOC_DMR_CDS.assoc_3648A4C51E46AC2C282AA8A4583E630C" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="YY1_V_BILLINGDOC_DMR" Role="FromRole_assoc_3648A4C51E46AC2C282AA8A4583E630C"/>
+                    <End EntitySet="YY1_COLLECTIVEINVOICE_V" Role="ToRole_assoc_3648A4C51E46AC2C282AA8A4583E630C"/>
+                </AssociationSet>
+                <AssociationSet Name="assoc_910DF395AD5BACFF74F91B5AA3AEA48D" Association="YY1_V_BILLINGDOC_DMR_CDS.assoc_910DF395AD5BACFF74F91B5AA3AEA48D" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="YY1_V_BILLINGDOC_DMR" Role="FromRole_assoc_910DF395AD5BACFF74F91B5AA3AEA48D"/>
+                    <End EntitySet="YY1_COLLECTIVEINVOICE_V" Role="ToRole_assoc_910DF395AD5BACFF74F91B5AA3AEA48D"/>
+                </AssociationSet>
             </EntityContainer>
             <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
+            <Annotations Target="YY1_V_BILLINGDOC_DMR_CDS.YY1_V_BILLINGDOC_DMRType/YY1_COLLECTIVEINVOICE_BDI" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="YY1_COLLECTIVEINVOICE"/>
+                        <PropertyValue Property="CollectionPath" String="YY1_COLLECTIVEINVOICE_V"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_COLLECTIVEINVOICE_BDI"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Code_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
+            <Annotations Target="YY1_V_BILLINGDOC_DMR_CDS.YY1_V_BILLINGDOC_DMRType/YY1_COLLECTIVEINVOICE_BDH" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Common.ValueList">
+                    <Record>
+                        <PropertyValue Property="Label" String="YY1_COLLECTIVEINVOICE"/>
+                        <PropertyValue Property="CollectionPath" String="YY1_COLLECTIVEINVOICE_V"/>
+                        <PropertyValue Property="SearchSupported" Bool="true"/>
+                        <PropertyValue Property="Parameters">
+                            <Collection>
+                                <Record Type="Common.ValueListParameterInOut">
+                                    <PropertyValue Property="LocalDataProperty" PropertyPath="YY1_COLLECTIVEINVOICE_BDH"/>
+                                    <PropertyValue Property="ValueListProperty" String="Code"/>
+                                </Record>
+                                <Record Type="Common.ValueListParameterDisplayOnly">
+                                    <PropertyValue Property="ValueListProperty" String="Code_Text"/>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
+            </Annotations>
             <Annotations Target="YY1_V_BILLINGDOC_DMR_CDS.YY1_V_BILLINGDOC_DMR_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
+            </Annotations>
+            <Annotations Target="YY1_V_BILLINGDOC_DMR_CDS.YY1_V_BILLINGDOC_DMR_CDS_Entities/YY1_V_BILLINGDOC_DMR" xmlns="http://docs.oasis-open.org/odata/ns/edm">
+                <Annotation Term="Capabilities.NavigationRestrictions">
+                    <Record>
+                        <PropertyValue Property="RestrictedProperties">
+                            <Collection>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_YY1_COLLECTIVEINVOICE_BDH"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                                <Record>
+                                    <PropertyValue Property="NavigationProperty" NavigationPropertyPath="to_YY1_COLLECTIVEINVOICE_BDI"/>
+                                    <PropertyValue Property="InsertRestrictions">
+                                        <Record>
+                                            <PropertyValue Property="Insertable" Bool="false"/>
+                                        </Record>
+                                    </PropertyValue>
+                                </Record>
+                            </Collection>
+                        </PropertyValue>
+                    </Record>
+                </Annotation>
             </Annotations>
             <Annotations Target="YY1_V_BILLINGDOC_DMR_CDS.YY1_V_BILLINGDOC_DMR_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
             <atom:link rel="self" href="https://my403379-api.s4hana.cloud.sap/sap/opu/odata/sap/YY1_V_BILLINGDOC_DMR_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>

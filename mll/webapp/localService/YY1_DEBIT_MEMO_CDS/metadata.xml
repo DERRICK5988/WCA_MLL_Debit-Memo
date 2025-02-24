@@ -41,7 +41,7 @@
                 </Key>
                 <Property Name="ID" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="ReferenceSDDocument" Type="Edm.String" MaxLength="10" sap:attribute-for="ReferenceSDDocument" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Reference Document" sap:quickinfo="Document Number of Reference Document"/>
-                <Property Name="GroupCount" Type="Edm.Byte" sap:aggregation-role="measure" sap:attribute-for="ReferenceSDDocument" sap:required-in-filter="false" sap:label="Group Count" sap:filterable="false"/>
+                <Property Name="GroupCount" Type="Edm.Byte" sap:aggregation-role="measure" sap:attribute-for="ReferenceSDDocument" sap:required-in-filter="false" sap:label="GroupCount" sap:filterable="false"/>
             </EntityType>
             <EntityContainer Name="YY1_DEBIT_MEMO_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
                 <EntitySet Name="YY1_DEBIT_MEMO" EntityType="YY1_DEBIT_MEMO_CDS.YY1_DEBIT_MEMOType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>

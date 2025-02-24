@@ -35,13 +35,11 @@
     </edmx:Reference>
     <edmx:DataServices m:DataServiceVersion="2.0">
         <Schema Namespace="YY1_BILLINGDOC_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-            <EntityType Name="YY1_BILLINGDOCType" sap:semantics="aggregate" sap:label="VH - Billing Document" sap:content-version="1">
+            <EntityType Name="YY1_BILLINGDOCType" sap:label="VH - Billing Document" sap:content-version="1">
                 <Key>
-                    <PropertyRef Name="ID"/>
+                    <PropertyRef Name="BillingDocument"/>
                 </Key>
-                <Property Name="ID" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="BillingDocument" Type="Edm.String" MaxLength="10" sap:attribute-for="BillingDocument" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Billing Document"/>
-                <Property Name="GroupCount" Type="Edm.Byte" sap:aggregation-role="measure" sap:attribute-for="BillingDocument" sap:required-in-filter="false" sap:label="GroupCount" sap:filterable="false"/>
+                <Property Name="BillingDocument" Type="Edm.String" Nullable="false" MaxLength="10" sap:display-format="UpperCase" sap:required-in-filter="false" sap:label="Billing Document"/>
             </EntityType>
             <EntityContainer Name="YY1_BILLINGDOC_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
                 <EntitySet Name="YY1_BILLINGDOC" EntityType="YY1_BILLINGDOC_CDS.YY1_BILLINGDOCType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>
@@ -49,27 +47,6 @@
             <Annotation Term="Core.SchemaVersion" String="1.0.0" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
             <Annotations Target="YY1_BILLINGDOC_CDS.YY1_BILLINGDOC_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm">
                 <Annotation Term="Common.ApplyMultiUnitBehaviorForSortingAndFiltering" Bool="true"/>
-            </Annotations>
-            <Annotations Target="YY1_BILLINGDOC_CDS.YY1_BILLINGDOC_CDS_Entities/YY1_BILLINGDOC" xmlns="http://docs.oasis-open.org/odata/ns/edm">
-                <Annotation Term="Capabilities.FilterRestrictions">
-                    <Record>
-                        <PropertyValue Property="NonFilterableProperties">
-                            <Collection>
-                                <PropertyPath>ID</PropertyPath>
-                                <PropertyPath>GroupCount</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
-                <Annotation Term="Capabilities.SortRestrictions">
-                    <Record>
-                        <PropertyValue Property="NonSortableProperties">
-                            <Collection>
-                                <PropertyPath>ID</PropertyPath>
-                            </Collection>
-                        </PropertyValue>
-                    </Record>
-                </Annotation>
             </Annotations>
             <Annotations Target="YY1_BILLINGDOC_CDS.YY1_BILLINGDOC_CDS_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
             <atom:link rel="self" href="https://my403379-api.s4hana.cloud.sap/sap/opu/odata/sap/YY1_BILLINGDOC_CDS/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>

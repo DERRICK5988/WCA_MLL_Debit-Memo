@@ -20,17 +20,19 @@ sap.ui.define([
                     // bEditable: false,
                     bSelected: false,
                     bValidate: false,
+                    bCreditMemoExist: false,
+                    bWizValidation: true,
                     iSelectedStepIndex: 0,
                     bStepBtnVisible: false,
-                    // sCreditMemoLink: (window.location.origin.includes("sycorcustomdevelopmenttest")) ? "https://my312750.s4hana.ondemand.com/ui#PrelimBillingDocument-displayFactSheet" : "https://my313406.s4hana.ondemand.com/ui#PrelimBillingDocument-displayFactSheet",
-                    sBillingDocLink: "https://my403379.s4hana.cloud.sap/ui#BillingDocument-manage&/object/display/",
-                    sDebitMemoLink: "https://my403379.s4hana.cloud.sap/ui#DebitMemoRequest-display?$basicSearch=&DebitMemoRequest=",
-                    sCreditMemoLink: "https://my403379.s4hana.cloud.sap/ui#CreditMemoRequest-display?$basicSearch=&CreditMemoRequest=",
+                    // Check environment
+                    sBillingDocLink: (window.location.href.includes("env=dev")) ? "https://my403379.s4hana.cloud.sap/ui#BillingDocument-manage&/object/display/" : "https://my403692.s4hana.cloud.sap/ui#BillingDocument-manage&/object/display/",
+                    sDebitMemoLink: (window.location.href.includes("env=dev")) ? "https://my403379.s4hana.cloud.sap/ui#DebitMemoRequest-display?$basicSearch=&DebitMemoRequest=" : "https://my403692.s4hana.cloud.sap/ui#DebitMemoRequest-display?$basicSearch=&DebitMemoRequest=",
+                    sCreditMemoLink: (window.location.href.includes("env=dev")) ? "https://my403379.s4hana.cloud.sap/ui#CreditMemoRequest-display?$basicSearch=&CreditMemoRequest=" : "https://my403692.s4hana.cloud.sap/ui#CreditMemoRequest-display?$basicSearch=&CreditMemoRequest=",
                     aCreditMemoHdrWiz: { aCreditMemoItm: [] },
                     Items: []
                 });
             },
-            createMetadataHelper: function (sCond) {
+            createMetadataHelper: function () {
                 const oTable = this.byId("idDebitMemoTable");
                 return oTable.getColumns().map((oColumn, iIndex) => ({
                     key: this.getView().getLocalId(oColumn.getId()) || oColumn.getId(),

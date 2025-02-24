@@ -66,6 +66,16 @@ sap.ui.define(["sap/ui/core/format/DateFormat", "sap/ui/core/format/NumberFormat
                 Value = Value;
             }
             return Value;
+        },
+        checkQuantity: function (billingQuantity, billingQuantityCheck) {
+            var isValid = billingQuantity <= billingQuantityCheck;
+            this.getView().getModel("DebitMemo").setProperty("/bWizValidation", isValid);
+            return isValid ? "None" : "Error";
+        },
+        checkAmount: function (sNetAmount, sNetAmountCheck, sCancelledAmount) {
+            var isValid = (Number(sNetAmount) + Number(sCancelledAmount)) <= Number(sNetAmountCheck);
+            this.getView().getModel("DebitMemo").setProperty("/bWizValidation", isValid);
+            return isValid ? "None" : "Error";
         }
     };
 });

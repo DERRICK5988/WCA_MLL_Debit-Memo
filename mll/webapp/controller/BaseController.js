@@ -11,14 +11,16 @@ sap.ui.define([
     "sap/ui/core/Fragment",
     "sap/m/SearchField",
     "sap/m/ColumnListItem",
+    "sap/ui/table/Column",
     "sap/m/Input",
     "sap/m/Label",
+    "sap/m/Text",
     "sap/m/p13n/Engine",
     "sap/m/p13n/MetadataHelper",
     "sap/m/p13n/SelectionController",
     "../model/models",
     "sap/ui/model/Sorter",
-], function (Controller, History, JSONModel, formatter, Filter, FilterOperator, FilterBar, FilterGroupItem, Message, Fragment, SearchField, ColumnListItem, Input, Label, Engine, MetadataHelper, SelectionController, models, Sorter) {
+], function (Controller, History, JSONModel, formatter, Filter, FilterOperator, FilterBar, FilterGroupItem, Message, Fragment, SearchField, ColumnListItem, Column, Input, Label, Text, Engine, MetadataHelper, SelectionController, models, Sorter) {
     "use strict";
 
     return Controller.extend("mll.controller.BaseController", {
@@ -153,19 +155,17 @@ sap.ui.define([
                     }
                 };
                 this.oValueHelpDialogue.getTableAsync().then(function (oTable) {
-                    debugger;
-                    // oTable.setVisibleRowCount(100);              // Show 20 rows at a time
                     oTable.setRowMode("Fixed");
-                    oTable.setThreshold(100);                    // Pre-fetch extra rows
+                    oTable.setThreshold(100);
                     oTable.setEnableBusyIndicator(true);
                     oTable.setEnableSelectAll(true);
                     oTable.setModel(new JSONModel({
                         cols: aCols
                     }), "columns");
                     if (oTable.bindRows) {
-                        // Bind rows to the ODataModel and add columns
                         oTable.bindAggregation("rows", oBindingInfo);
                     }
+
                     if (oTable.bindItems) {
                         oTable.bindAggregation("items", oBindingInfo, function () {
                             return new ColumnListItem({
@@ -226,44 +226,6 @@ sap.ui.define([
                 })
             }.bind(this));
         },
-        /**
-         * Copy
-         * @param {Object} Json model property for update request
-         * @public
-         */
-        updateRec: function (object) {
-            return new Promise(function (resolve, reject) {
-                object.oModel.update(object.sKey, object.oPayload, {
-                    success: function (oResp) {
-                        resolve(oResp);
-                    }.bind(this),
-                    error: function (oErr) {
-                        reject(oErr);
-                    }.bind(this)
-                })
-            }.bind(this));
-        },
-        /**
-         * Update
-         * @param {object} Json model property for update request
-         * @public
-         */
-        updateRes: function (object) {
-            object.oModel.update(object.sKey, object.oPayload, object.mParameters);
-        },
-        deleteRec: function (object) {
-            // @ts-ignore
-            return new Promise(function (resolve, reject) {
-                object.oModel.remove(object.sKey, {
-                    success: function (oResp) {
-                        resolve(oResp);
-                    }.bind(this),
-                    error: function (oErr) {
-                        reject(oErr);
-                    }.bind(this)
-                })
-            }.bind(this));
-        },
         batchChange: function (object) {
             return new Promise(function (resolve, reject) {
                 object.oModel.submitChanges(Object.assign(object.mParameters, {
@@ -310,7 +272,6 @@ sap.ui.define([
          * @private
          */
         fetchCsrfToken: function (oModel) {
-
             return new Promise((resolve, reject) => {
                 try {
                     oModel.refreshSecurityToken(function (oResp) {
@@ -358,7 +319,7 @@ sap.ui.define([
         },
         registerForP13nDetail: function (sId) {
             var oTable = this.byId(sId);
-            this.oMetadataHelper = new MetadataHelper(models.createMetadataHelper.call(this, "DebitMemoPersonalization").map((o, i) => o));
+            this.oMetadataHelper = new MetadataHelper(models.createMetadataHelper.call(this).map((o, i) => o));
 
             Engine.getInstance().register(oTable, {
                 helper: this.oMetadataHelper,
@@ -405,7 +366,6 @@ sap.ui.define([
             var aFilterItems = oFilterBar.getFilterGroupItems();
             var aBasicFilters = [];
             var aFilters = [];
-
             aFilterItems.map(function (oItem) {
                 if (sSearchQuery) {
                     aBasicFilters.push(

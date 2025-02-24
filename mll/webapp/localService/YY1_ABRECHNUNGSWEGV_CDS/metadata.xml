@@ -35,13 +35,13 @@
     </edmx:Reference>
     <edmx:DataServices m:DataServiceVersion="2.0">
         <Schema Namespace="YY1_ABRECHNUNGSWEGV_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-            <EntityType Name="YY1_ABRECHNUNGSWEGVType" sap:semantics="aggregate" sap:label="VH - ABRECHNUNGSWEG" sap:content-version="1">
+            <EntityType Name="YY1_ABRECHNUNGSWEGVType" sap:semantics="aggregate" sap:label="VH - ABRECHNUNGSWEGV" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="ID"/>
                 </Key>
                 <Property Name="ID" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="YY1_Abrechnungsweg_BDH" Type="Edm.String" MaxLength="20" sap:attribute-for="YY1_Abrechnungsweg_BDH" sap:required-in-filter="false" sap:label="Abrechnungsweg"/>
-                <Property Name="GroupCount" Type="Edm.Byte" sap:aggregation-role="measure" sap:attribute-for="YY1_Abrechnungsweg_BDH" sap:required-in-filter="false" sap:label="Group Count" sap:filterable="false"/>
+                <Property Name="GroupCount" Type="Edm.Byte" sap:aggregation-role="measure" sap:attribute-for="YY1_Abrechnungsweg_BDH" sap:required-in-filter="false" sap:label="GroupCount" sap:filterable="false"/>
             </EntityType>
             <EntityContainer Name="YY1_ABRECHNUNGSWEGV_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
                 <EntitySet Name="YY1_ABRECHNUNGSWEGV" EntityType="YY1_ABRECHNUNGSWEGV_CDS.YY1_ABRECHNUNGSWEGVType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>

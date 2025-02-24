@@ -309,6 +309,14 @@
                 <Property Name="OverallOrdReltdBillgStatus" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Order-Related Billing Status" sap:quickinfo="Order-Related Billing Status (All Items)" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="AccountingDocExternalReference" Type="Edm.String" MaxLength="16" sap:display-format="UpperCase" sap:label="Reference" sap:quickinfo="Reference Document Number"/>
                 <Property Name="AssignmentReference" Type="Edm.String" MaxLength="18" sap:label="Assignment" sap:quickinfo="Assignment Number"/>
+                <Property Name="YY1_ALTERNATIVEDIAGNOS_SDH" Type="Edm.String" MaxLength="7" sap:label="Alternative Diagnose"/>
+                <Property Name="YY1_DiagnosisCertainty_SDH" Type="Edm.String" MaxLength="3" sap:label="DiagnosisCertainty"/>
+                <Property Name="YY1_LABID_SDH" Type="Edm.String" MaxLength="30" sap:label="LABID" sap:quickinfo="LAB ID"/>
+                <Property Name="YY1_ActualCustomer_SDH" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Actual Customer"/>
+                <Property Name="YY1_PATIENT_NAME_SDH" Type="Edm.String" MaxLength="60" sap:label="Patient Name" sap:quickinfo="Name"/>
+                <Property Name="YY1_PATIENT_ID_SDH" Type="Edm.String" MaxLength="20" sap:label="Patient ID"/>
+                <Property Name="YY1_PATIENT_BIRTH_DATE_SDH" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Patient Birth Date" sap:quickinfo="Birth Date"/>
+                <Property Name="YY1_ICDCODE_SDH" Type="Edm.String" MaxLength="7" sap:label="ICD CODE"/>
                 <NavigationProperty Name="to_Item" Relationship="API_CREDIT_MEMO_REQUEST_SRV.assoc_9C2EF80E361135EB0B13D16E6DD060E7" FromRole="FromRole_assoc_9C2EF80E361135EB0B13D16E6DD060E7" ToRole="ToRole_assoc_9C2EF80E361135EB0B13D16E6DD060E7"/>
                 <NavigationProperty Name="to_Partner" Relationship="API_CREDIT_MEMO_REQUEST_SRV.assoc_24B55657FE6FFCE9DFEC74C8840AEA2D" FromRole="FromRole_assoc_24B55657FE6FFCE9DFEC74C8840AEA2D" ToRole="ToRole_assoc_24B55657FE6FFCE9DFEC74C8840AEA2D"/>
                 <NavigationProperty Name="to_PricingElement" Relationship="API_CREDIT_MEMO_REQUEST_SRV.assoc_ABE1457B604910B815A70764D97A90E8" FromRole="FromRole_assoc_ABE1457B604910B815A70764D97A90E8" ToRole="ToRole_assoc_ABE1457B604910B815A70764D97A90E8"/>
@@ -378,8 +386,11 @@
                 <Property Name="SDProcessStatus" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Overall Status" sap:quickinfo="Overall Processing Status (Item)" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="OrderRelatedBillingStatus" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Order-Related Billing Status" sap:quickinfo="Order-Related Billing Status (Item)" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="ServicesRenderedDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Date of Services Rendered" sap:quickinfo="Date on which services are rendered"/>
+                <Property Name="YY1_CancelledDocRef_SDI" Type="Edm.String" MaxLength="20" sap:label="Cancelled Doc Reference"/>
                 <Property Name="YY1_ReferenceID_SDI" Type="Edm.String" MaxLength="20" sap:label="ReferenceID"/>
+                <Property Name="YY1_LABID_SDI" Type="Edm.String" MaxLength="30" sap:label="LABID" sap:quickinfo="LAB ID"/>
                 <Property Name="YY1_PATIENT_NAME_SDI" Type="Edm.String" MaxLength="60" sap:label="Patient Name" sap:quickinfo="Name"/>
+                <Property Name="YY1_CancelledRefItem_SDI" Type="Edm.String" MaxLength="6" sap:display-format="NonNegative" sap:label="Cancelled Reference Item No" sap:quickinfo="Cancelled Doc Ref Item No"/>
                 <Property Name="YY1_StudyDay_SDI" Type="Edm.String" MaxLength="20" sap:label="StudyDay"/>
                 <NavigationProperty Name="to_CreditMemoRequest" Relationship="API_CREDIT_MEMO_REQUEST_SRV.assoc_03E2B2623B8CF9B118D639E3F81F57C3" FromRole="FromRole_assoc_03E2B2623B8CF9B118D639E3F81F57C3" ToRole="ToRole_assoc_03E2B2623B8CF9B118D639E3F81F57C3"/>
                 <NavigationProperty Name="to_ItemSubsqntProcFlow" Relationship="API_CREDIT_MEMO_REQUEST_SRV.assoc_E693E5E59ED831F49D13EBE72188335D" FromRole="FromRole_assoc_E693E5E59ED831F49D13EBE72188335D" ToRole="ToRole_assoc_E693E5E59ED831F49D13EBE72188335D"/>

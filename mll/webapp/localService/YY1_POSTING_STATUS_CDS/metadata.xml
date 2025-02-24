@@ -35,7 +35,7 @@
     </edmx:Reference>
     <edmx:DataServices m:DataServiceVersion="2.0">
         <Schema Namespace="YY1_POSTING_STATUS_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-            <EntityType Name="YY1_POSTING_STATUSType" sap:label="Accounting posting status" sap:content-version="1">
+            <EntityType Name="YY1_POSTING_STATUSType" sap:label="VH - Accounting posting status" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="AccountingPostingStatus"/>
                     <PropertyRef Name="Language"/>

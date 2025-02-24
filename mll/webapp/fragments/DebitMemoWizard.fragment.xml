@@ -9,6 +9,16 @@
 	xmlns:sap.ui.dt="sap.ui.dt"
 	xmlns:i18n="sap.ui.model.resource.ResourceModel">
 	<Dialog id="idDebitMemoWizard" showHeader="false" verticalScrolling="false" contentHeight="100%" contentWidth="100%">
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<!-- <Text text="{i18n>CreditMemoCreation}" /> -->
+				</contentLeft>
+				<contentRight>
+					<Button icon="sap-icon://decline" press=".onCloseDialog($event, 'idDebitMemoWizard', ${DebitMemo>/})" tooltip="Exit"/>
+				</contentRight>
+			</Bar>
+		</customHeader>
 		<f:DynamicPage stickySubheaderProvider="idDebitMemoHeaderWizard" toggleHeaderOnTitleClick="false" class="sapUiNoContentPadding" showFooter="true">
 			<f:title>
 				<f:DynamicPageTitle>
@@ -27,20 +37,21 @@
 									<Label text="{i18n>CreditMemoRequestType}"/>
 									<Text text="{DebitMemo>/aCreditMemoHdrWiz/CreditMemoRequestType}" width="200px"/>
 									<Label text="{i18n>SalesOrganization}"/>
-									<Text text="{DebitMemo>/aCreditMemoHdrWiz/SalesOrganizationName} ({DebitMemo>/aCreditMemoHdrWiz/SalesOrganization})"/>
+									<Text text="{= ${DebitMemo>/aCreditMemoHdrWiz/SalesOrganization} ? ${DebitMemo>/aCreditMemoHdrWiz/SalesOrganization} + ' - ' + ${DebitMemo>/aCreditMemoHdrWiz/SalesOrganizationName} : ''}"/>
 									<Label text="{i18n>DistributionChannel}"/>
-									<Text text="{DebitMemo>/aCreditMemoHdrWiz/DistributionChannelName} ({DebitMemo>/aCreditMemoHdrWiz/DistributionChannel})"/>
+									<Text text="{DebitMemo>/aCreditMemoHdrWiz/DistributionChannel} - {DebitMemo>/aCreditMemoHdrWiz/DistributionChannelName}"/>
 									<!-- <ComboBox name="distrchnl" width="200px" items="{ path: 'DMR>/DistributionChannelVH', sorter: { vSorterInfo: {path: 'DistributionChannel'} }, templateShareable: false, suspended: false }"> -->
 									<!-- <ComboBox name="distrchnl" width="200px" items="{ path: 'DMR>/DistributionChannelVH', templateShareable: false, suspended: false }">
 										<core:ListItem key="{DMR>DistributionChannel}" text="{DMR>DistributionChannel}"/>
 									</ComboBox> -->
 									<Label text="{i18n>Division}"/>
-									<Text text="{DebitMemo>/aCreditMemoHdrWiz/DivisionName} ({DebitMemo>/aCreditMemoHdrWiz/Division})"/>
+									<Text text="{DebitMemo>/aCreditMemoHdrWiz/Division} - {DebitMemo>/aCreditMemoHdrWiz/DivisionName}"/>
 									<!-- <ComboBox name="division" value="{DebitMemo>/aCreditMemoHdrWiz/Division}" showSecondaryValues="true" width="200px" items="{ path: 'DMR>/DivisionVH', sorter: { vSorterInfo: { path: 'Division' } }, templateShareable: false, suspended: false }">
 										<core:ListItem key="{DMR>Division}" text="{DMR>Division}"/>
 									</ComboBox> -->
 									<Label text="{i18n>SoldToParty}"/>
-									<Text text="{DebitMemo>/aCreditMemoHdrWiz/CustomerName} ({DebitMemo>/aCreditMemoHdrWiz/Customer})"/>
+									<Text text="{= ${DebitMemo>/aCreditMemoHdrWiz/YY1_ActualCustomer_BDI} ? ${DebitMemo>/aCreditMemoHdrWiz/YY1_ActualCustomer_BDI} + ' - ' + ${DebitMemo>/aCreditMemoHdrWiz/YY1_ActualCustomerName_BDI} : ''}"/>
+									<!-- <Text text="{DebitMemo>/aCreditMemoHdrWiz/SoldToParty} - {DebitMemo>/aCreditMemoHdrWiz/SoldToPartyName}"/> -->
 									<!-- <Input name="soldtoparty" required="true" maxLength="10" showValueStateMessage="true" value="{DebitMemo>/aCreditMemoHdrWiz/SoldToParty}" showValueHelp="true" showSuggestion="true" valueHelpRequest=".onValueHelpRequested($event, false)" showClearIcon="true" suggest=".onSuggest" suggestionItems="{ path: 'YY1_SOLDTOPARTY_CDS>/YY1_SOLDTOPARTY', templateShareable: true }" width="250px">
 										<suggestionItems>
 											<core:ListItem id="idWizSoldToParty" key="{YY1_SOLDTOPARTY_CDS>CustomerName}" text="{path : 'YY1_SOLDTOPARTY_CDS>Customer'}" additionalText="{ path : 'YY1_SOLDTOPARTY_CDS>CustomerName'}"/>
@@ -110,8 +121,6 @@
 									<t:extension>
 										<OverflowToolbar id="idToolbar" height="auto">
 											<ToolbarSpacer/>
-											<!-- <Button icon="sap-icon://add" press=".onPressWizItemBtn($event, ${DebitMemo>/aCreditMemoHdrWiz}, 'Add')"/>
-											<Button icon="sap-icon://request" tooltip="{i18n>ForecastBtnMsg}" press=".onPressWizItemBtn($event, ${DebitMemo>/aCreditMemoHdrWiz}, 'Forecast', 'ForecastMassEdit')" enabled="{DebitMemo>/oForecast/bEnabled}" visible="{= ${DebitMemo>/sAction} === 'Edit'}"/> -->
 											<Button icon="sap-icon://reset" press=".onPressWizItemBtn($event, ${DebitMemo>/aCreditMemoHdrWiz}, 'Reset')"/>
 											<Button icon="sap-icon://delete" press=".onPressWizItemBtn($event, ${DebitMemo>/aCreditMemoHdrWiz}, 'Delete')" enabled="{DebitMemo>/aCreditMemoHdrWiz/bSelected}"/>
 										</OverflowToolbar>
@@ -132,7 +141,7 @@
 												<Text text="{DebitMemo>BillingDocumentItem}"/>
 											</t:template>
 										</t:Column>
-										<t:Column autoResizable="true" width="300px">
+										<t:Column autoResizable="true" width="150px">
 											<Label text="{i18n>DebitMemoRequest}" tooltip="{i18n>DebitMemoRequest}"/>
 											<t:template>
 												<!-- <Input name="creditmemo" change="handleChange" value="{DebitMemo>Material}" maxLength="40" showValueHelp="true" showSuggestion="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequested($event, false)" showClearIcon="true" suggest=".onSuggest" suggestionItems="{ path: 'DMR>/MaterialVH', templateShareable: true }">
@@ -143,21 +152,22 @@
 												<Text text="{DebitMemo>DebitMemoRequest}"/>
 											</t:template>
 										</t:Column>
-										<t:Column autoResizable="true" width="200px">
+										<!-- <t:Column autoResizable="true" width="200px">
 											<Label text="{i18n>CreditMemo}" tooltip="{i18n>CreditMemo}"/>
 											<t:template>
-												<Text text="{DebitMemo>CreditMemo}"/>
+												<Text text="{DebitMemo>CreditMemoRequest}"/>
 											</t:template>
-										</t:Column>
+										</t:Column> -->
 										<t:Column autoResizable="true" width="400px">
 											<Label text="{i18n>BillingDocumentText}" tooltip="{i18n>BillingDocumentText}"/>
 											<t:template>
-												<Text text="{DebitMemo>ProductDescription}" tooltip="{DebitMemo>Product}"/>
+												<!-- <Text text="{DebitMemo>ProductDescription}" tooltip="{DebitMemo>Product}"/> -->
+												<Text text="{= ${DebitMemo>Product} ? '(' + ${DebitMemo>Product} + ') ' + ${DebitMemo>ProductDescription} : ''}" tooltip="{DebitMemo>Product}" wrapping="false"/>
 											</t:template>
 										</t:Column>
 
 										<t:Column autoResizable="true" width="100px">
-											<Label text="{i18n>LABID}" tooltip="{i18n>LABID}"/>
+											<Label text="{i18n>Labid}" tooltip="{i18n>Labid}"/>
 											<t:template>
 												<Text text="{DebitMemo>YY1_LABID_BDI}"/>
 												<!-- <Input name="wbselement" value="{DebitMemo>YY1_LABID_BDI}" maxLength="24" showValueHelp="true" showSuggestion="true" valueHelpOnly="false" valueHelpRequest=".onValueHelpRequested($event, false)" showClearIcon="true" suggest=".onSuggest" suggestionItems="{ path: 'DMR>/WorkPackageVH', templateShareable: true }">
@@ -167,30 +177,44 @@
 												</Input> -->
 											</t:template>
 										</t:Column>
-										<t:Column autoResizable="true" width="150px">
-											<Label text="{i18n>Quantity}" tooltip="{i18n>Quantity}"/>
+
+										<t:Column autoResizable="true" width="100px">
+											<Label text="{i18n>TargetQuantity}" tooltip="{i18n>TargetQuantity}"/>
 											<t:template>
-												<Input type="Number" value="{DebitMemo>BillingQuantity}" width="80px" />
+												<!-- <Input type="Number" valueState="{ parts: [{ path: 'DebitMemo>BillingQuantity' }, { path: 'DebitMemo>BillingQuantityCheck' }], formatter: '.formatter.checkQuantity' }" valueStateText="The quantity exceeds the billing quantity." value="{DebitMemo>BillingQuantity}" width="80px" /> -->
+												<Text text="{DebitMemo>BillingQuantity}"/>
 											</t:template>
 										</t:Column>
-										<t:Column autoResizable="true" width="150px">
+										<t:Column autoResizable="true" width="70px">
 											<Label text="{i18n>UOM}" tooltip="{i18n>UOM}"/>
 											<t:template>
 												<Text text="{DebitMemo>BillingQuantityUnit}"/>
 											</t:template>
 										</t:Column>
-										<t:Column autoResizable="true" width="250px">
-											<Label text="{i18n>NetAmount}" tooltip="{i18n>NetAmount}"/>
+										<t:Column autoResizable="true" width="150px">
+											<Label text="{i18n>BillingAmount}" tooltip="{i18n>BillingAmount}"/>
 											<t:template>
-												<Input value="{ path: 'DebitMemo>NetAmount', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 2, maxFractionDigits: 2, groupingEnabled: true, groupingSeparator: '.', decimalSeparator: ',' }}"/>
+												<ObjectNumber textAlign="End" number="{ path: 'DebitMemo>BillingAmount', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 2, maxFractionDigits: 2 }}" unit="{DebitMemo>TransactionCurrency}"/>
 											</t:template>
 										</t:Column>
 										<t:Column autoResizable="true" width="150px">
+											<Label text="{i18n>CancelledAmount}" tooltip="{i18n>CancelledAmount}"/>
+											<t:template>
+												<ObjectNumber textAlign="End" number="{ path: 'DebitMemo>CancelledAmount', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 2, maxFractionDigits: 2 }}" unit="{DebitMemo>TransactionCurrency}"/>
+											</t:template>
+										</t:Column>
+										<t:Column autoResizable="true" width="250px">
+											<Label text="{i18n>NetAmount}" tooltip="{i18n>NetAmount}"/>
+											<t:template>
+												<Input valueState="{ parts: [{ path: 'DebitMemo>NetAmount' }, { path: 'DebitMemo>NetAmountCheck' }, { path: 'DebitMemo>CancelledAmount' }], formatter: '.formatter.checkAmount' }" valueStateText="The amount exceeds the billing amount." value="{ path: 'DebitMemo>NetAmount', type: 'sap.ui.model.type.Float', formatOptions: { minFractionDigits: 2, maxFractionDigits: 2, groupingEnabled: true, groupingSeparator: ',', decimalSeparator: '.' }}"/>
+											</t:template>
+										</t:Column>
+										<!-- <t:Column autoResizable="true" width="70px">
 											<Label text="{i18n>Currency}" tooltip="{i18n>Currency}"/>
 											<t:template>
 												<Text text="{DebitMemo>TransactionCurrency}"/>
 											</t:template>
-										</t:Column>
+										</t:Column> -->
 										<!-- <t:Column autoResizable="true" width="250px">
 										<Label text="Reference Doc" tooltip="Reference Doc"/>
 										<t:template>
@@ -279,7 +303,7 @@
 					<ToolbarSpacer/>
 					<Button icon="sap-icon://navigation-right-arrow" text="{i18n>NextStep}" visible="{= !${DebitMemo>/bStepBtnVisible}}" press="onDialogNextButton" />
 					<!-- <Button icon="sap-icon://to-be-reviewed" text="Review" type="Accept" visible="{/reviewButtonVisible}" press="onDialogNextButton" /> -->
-					<Button icon="sap-icon://save" text="{i18n>Save}" visible="{= ${DebitMemo>/bStepBtnVisible}}" press="handleWizardSave($event, ${DebitMemo>/aCreditMemoHdrWiz})"/>
+					<Button icon="sap-icon://save" text="{i18n>Save}" visible="{= ${DebitMemo>/bStepBtnVisible} }" enabled="{= ${DebitMemo>/bWizValidation} &amp;&amp; ${Message>/}.length === 0}" press="handleWizardSave($event, ${DebitMemo>/aCreditMemoHdrWiz})" />
 					<Button icon="sap-icon://cancel" text="{i18n>Cancel}" type="Transparent" press="onWizardCancel($event, 'idDebitMemoWizard', ${DebitMemo>/})"/>
 				</OverflowToolbar>
 			</f:footer>

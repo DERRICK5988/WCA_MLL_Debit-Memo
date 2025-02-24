@@ -2,7 +2,7 @@
     xmlns:core="sap.ui.core"
     xmlns:i18n="sap.ui.model.resource.ResourceModel">
     <Menu itemSelected="onMenuAction">
-        <MenuItem icon="sap-icon://cancel" text="Cancel" press=".onPressDmrMenu($event, 'Cancel', 'DebitMemoWizard')" enabled="{= ${DebitMemo>/bSelected} &amp;&amp; ${DebitMemo>/bValidate} }"/>
+        <!-- <MenuItem icon="sap-icon://cancel" text="Cancel" press=".onPressDmrMenu($event, 'Cancel', 'DebitMemoWizard')" enabled="{= ${DebitMemo>/bSelected} &amp;&amp; ${DebitMemo>/bValidate} }"/> -->
         <!-- <MenuItem icon="sap-icon://cancel" text="Cancel" press=".onPressDmrMenu($event, 'Cancel', 'DebitMemoWizard')"/> -->
         <!-- <MenuItem icon="sap-icon://edit" text="{i18n>Edit}" press=".onPressDmrMenu($event, 'Edit', 'DebitMemoWizard')" enabled="{DebitMemo>/bSelected}"/>
         <MenuItem icon="sap-icon://copy" text="{i18n>Copy}" press=".onPressDmrMenu($event, 'Copy', 'DebitMemoWizard')" enabled="{DebitMemo>/bSelected}"/>

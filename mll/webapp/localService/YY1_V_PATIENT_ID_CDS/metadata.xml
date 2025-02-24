@@ -42,7 +42,8 @@
                 <Property Name="ID" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
                 <Property Name="YY1_PATIENT_ID_BDI" Type="Edm.String" MaxLength="20" sap:attribute-for="YY1_PATIENT_ID_BDI" sap:required-in-filter="false" sap:label="Patient ID"/>
                 <Property Name="YY1_PATIENT_NAME_BDI" Type="Edm.String" MaxLength="60" sap:attribute-for="YY1_PATIENT_NAME_BDI" sap:required-in-filter="false" sap:label="Patient Name" sap:quickinfo="Name"/>
-                <Property Name="GroupCount" Type="Edm.Byte" sap:aggregation-role="measure" sap:attribute-for="YY1_PATIENT_ID_BDI" sap:required-in-filter="false" sap:label="Group Count" sap:filterable="false"/>
+                <Property Name="YY1_PATIENT_BIRTH_DATE_BDI" Type="Edm.DateTime" Precision="0" sap:attribute-for="YY1_PATIENT_BIRTH_DATE_BDI" sap:display-format="Date" sap:required-in-filter="false" sap:label="Patient Birth Date" sap:quickinfo="Birth Date"/>
+                <Property Name="GroupCount" Type="Edm.Byte" sap:aggregation-role="measure" sap:attribute-for="YY1_PATIENT_ID_BDI" sap:required-in-filter="false" sap:label="GroupCount" sap:filterable="false"/>
             </EntityType>
             <EntityContainer Name="YY1_V_PATIENT_ID_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
                 <EntitySet Name="YY1_V_PATIENT_ID" EntityType="YY1_V_PATIENT_ID_CDS.YY1_V_PATIENT_IDType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>

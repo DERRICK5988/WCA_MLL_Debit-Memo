@@ -40,8 +40,8 @@
                     <PropertyRef Name="ID"/>
                 </Key>
                 <Property Name="ID" Type="Edm.String" Nullable="false" sap:sortable="false" sap:filterable="false"/>
-                <Property Name="CustomerReference" Type="Edm.String" MaxLength="35" sap:attribute-for="CustomerReference" sap:required-in-filter="false" sap:label="Customer Reference"/>
-                <Property Name="GroupCount" Type="Edm.Byte" sap:aggregation-role="measure" sap:attribute-for="CustomerReference" sap:required-in-filter="false" sap:label="Group Count" sap:filterable="false"/>
+                <Property Name="PurchaseOrderByCustomer" Type="Edm.String" MaxLength="35" sap:attribute-for="PurchaseOrderByCustomer" sap:required-in-filter="false" sap:label="Customer Reference"/>
+                <Property Name="GroupCount" Type="Edm.Byte" sap:aggregation-role="measure" sap:attribute-for="PurchaseOrderByCustomer" sap:required-in-filter="false" sap:label="GroupCount" sap:filterable="false"/>
             </EntityType>
             <EntityContainer Name="YY1_CUSTOMER_REF_CDS_Entities" m:IsDefaultEntityContainer="true" sap:message-scope-supported="true" sap:supported-formats="atom json xlsx">
                 <EntitySet Name="YY1_CUSTOMER_REF" EntityType="YY1_CUSTOMER_REF_CDS.YY1_CUSTOMER_REFType" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"/>

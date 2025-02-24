@@ -28,33 +28,9 @@ server:
     - name: fiori-tools-proxy
       afterMiddleware: compression
       configuration:
-        ignoreCertError: false # If set to true, certificate errors will be ignored. E.g. self-signed certificates will be accepted
+        ignoreCertError: false
         backend:
-          - path: /sap
-            url: https://my403379-api.s4hana.cloud.sap
-            destination: S4HC-Customizing-my403379-Basic
-            authenticationType: BasicAuthentication
-          - path: /sap/opu/odata/sap/YY1_POSTING_STATUS_CDS
-            url: https://my403379-api.s4hana.cloud.sap
-            destination: S4HC-Customizing-my403379-Basic
-            authenticationType: BasicAuthentication
-          - path: /sap/opu/odata/sap/YY1_BILLINGDOC_CDS
-            url: https://my403379-api.s4hana.cloud.sap
-            destination: S4HC-Customizing-my403379-Basic
-            authenticationType: BasicAuthentication
-          - path: /sap/opu/odata/sap/YY1_SOLDTOPARTY_CDS
-            url: https://my403379-api.s4hana.cloud.sap
-            destination: S4HC-Customizing-my403379-Basic
-            authenticationType: BasicAuthentication
-          - path: /sap/opu/odata/sap/YY1_ABRECHNUNGSWEGV_CDS
-            url: https://my403379-api.s4hana.cloud.sap
-            destination: S4HC-Customizing-my403379-Basic
-            authenticationType: BasicAuthentication
           - path: /sap/opu/odata/sap/YY1_CUSTOMER_REF_CDS
-            url: https://my403379-api.s4hana.cloud.sap
-            destination: S4HC-Customizing-my403379-Basic
-            authenticationType: BasicAuthentication
-          - path: /sap/opu/odata/sap/YY1_V_SALES_ORG_CDS
             url: https://my403379-api.s4hana.cloud.sap
             destination: S4HC-Customizing-my403379-Basic
             authenticationType: BasicAuthentication
@@ -66,15 +42,11 @@ server:
             url: https://my403379-api.s4hana.cloud.sap
             destination: S4HC-Customizing-my403379-Basic
             authenticationType: BasicAuthentication
-          - path: /sap/opu/odata/sap/YY1_ACTUAL_CUST_CDS
-            url: https://my403379-api.s4hana.cloud.sap
-            destination: S4HC-Customizing-my403379-Basic
-            authenticationType: BasicAuthentication
           - path: /sap/opu/odata/sap/YY1_PRODUCT_CDS
             url: https://my403379-api.s4hana.cloud.sap
             destination: S4HC-Customizing-my403379-Basic
             authenticationType: BasicAuthentication
-          - path: /sap/opu/odata/sap/YY1_BILLINGDOC_STATUS_CDS
+          - path: /sap/opu/odata/sap/YY1_SOLDTOPARTY_CDS
             url: https://my403379-api.s4hana.cloud.sap
             destination: S4HC-Customizing-my403379-Basic
             authenticationType: BasicAuthentication
@@ -82,7 +54,119 @@ server:
             url: https://my403379-api.s4hana.cloud.sap
             destination: S4HC-Customizing-my403379-Basic
             authenticationType: BasicAuthentication
+          - path: /sap/opu/odata/sap/YY1_V_PATIENT_ID_CDS
+            url: https://my403379-api.s4hana.cloud.sap
+            destination: S4HC-Customizing-my403379-Basic
+            authenticationType: BasicAuthentication
+          - path: /sap/opu/odata/sap/YY1_V_SALES_ORG_CDS
+            url: https://my403379-api.s4hana.cloud.sap
+            destination: S4HC-Customizing-my403379-Basic
+            authenticationType: BasicAuthentication
           - path: /sap/opu/odata/sap/API_CREDIT_MEMO_REQUEST_SRV
             url: https://my403379-api.s4hana.cloud.sap
             destination: S4HC-Customizing-my403379-Basic
             authenticationType: BasicAuthentication
+          - url: https://my403379-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            path: /sap
+          - url: https://my403379-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            path: /sap
+          - url: https://my403379-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            path: /sap
+          - url: https://my403379-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            path: /sap
+          - url: https://my403379-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            path: /sap
+          - url: https://my403379-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            path: /sap
+          - url: https://my403379-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            path: /sap
+          - url: https://my403379-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            path: /sap
+          - url: https://my403379-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            path: /sap
+          - url: https://my403379-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            path: /sap
+          - url: https://my403379-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            path: /sap
+          - url: https://my403379-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            path: /sap
+          - url: https://my403379-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            path: /sap
+          - url: https://my403379-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            path: /sap
+    - name: sap-fe-mockserver
+      beforeMiddleware: csp
+      configuration:
+        mountPath: /
+        services:
+          - urlPath: /sap/opu/odata/sap/YY1_PRODUCT_CDS
+            metadataPath: ./webapp/localService/YY1_PRODUCT_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/YY1_PRODUCT_CDS/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/YY1_SOLDTOPARTY_CDS
+            metadataPath: ./webapp/localService/YY1_SOLDTOPARTY_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/YY1_SOLDTOPARTY_CDS/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/YY1_V_BILLINGDOC_DMR_CDS
+            metadataPath: ./webapp/localService/YY1_V_BILLINGDOC_DMR_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/YY1_V_BILLINGDOC_DMR_CDS/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/YY1_V_SALES_ORG_CDS
+            metadataPath: ./webapp/localService/YY1_V_SALES_ORG_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/YY1_V_SALES_ORG_CDS/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/API_CREDIT_MEMO_REQUEST_SRV
+            metadataPath: ./webapp/localService/API_CREDIT_MEMO_REQUEST_SRV/metadata.xml
+            mockdataPath: ./webapp/localService/API_CREDIT_MEMO_REQUEST_SRV/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/YY1_ABRECHNUNGSWEGV_CDS
+            metadataPath: ./webapp/localService/YY1_ABRECHNUNGSWEGV_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/YY1_ABRECHNUNGSWEGV_CDS/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/YY1_BILLINGDOC_CDS
+            metadataPath: ./webapp/localService/YY1_BILLINGDOC_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/YY1_BILLINGDOC_CDS/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/YY1_BILLINGDOC_STATUS_CDS
+            metadataPath: ./webapp/localService/YY1_BILLINGDOC_STATUS_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/YY1_BILLINGDOC_STATUS_CDS/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/YY1_DEBIT_MEMO_CDS
+            metadataPath: ./webapp/localService/YY1_DEBIT_MEMO_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/YY1_DEBIT_MEMO_CDS/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/YY1_POSTING_STATUS_CDS
+            metadataPath: ./webapp/localService/YY1_POSTING_STATUS_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/YY1_POSTING_STATUS_CDS/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/YY1_V_PATIENT_ID_CDS
+            metadataPath: ./webapp/localService/YY1_V_PATIENT_ID_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/YY1_V_PATIENT_ID_CDS/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/YY1_LABIDV_CDS
+            metadataPath: ./webapp/localService/YY1_LABIDV_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/YY1_LABIDV_CDS/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/YY1_ACTUAL_CUST_CDS
+            metadataPath: ./webapp/localService/YY1_ACTUAL_CUST_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/YY1_ACTUAL_CUST_CDS/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/YY1_CUSTOMER_REF_CDS
+            metadataPath: ./webapp/localService/YY1_CUSTOMER_REF_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/YY1_CUSTOMER_REF_CDS/data
+            generateMockData: true
+        annotations: []
