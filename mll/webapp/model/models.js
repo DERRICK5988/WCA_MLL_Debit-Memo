@@ -1,10 +1,12 @@
 sap.ui.define([
     "sap/ui/model/json/JSONModel",
-    "sap/ui/Device"
+    "sap/ui/Device",
+    "sap/ui/unified/library",
 ],
-    function (JSONModel, Device) {
+    function (JSONModel, Device, unifiedLibrary) {
         "use strict";
 
+        var CalendarDayType = unifiedLibrary.CalendarDayType;
         return {
             /**
              * Provides runtime information for the device the UI5 app is running on as a JSONModel.
@@ -15,25 +17,40 @@ sap.ui.define([
                 oModel.setDefaultBindingMode("OneWay");
                 return oModel;
             },
+            /**
+             * Define default content for credit memo model during initial load
+             * @returns {sap.ui.model.json.JSONModel} The credit memo model.
+             */
             createDebitMemoModel: function () {
+                var s4Base = window.location.hostname.includes("protest") ? "myprod123" :
+                    window.location.hostname.includes("pro774184b2") ? "my403692" :
+                        "my403379"; // Dev as default
                 return new JSONModel({
-                    // bEditable: false,
                     bSelected: false,
                     bValidate: false,
                     bCreditMemoExist: false,
                     bWizValidation: true,
                     iSelectedStepIndex: 0,
                     bStepBtnVisible: false,
-                    // Check environment
-                    sBillingDocLink: (window.location.href.includes("env=dev")) ? "https://my403379.s4hana.cloud.sap/ui#BillingDocument-manage&/object/display/" : "https://my403692.s4hana.cloud.sap/ui#BillingDocument-manage&/object/display/",
-                    sDebitMemoLink: (window.location.href.includes("env=dev")) ? "https://my403379.s4hana.cloud.sap/ui#DebitMemoRequest-display?$basicSearch=&DebitMemoRequest=" : "https://my403692.s4hana.cloud.sap/ui#DebitMemoRequest-display?$basicSearch=&DebitMemoRequest=",
-                    sCreditMemoLink: (window.location.href.includes("env=dev")) ? "https://my403379.s4hana.cloud.sap/ui#CreditMemoRequest-display?$basicSearch=&CreditMemoRequest=" : "https://my403692.s4hana.cloud.sap/ui#CreditMemoRequest-display?$basicSearch=&CreditMemoRequest=",
+                    sBillingDocLink: `https://${s4Base}.s4hana.cloud.sap/ui#BillingDocument-manage&/object/display/`,
+                    sDebitMemoLink: `https://${s4Base}.s4hana.cloud.sap/ui#DebitMemoRequest-display?$basicSearch=&DebitMemoRequest=`,
+                    sCreditMemoLink: `https://${s4Base}.s4hana.cloud.sap/ui#CreditMemoRequest-display?$basicSearch=&CreditMemoRequest=`,
                     aCreditMemoHdrWiz: { aCreditMemoItm: [] },
-                    Items: []
+                    Items: [],
+                    legendItems: [
+						{
+							text: this.getResourceBundle().getText("PartialCancel"),
+                            color: "#dd6100"
+						},
+                    ]
                 });
             },
+            /**
+             * Capture the table columns defined in the view
+             * @returns {Object}  Metadatahelper.
+             */
             createMetadataHelper: function () {
-                const oTable = this.byId("idDebitMemoTable");
+                var oTable = this.byId("idDebitMemoTable");
                 return oTable.getColumns().map((oColumn, iIndex) => ({
                     key: this.getView().getLocalId(oColumn.getId()) || oColumn.getId(),
                     label: oColumn.getLabel()?.getText() || "",

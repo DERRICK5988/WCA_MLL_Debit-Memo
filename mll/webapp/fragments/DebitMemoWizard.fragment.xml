@@ -116,8 +116,7 @@
 					<WizardStep id="idCreditMemoItemStep" validated="false" title="{i18n>CreditMemoItem}" activate="additionalInfoValidation">
 						<content>
 							<ScrollContainer height="auto" width="100%" vertical="false" focusable="true">
-								<t:Table id="idCreditMemoItemTable" rows="{path: 'DebitMemo>/aCreditMemoHdrWiz/aCreditMemoItm'}" selectionMode="Multi" visibleRowCount="8" enableColumnReordering="true" rowSelectionChange="onCreditMemoRowSelected" rowsUpdated="onRowsUpdated" ariaLabelledBy="title">
-									<!-- <t:Table id="idDebitItemTable" rows="{DebitMemo>/}" selectionMode="Multi" enableColumnReordering="true" visibleRowCountMode="Auto" paste="onPaste" ariaLabelledBy="title"> -->
+								<t:Table id="idCreditMemoItemTable" rows="{path: 'DebitMemo>/aCreditMemoHdrWiz/aCreditMemoItm'}" selectionMode="Multi" enableColumnReordering="true" rowSelectionChange="onCreditMemoRowSelected" rowsUpdated="onRowsUpdated" ariaLabelledBy="title">
 									<t:extension>
 										<OverflowToolbar id="idToolbar" height="auto">
 											<ToolbarSpacer/>
@@ -177,7 +176,12 @@
 												</Input> -->
 											</t:template>
 										</t:Column>
-
+										<t:Column autoResizable="true" width="250px">
+											<Label text="{i18n>Abrechnungsweg}" tooltip="{i18n>Abrechnungsweg}"/>
+											<t:template>
+												<Text text="{DebitMemo>YY1_Abrechnungsweg_BDI}"/>
+											</t:template>
+										</t:Column>
 										<t:Column autoResizable="true" width="100px">
 											<Label text="{i18n>TargetQuantity}" tooltip="{i18n>TargetQuantity}"/>
 											<t:template>

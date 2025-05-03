@@ -21,13 +21,14 @@ sap.ui.define([
     return BaseController.extend("mll.controller.DebitMemo", {
         formatter: formatter,
         onInit: function () {
+            debugger;
             // Model used to manipulate control states. The chosen values make sure,
             // detail page is busy indication immediately so there is no break in
             // between the busy indication for loading the view's meta data
             this.oBusyDialog = new BusyDialog();
             this.setModel(sap.ui.getCore().getMessageManager().getMessageModel(), "Message");
             sap.ui.getCore().getMessageManager().registerObject(this.getView(), true);
-            this.setModel(models.createDebitMemoModel(), "DebitMemo");
+            this.setModel(models.createDebitMemoModel.call(this), "DebitMemo");
             this.byId("idDebitMemoFilterBar").getAggregation("filterGroupItems").map(function (oGroupItems) {
                 if (oGroupItems.getControl().mProperties.showValueHelp) {
                     this.getView().byId(oGroupItems.getControl().getId()).addValidator(this._onMultiInputValidate);
@@ -54,6 +55,9 @@ sap.ui.define([
         onClear: function (oEvent) {
             this.handleFilterClear(oEvent);
         },
+        /**
+         * @public
+         */
         openPersoDialog: function (oEvt, sId) {
             var oTable = this.byId(sId);
 
@@ -68,6 +72,9 @@ sap.ui.define([
                 }
             });
         },
+        /**
+         * @public
+         */
         onColumnMove: function (oEvt, sId) {
             var oTable = this.byId(sId);
             var oAffectedColumn = oEvt.getParameter("column");
@@ -107,7 +114,9 @@ sap.ui.define([
                 ...oDmr.aSelectedItems[0],
                 ...{
                     NetAmount: oDmr.aSelectedItems[0].NetAmount - oDmr.aSelectedItems[0].CancelledAmount,
-                    CreditMemoRequestType: "CR",
+                    // This for display purpose, and not using this value to create credit memo
+                    // Will use 'G2' as credit memo type for creation later since G2 is link with GSA and CR in config.
+                    CreditMemoRequestType: navigator.language.startsWith('de') ? 'GSA' : 'CR',
                     bSelected: false
                 }
             });
@@ -166,17 +175,27 @@ sap.ui.define([
         * @public
         */
         onDebitMemoRowSelected: function (oEvent) {
+            debugger;
             var oSelectedItem = this._returnSelectedItem("idDebitMemoTable");
             this.getModel("DebitMemo").setProperty("/bSelected", oEvent.getSource().getSelectedIndices().length > 0);
             this.getModel("DebitMemo").setProperty("/bValidate", !oSelectedItem.bDiff);
 
-            if (oSelectedItem.aSelectedItems.length > 0) {
-                var bCreditMemoExist = oSelectedItem.aSelectedItems.some(
-                    ({ CreditMemoRequest, CancelledAmount, NetAmount }) =>
-                        CreditMemoRequest && CancelledAmount === NetAmount && CancelledAmount > 0
-                );
-                this.getModel("DebitMemo").setProperty("/bCreditMemoExist", bCreditMemoExist);
+            var bCreditMemoExist = false;
+            // var bMissingAbrechnungsweg = false;
+            for (const { CreditMemoRequest, CancelledAmount, NetAmount, YY1_Abrechnungsweg_BDI } of oSelectedItem.aSelectedItems) {
+                if (CreditMemoRequest && CancelledAmount === NetAmount && CancelledAmount > 0) {
+                    bCreditMemoExist = true;
+                    break;
+                }
+                // if (!YY1_Abrechnungsweg_BDI) {
+                //     bMissingAbrechnungsweg = true;
+                // }
+                // if (bCreditMemoExist && bMissingAbrechnungsweg) {
+                //     break;
+                // }
             }
+            this.getModel("DebitMemo").setProperty("/bCreditMemoExist", bCreditMemoExist);
+            // this.getModel("DebitMemo").setProperty("/bMissingAbrechnungsweg", bMissingAbrechnungsweg);
         },
 
         /**
@@ -321,19 +340,21 @@ sap.ui.define([
         */
         handleWizardSave: async function (oEvent, oCreditMemoWiz) {
             var object = { oPayload: {} };
+
             // Remove all message before process
             sap.ui.getCore().getMessageManager().removeAllMessages();
             object.oModel = this.getModel("API_CREDIT_MEMO_REQUEST_SRV");
-            // this.getModel("DMR").setUseBatch(false);
             this.oBusyDialog.setText(this.getResourceBundle().getText("CreatingDmrMsg")).open();
             object.sEntity = "/A_CreditMemoRequest";
+            // Additional fields YY1_PATIENT_ID_BDI, YY1_PATIENT_BIRTH_DATE_BDI, YY1_LABID_SDI need to populate as these field need to be displayed
+            // other form development in MLL
+            var { BillingDocument, YY1_LABID_BDI, YY1_PATIENT_BIRTH_DATE_BDI, YY1_PATIENT_ID_BDI, YY1_PATIENT_NAME_BDI, YY1_Abrechnungsweg_SDH } = oCreditMemoWiz.aCreditMemoItm[0];
             try {
-                // Additional fields YY1_PATIENT_ID_BDI, YY1_PATIENT_BIRTH_DATE_BDI, YY1_LABID_SDI need to populate as these field need to be displayed
-                // other form development in MLL
-                var { BillingDocument, YY1_LABID_BDI, YY1_PATIENT_BIRTH_DATE_BDI, YY1_PATIENT_ID_BDI, YY1_PATIENT_NAME_BDI } = oCreditMemoWiz.aCreditMemoItm[0];
                 debugger;
                 object.oPayload = {
-                    "CreditMemoRequestType": oCreditMemoWiz.CreditMemoRequestType,
+                    // Usingq 'G2' because G2 is link with GSA and CR in config and language dependency.
+                    "CreditMemoRequestType": 'G2',
+                    // "CreditMemoRequestType": oCreditMemoWiz.CreditMemoRequestType,
                     "SalesOrganization": oCreditMemoWiz.SalesOrganization,
                     "DistributionChannel": oCreditMemoWiz.DistributionChannel,
                     "OrganizationDivision": oCreditMemoWiz.Division,
@@ -341,7 +362,9 @@ sap.ui.define([
                     "PurchaseOrderByCustomer": BillingDocument && YY1_LABID_BDI ? `${BillingDocument}_${YY1_LABID_BDI}` : BillingDocument,
                     "YY1_PATIENT_ID_SDH": YY1_PATIENT_ID_BDI,
                     "YY1_PATIENT_NAME_SDH": YY1_PATIENT_NAME_BDI,
-                    "YY1_PATIENT_BIRTH_DATE_SDH": this.formatter.formatDate1(YY1_PATIENT_BIRTH_DATE_BDI, "yyyy-MM-dd'T'HH:mm:ss"),
+                    // "YY1_PATIENT_BIRTH_DATE_SDH": this.formatter.formatDate1(YY1_PATIENT_BIRTH_DATE_BDI, "yyyy-MM-dd'T'HH:mm:ss") || null,
+                    "YY1_PATIENT_BIRTH_DATE_SDH": !!YY1_PATIENT_BIRTH_DATE_BDI
+                        ? this.formatter.formatDate1(YY1_PATIENT_BIRTH_DATE_BDI, "yyyy-MM-dd'T'HH:mm:ss") : null,
                     "YY1_LABID_SDH": YY1_LABID_BDI,
                     "to_Item": []
                 }
@@ -355,6 +378,10 @@ sap.ui.define([
                             "YY1_LABID_SDI": oItem.YY1_LABID_BDI,
                             "YY1_CancelledDocRef_SDI": oItem.BillingDocument.padStart(10, '0'),
                             "YY1_CancelledRefItem_SDI": oItem.BillingDocumentItem,
+                            // "YY1_DiagnosisCertainty_BDI": oItem.YY1_DiagnosisCertainty_BDI,
+                            "YY1_ICDCODE_SDI": oItem.YY1_ICDCODE_BDI,
+                            "ProfitCenter": oItem.ProfitCenter,
+                            // "YY1_Abrechnungsweg_SDI": oItem.YY1_Abrechnungsweg_BDI,
                             // Netmount field is not able to update with API so use pricing element to update net amount
                             "to_PricingElement": [{
                                 "PricingProcedureStep": "20",
@@ -386,11 +413,25 @@ sap.ui.define([
                 this.oBusyDialog.close();
             }
         },
+        /**
+        * Event and buttons from DebitMemoWizard.fragment
+        * @param {oEvent} sap.ui.base.Event 
+        * @param {sId} id = idDebitMemoWizard
+        * @param {DebitMemo} From DebitMemo Model
+        * @public
+        */
         onCloseDialog: function (oEvent, sId, DebitMemo) {
             this.handleCloseDialog.call(this, oEvent, sId, DebitMemo);
         },
+        /**
+        * Reusable function to close for wizard dialog
+        * @param {oEvent} sap.ui.base.Event 
+        * @param {sId} id = idDebitMemoWizard
+        * @param {DebitMemo} Object - DebitMemo Model
+        * @public
+        */
         handleCloseDialog: function (oEvent, sId, DebitMemo) {
-            // Reset
+            // Reset before close dialog
             this._oWizard.discardProgress(this._oWizard.getSteps()[0]);
             DebitMemo.bStepBtnVisible = false;
             DebitMemo.bWizValidation = true;
@@ -402,6 +443,13 @@ sap.ui.define([
             sap.ui.getCore().getMessageManager().removeAllMessages();
             this.byId(sId).destroy();
         },
+        /**
+        * Event and button to cancel for wizard dialog
+        * @param {oEvent} sap.ui.base.Event 
+        * @param {sId} string id = idDebitMemoWizard
+        * @param {DebitMemo} Object - DebitMemo Model
+        * @public
+        */
         onWizardCancel: function (oEvent, sId, DebitMemo) {
             MessageBox["warning"](this.getResourceBundle().getText("CancelWiz"), {
                 actions: [MessageBox.Action.YES, MessageBox.Action.NO],
@@ -413,6 +461,11 @@ sap.ui.define([
                 }.bind(this)
             });
         },
+        /**
+        * Event and next button in DebitMemoWizard.fragment
+        * @param {oEvent} sap.ui.base.Event
+        * @public
+        */
         onDialogNextButton: function (oEvent) {
             var steps = this._oWizard.getSteps();
             if (this._oSelectedStep && !this._oSelectedStep.bLast) {
@@ -422,6 +475,22 @@ sap.ui.define([
                 this._oWizard.nextStep();
             }
             this.getModel("DebitMemo").setProperty("/bStepBtnVisible", true);
+        },
+        /**
+        * Event from DebitMemo.view
+        * @param {oEvent} sap.ui.base.Event
+        * @param {sFragmentName} string
+        * @param {sId} string
+        * @public
+        */
+        handleOpenLegend: function (oEvent, sFragmentName, sId) {
+            this.loadDialog.call(this, sFragmentName, sId).then(function (oDialog) {
+                if (oDialog.isOpen()) {
+                    oDialog.close();
+                } else {
+                    oDialog.openBy(oEvent.getSource());
+                }
+            }.bind(this));
         },
 
         /* =========================================================== */
@@ -448,6 +517,10 @@ sap.ui.define([
                 }.bind(this));
             });
         },
+        /**
+        * Function to comsolidate service param/ URI/ sort/ filtering for odata service
+        * @private
+        */
         _getResourcePath: function (Object) {
             return [{
                 oModel: Object.oModel, sPath: "/YY1_V_BILLINGDOC_DMR",
@@ -456,6 +529,11 @@ sap.ui.define([
                 oParams: Object["debitMemo"].oParams || {}
             }];
         },
+        /**
+        * Function for odata service post
+        * Function from BaseController
+        * @private
+        */
         _createRec: function (object) {
             return this.createRec.call(this, object).then(function (oResp) {
                 // Message manager only contain error
@@ -469,6 +547,10 @@ sap.ui.define([
                 return Promise.resolve();
             }.bind(this));
         },
+        /**
+        * Function to validate selected item/row of billing item
+        * @private
+        */
         _returnSelectedItem: function (sTableID) {
             var oTable = this.byId(sTableID),
                 aSelectedIndices = oTable.getSelectedIndices(),
@@ -485,20 +567,21 @@ sap.ui.define([
             // this._validateBtnEnabled(aSelectedItems);
             return { bDiff: aDiffBillDoc.length > 1 ? true : false, aSelectedHdr: aSelectedHdr, aSelectedItems: aSelectedItems }
         },
-        _handleWizItemChanged: function (oEvent) {
-            var oContext = oEvent.getParameter("context");
-            // Enable forecast button by verifying ServiceRendredDateItem > current year/ month
-            if (oEvent.getParameters().path === "ServiceRendredDateItem") {
-                var oModelContent = oContext.oModel.getProperty(oContext.sPath);
-                oContext.oModel.setProperty("/oForecast/bEnabled", oModelContent.ServiceRendredDateItem && +(oModelContent.ServiceRendredDateItem.getFullYear() + "" + oModelContent.ServiceRendredDateItem.getMonth() + 1) > +(new Date().getFullYear() + "" + new Date().getMonth() + 1) ? true : false)
-            }
-        },
-        _validateBtnEnabled: function (aItems) {
-            this.getModel("DebitMemo").setProperty("/oForecast/bEnabled", aItems.some(o =>
-                o.ServiceRendredDateItem &&
-                +(o.ServiceRendredDateItem.getFullYear() + "" + ((o.ServiceRendredDateItem.getMonth() + 1).toString().padStart(2, '0') + 1)) > +(new Date().getFullYear() + "" + ((new Date().getMonth() + 1).toString().padStart(2, '0') + 1))
-            ))
-        },
+        // _handleWizItemChanged: function (oEvent) {
+        //     var oContext = oEvent.getParameter("context");
+        //     // Enable forecast button by verifying ServiceRendredDateItem > current year/ month
+        //     if (oEvent.getParameters().path === "ServiceRendredDateItem") {
+        //         var oModelContent = oContext.oModel.getProperty(oContext.sPath);
+        //         oContext.oModel.setProperty("/oForecast/bEnabled", oModelContent.ServiceRendredDateItem && +(oModelContent.ServiceRendredDateItem.getFullYear() + "" + oModelContent.ServiceRendredDateItem.getMonth() + 1) > +(new Date().getFullYear() + "" + new Date().getMonth() + 1) ? true : false)
+        //     }
+        // },
+        // _validateBtnEnabled: function (aItems) {
+        //     this.getModel("DebitMemo").setProperty("/oForecast/bEnabled", aItems.some(o =>
+        //         o.ServiceRendredDateItem &&
+        //         +(o.ServiceRendredDateItem.getFullYear() + "" + ((o.ServiceRendredDateItem.getMonth() + 1).toString().padStart(2, '0') + 1)) > +(new Date().getFullYear() + "" + ((new Date().getMonth() + 1).toString().padStart(2, '0') + 1))
+        //     ))
+        // },
+
         /**
         * @private
         */
@@ -508,6 +591,9 @@ sap.ui.define([
             oToken.setText(oEvent.text);
             return oToken;
         },
+        /**
+        * @private
+        */
         _pressMessagePopUp: function () {
             setTimeout(function () {
                 this.onMessagesButtonPress();

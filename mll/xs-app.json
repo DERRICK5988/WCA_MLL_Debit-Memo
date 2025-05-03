@@ -1,19 +1,21 @@
 {
   "welcomeFile": "/index.html",
   "authenticationMethod": "route",
+  "sessionTimeout": 1,
+  "logout": {
+    "logoutEndpoint": "/logout"
+  },
   "routes": [
+    {
+      "source": "^/user-api(.*)",
+      "target": "$1",
+      "service": "sap-approuter-userapi"
+    },
     {
       "source": "^/resources/(.*)$",
       "target": "/resources/$1",
       "authenticationType": "none",
       "destination": "ui5"
-    },
-    {
-      "source": "^/sap/(.*)$",
-      "target": "/sap/$1",
-      "destination": "S4HC-Customizing-my403379-Basic",
-      "csrfProtection": false,
-      "authenticationType": "none"
     },
     {
       "source": "^/test-resources/(.*)$",
@@ -22,10 +24,17 @@
       "destination": "ui5"
     },
     {
+      "source": "^/sap/(.*)$",
+      "target": "/sap/$1",
+      "destination": "S4HC-Customizing-my403692-Basic",
+      "csrfProtection": false,
+      "authenticationType": "none"
+    },
+    {
       "source": "^(.*)$",
       "target": "$1",
       "service": "html5-apps-repo-rt",
-      "authenticationType": "none"
+      "authenticationType": "xsuaa"
     }
   ]
 }

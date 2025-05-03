@@ -64,7 +64,7 @@
 		"isComboBox": false,
 		"sTitle": "SoldToParty",
 		"sKey": "Customer",
-		"sFilter": "Customer",
+		"sFilter": "SoldToParty",
 		"sDescription": "CustomerName",
 		"aCols": [{
 			"label": "{i18n>SoldToParty}",

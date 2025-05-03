@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData">
-    <edmx:Reference Uri="https://my403379-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://my403692-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_AGGREGATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Namespace="Org.OData.Aggregation.V1" Alias="Aggregation"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://my403379-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://my403692-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ANALYTICS',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Namespace="com.sap.vocabularies.Analytics.v1" Alias="Analytics"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://my403379-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://my403692-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CAPABILITIES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://my403379-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://my403692-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_CODELIST',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Namespace="com.sap.vocabularies.CodeList.v1" Alias="SAP__CodeList"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://my403379-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://my403692-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://my403379-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://my403692-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMUNICATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Namespace="com.sap.vocabularies.Communication.v1" Alias="Communication"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://my403379-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://my403692-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_MEASURES',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://my403379-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ODM',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://my403692-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_ODM',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Namespace="com.sap.vocabularies.ODM.v1" Alias="SAP__ODM"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://my403379-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://my403692-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_PERSONALDATA',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Namespace="com.sap.vocabularies.PersonalData.v1" Alias="PersonalData"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://my403379-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://my403692-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_UI',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
     </edmx:Reference>
-    <edmx:Reference Uri="https://my403379-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    <edmx:Reference Uri="https://my403692-api.s4hana.cloud.sap/sap/opu/odata/iwfnd/catalogservice;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_VALIDATION',Version='0001',SAP__Origin='LOCAL')/$value" xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
         <edmx:Include Namespace="Org.OData.Validation.V1" Alias="Validation"/>
     </edmx:Reference>
     <edmx:DataServices m:DataServiceVersion="2.0">
@@ -311,10 +311,13 @@
                 <Property Name="AssignmentReference" Type="Edm.String" MaxLength="18" sap:label="Assignment" sap:quickinfo="Assignment Number"/>
                 <Property Name="YY1_ALTERNATIVEDIAGNOS_SDH" Type="Edm.String" MaxLength="7" sap:label="Alternative Diagnose"/>
                 <Property Name="YY1_DiagnosisCertainty_SDH" Type="Edm.String" MaxLength="3" sap:label="DiagnosisCertainty"/>
+                <Property Name="YY1_Abrechnungsweg_SDH" Type="Edm.String" MaxLength="20" sap:label="Abrechnungsweg"/>
+                <Property Name="YY1_PatientComment_SDH" Type="Edm.String" MaxLength="120" sap:label="Patient Comment"/>
                 <Property Name="YY1_LABID_SDH" Type="Edm.String" MaxLength="30" sap:label="LABID" sap:quickinfo="LAB ID"/>
                 <Property Name="YY1_ActualCustomer_SDH" Type="Edm.String" MaxLength="10" sap:display-format="UpperCase" sap:label="Actual Customer"/>
                 <Property Name="YY1_PATIENT_NAME_SDH" Type="Edm.String" MaxLength="60" sap:label="Patient Name" sap:quickinfo="Name"/>
                 <Property Name="YY1_PATIENT_ID_SDH" Type="Edm.String" MaxLength="20" sap:label="Patient ID"/>
+                <Property Name="YY1_Abrechnungsweg1_SDH" Type="Edm.String" MaxLength="20" sap:label="Billing Way Pricing"/>
                 <Property Name="YY1_PATIENT_BIRTH_DATE_SDH" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Patient Birth Date" sap:quickinfo="Birth Date"/>
                 <Property Name="YY1_ICDCODE_SDH" Type="Edm.String" MaxLength="7" sap:label="ICD CODE"/>
                 <NavigationProperty Name="to_Item" Relationship="API_CREDIT_MEMO_REQUEST_SRV.assoc_9C2EF80E361135EB0B13D16E6DD060E7" FromRole="FromRole_assoc_9C2EF80E361135EB0B13D16E6DD060E7" ToRole="ToRole_assoc_9C2EF80E361135EB0B13D16E6DD060E7"/>
@@ -387,9 +390,13 @@
                 <Property Name="OrderRelatedBillingStatus" Type="Edm.String" MaxLength="1" sap:display-format="UpperCase" sap:label="Order-Related Billing Status" sap:quickinfo="Order-Related Billing Status (Item)" sap:creatable="false" sap:updatable="false"/>
                 <Property Name="ServicesRenderedDate" Type="Edm.DateTime" Precision="0" sap:display-format="Date" sap:label="Date of Services Rendered" sap:quickinfo="Date on which services are rendered"/>
                 <Property Name="YY1_CancelledDocRef_SDI" Type="Edm.String" MaxLength="20" sap:label="Cancelled Doc Reference"/>
+                <Property Name="YY1_ICDCODE_SDI" Type="Edm.String" MaxLength="7" sap:label="ICD CODE"/>
                 <Property Name="YY1_ReferenceID_SDI" Type="Edm.String" MaxLength="20" sap:label="ReferenceID"/>
                 <Property Name="YY1_LABID_SDI" Type="Edm.String" MaxLength="30" sap:label="LABID" sap:quickinfo="LAB ID"/>
                 <Property Name="YY1_PATIENT_NAME_SDI" Type="Edm.String" MaxLength="60" sap:label="Patient Name" sap:quickinfo="Name"/>
+                <Property Name="YY1_DiagnosisCertainty_SDI" Type="Edm.String" MaxLength="3" sap:label="DiagnosisCertainty"/>
+                <Property Name="YY1_Abrechnungsweg_SDI" Type="Edm.String" MaxLength="20" sap:label="Abrechnungsweg"/>
+                <Property Name="YY1_ALTERNATIVEDIAGNOS_SDI" Type="Edm.String" MaxLength="7" sap:label="Alternative Diagnose"/>
                 <Property Name="YY1_CancelledRefItem_SDI" Type="Edm.String" MaxLength="6" sap:display-format="NonNegative" sap:label="Cancelled Reference Item No" sap:quickinfo="Cancelled Doc Ref Item No"/>
                 <Property Name="YY1_StudyDay_SDI" Type="Edm.String" MaxLength="20" sap:label="StudyDay"/>
                 <NavigationProperty Name="to_CreditMemoRequest" Relationship="API_CREDIT_MEMO_REQUEST_SRV.assoc_03E2B2623B8CF9B118D639E3F81F57C3" FromRole="FromRole_assoc_03E2B2623B8CF9B118D639E3F81F57C3" ToRole="ToRole_assoc_03E2B2623B8CF9B118D639E3F81F57C3"/>
@@ -1724,8 +1731,8 @@
                 </Annotation>
             </Annotations>
             <Annotations Target="API_CREDIT_MEMO_REQUEST_SRV.API_CREDIT_MEMO_REQUEST_SRV_Entities" xmlns="http://docs.oasis-open.org/odata/ns/edm"/>
-            <atom:link rel="self" href="https://my403379-api.s4hana.cloud.sap/sap/opu/odata/sap/API_CREDIT_MEMO_REQUEST_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
-            <atom:link rel="latest-version" href="https://my403379-api.s4hana.cloud.sap/sap/opu/odata/sap/API_CREDIT_MEMO_REQUEST_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="self" href="https://my403692-api.s4hana.cloud.sap/sap/opu/odata/sap/API_CREDIT_MEMO_REQUEST_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
+            <atom:link rel="latest-version" href="https://my403692-api.s4hana.cloud.sap/sap/opu/odata/sap/API_CREDIT_MEMO_REQUEST_SRV/$metadata" xmlns:atom="http://www.w3.org/2005/Atom"/>
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>

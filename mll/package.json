@@ -1,6 +1,7 @@
 {
   "name": "mll",
   "version": "0.0.1",
+  "private": true,
   "description": "An SAP Fiori application.",
   "keywords": [
     "ui5",

@@ -1,0 +1,15 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:u="sap.ui.unified"
+    xmlns:i18n="sap.ui.model.resource.ResourceModel">
+    <ResponsivePopover title="{i18n>Legend}" placement="Bottom" showHeader="true">
+        <PlanningCalendarLegend itemsHeader="" columnWidth="180px" items="{path : 'DebitMemo>/legendItems', templateShareable: true}" standardItems="">
+            <items>
+                <u:CalendarLegendItem text="{DebitMemo>text}" type="{DebitMemo>type}" tooltip="{DebitMemo>text}" color="{DebitMemo>color}"/>
+            </items>
+            <!-- <appointmentItems>
+                <unified:CalendarLegendItem text="{text}" type="{type}" tooltip="{text}" />
+            </appointmentItems> -->
+        </PlanningCalendarLegend>
+    </ResponsivePopover>
+</core:FragmentDefinition>

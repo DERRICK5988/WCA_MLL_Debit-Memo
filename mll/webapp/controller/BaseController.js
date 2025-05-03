@@ -319,6 +319,8 @@ sap.ui.define([
         },
         registerForP13nDetail: function (sId) {
             var oTable = this.byId(sId);
+            // Register metadata from table columns dynamically
+            // Make sure you have id defined in your view, and it will automatically register in control setting
             this.oMetadataHelper = new MetadataHelper(models.createMetadataHelper.call(this).map((o, i) => o));
 
             Engine.getInstance().register(oTable, {
