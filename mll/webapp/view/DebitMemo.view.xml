@@ -17,7 +17,8 @@
             <f:DynamicPageTitle id="_IDGenDynamicPageTitle">
                 <f:content>
                     <MessageStrip text="{i18n>DiffBillingMsg}" type="Error" showIcon="true" showCloseButton="true" visible="{= ${DebitMemo>/bSelected} &amp;&amp; !${DebitMemo>/bValidate} }" class="sapUiTinyMarginBottom"/>
-                    <MessageStrip text="{i18n>CreditMemoExistsMsg}" type="Error" showIcon="true" showCloseButton="true" visible="{= ${DebitMemo>/bSelected} &amp;&amp; ${DebitMemo>/bCreditMemoExist} }"/>
+                    <MessageStrip text="{i18n>CreditMemoExistsMsg}" type="Error" showIcon="true" showCloseButton="true" visible="{= ${DebitMemo>/bSelected} &amp;&amp; ${DebitMemo>/bCreditMemoExist} }" class="sapUiTinyMarginBottom"/>
+                    <MessageStrip text="{i18n>ActualCustomerMissingMsg}" type="Error" showIcon="true" showCloseButton="true" visible="{= ${DebitMemo>/bSelected} &amp;&amp; !${DebitMemo>/bActualCustomerExist} }" class="sapUiTinyMarginBottom"/>
                     <!-- <MessageStrip text="{i18n>AbrechnungswegMissingMsg}" type="Warning" showIcon="true" showCloseButton="true" visible="{= ${DebitMemo>/bSelected} &amp;&amp; ${DebitMemo>/bMissingAbrechnungsweg} }"/> -->
                 </f:content>
             </f:DynamicPageTitle>
@@ -198,7 +199,8 @@
                         <Title id="_IDGenTitle1" text="{= ${DebitMemo>/Items} &amp;&amp; ${DebitMemo>/Items}.length > 0 ?  ${i18n>DebitMemo} + ' (' + ${DebitMemo>/Items}.length + ')' : ${i18n>DebitMemo} + ' (0)'}" level="H2"/>
                         <ToolbarSeparator id="_IDGenToolbarSeparator1"/>
                         <ToolbarSpacer id="_IDGenToolbarSpacer1"/>
-                        <Button id="idDebitMemoBtn" text="Cancel" press=".onPressDmrMenu($event, 'Cancel', 'DebitMemoWizard')" tooltip="{i18n>CancelMsg}" enabled="{= ${DebitMemo>/bSelected} &amp;&amp; ${DebitMemo>/bValidate} &amp;&amp; !${DebitMemo>/bCreditMemoExist} }"/>
+                        <!-- <Button id="idDebitMemoBtn" text="Cancel" press=".onPressDmrMenu($event, 'Cancel', 'DebitMemoWizard')" tooltip="{i18n>CancelMsg}" enabled="{= ${DebitMemo>/bSelected} &amp;&amp; ${DebitMemo>/bValidate} &amp;&amp; (!${DebitMemo>/bCreditMemoExist} || ${DebitMemo>/bActualCustomerExist}) }"/> -->
+                        <Button id="idDebitMemoBtn" text="Cancel" press=".onPressDmrMenu($event, 'Cancel', 'DebitMemoWizard')" tooltip="{i18n>CancelMsg}" enabled="{= ${DebitMemo>/bSelected} &amp;&amp; ${DebitMemo>/bCancelEnabled} }"/>
                         <Button id="_IDGenButton3" icon="sap-icon://action-settings" press=".openPersoDialog($event, 'idDebitMemoTable')"/>
                         <Button id="idLengedButton" icon="sap-icon://legend" press="handleOpenLegend($event, 'Legend', 'idLengedButton')" tooltip="Open legend" ariaHasPopup="Dialog" />
                     </OverflowToolbar>
@@ -276,7 +278,7 @@
                     <t:Column id="idColSoldToParty" autoResizable="true" width="300px">
                         <Label id="_IDGenLabel4" text="{i18n>SoldToParty}" tooltip="{i18n>SoldToParty}"/>
                         <t:template>
-                            <Text id="_IDGenText3" text="{= ${DebitMemo>SoldToParty} ? '(' + ${DebitMemo>SoldToParty} + ') ' + ${DebitMemo>SoldToPartyName} : ''}" tooltip="{DebitMemo>SoldToParty}" wrapping="false"/>
+                            <Text id="_IDGenText3" text="{= ${DebitMemo>SoldToParty} ? '(' + ${DebitMemo>SoldToParty} + ') ' + ${DebitMemo>SoldToPartyName} : ''}" tooltip="{DebitMemo>SoldToPartyName}" wrapping="false"/>
                         </t:template>
                     </t:Column>
                     <t:Column id="idColActualCust" autoResizable="true" width="300px">
@@ -290,7 +292,7 @@
                         <Label id="_IDGenLabel21" text="{i18n>SalesOrganization}" tooltip="{i18n>SalesOrganization}"/>
                         <t:template>
                             <!-- <Text id="_IDGenText20" text="({DebitMemo>SalesOrganization}) {DebitMemo>SalesOrganizationName}" tooltip="{DebitMemo>SalesOrganization}" wrapping="false"/> -->
-                            <Text text="{= ${DebitMemo>SalesOrganization} ? '(' + ${DebitMemo>SalesOrganization} + ') ' + ${DebitMemo>SalesOrganizationName} : ''}" tooltip="{DebitMemo>SalesOrganization}" wrapping="false"/>
+                            <Text text="{= ${DebitMemo>SalesOrganization} ? '(' + ${DebitMemo>SalesOrganization} + ') ' + ${DebitMemo>SalesOrganizationName} : ''}" tooltip="{DebitMemo>SalesOrganizationName}" wrapping="false"/>
                         </t:template>
                     </t:Column>
                     <t:Column id="idColBillingQuantity" autoResizable="true" width="150px">
@@ -320,7 +322,7 @@
                     <t:Column id="idColPatient" autoResizable="true" width="300px">
                         <Label id="_IDGenLabel13" text="{i18n>Patient}" tooltip="{i18n>Patient}"/>
                         <t:template>
-                            <Text text="{= ${DebitMemo>YY1_PATIENT_ID_BDI} ? '(' + ${DebitMemo>YY1_PATIENT_ID_BDI} + ') ' + ${DebitMemo>YY1_PATIENT_NAME_BDI} : ${DebitMemo>YY1_PATIENT_NAME_BDI}}" tooltip="{DebitMemo>YY1_PATIENT_ID_BDI}" wrapping="false"/>
+                            <Text text="{= ${DebitMemo>YY1_PATIENT_ID_BDI} ? '(' + ${DebitMemo>YY1_PATIENT_ID_BDI} + ') ' + ${DebitMemo>YY1_PATIENT_NAME_BDI} : ${DebitMemo>YY1_PATIENT_NAME_BDI}}" tooltip="{DebitMemo>YY1_PATIENT_NAME_BDI}" wrapping="false"/>
                         </t:template>
                     </t:Column>
                     <t:Column id="idColPatientBirthDate" autoResizable="true" width="150px">
@@ -339,7 +341,7 @@
                         <Label id="_IDGenLabel20" text="{i18n>PostingStatus}" tooltip="{i18n>PostingStatus}"/>
                         <t:template>
                             <!-- <Text id="_IDGenText19" text="({DebitMemo>AccountingPostingStatus}) {DebitMemo>AccountingPostingStatusDesc}" tooltip="{DebitMemo>AccountingPostingStatus}" wrapping="false"/> -->
-                            <Text text="{= ${DebitMemo>AccountingPostingStatus} ? '(' + ${DebitMemo>AccountingPostingStatus} + ') ' + ${DebitMemo>AccountingPostingStatusDesc} : ''}" tooltip="{DebitMemo>AccountingPostingStatus}" wrapping="false"/>
+                            <Text text="{= ${DebitMemo>AccountingPostingStatus} ? '(' + ${DebitMemo>AccountingPostingStatus} + ') ' + ${DebitMemo>AccountingPostingStatusDesc} : ''}" tooltip="{DebitMemo>AccountingPostingStatusDesc}" wrapping="false"/>
                         </t:template>
                     </t:Column>
                     <t:Column id="idColCreatedBy" autoResizable="true" width="200px" visible="false">
@@ -352,7 +354,7 @@
                         <Label text="{i18n>BillingDocumentType}" tooltip="{i18n>BillingDocumentType}"/>
                         <t:template>
                             <!-- <Text text="({DebitMemo>BillingDocumentType}) {DebitMemo>BillingDocumentTypeName}" tooltip="{DebitMemo>BillingDocumentType}" wrapping="false"/> -->
-                            <Text text="{= ${DebitMemo>BillingDocumentType} ? '(' + ${DebitMemo>BillingDocumentType} + ') ' + ${DebitMemo>BillingDocumentTypeName} : ${DebitMemo>BillingDocumentTypeName}}" tooltip="{DebitMemo>BillingDocumentType}" wrapping="false"/>
+                            <Text text="{= ${DebitMemo>BillingDocumentType} ? '(' + ${DebitMemo>BillingDocumentType} + ') ' + ${DebitMemo>BillingDocumentTypeName} : ${DebitMemo>BillingDocumentTypeName}}" tooltip="{DebitMemo>BillingDocumentTypeName}" wrapping="false"/>
                         </t:template>
                     </t:Column>
                 </t:columns>

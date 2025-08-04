@@ -35,7 +35,7 @@
     </edmx:Reference>
     <edmx:DataServices m:DataServiceVersion="2.0">
         <Schema Namespace="YY1_ABRECHNUNGSWEGV_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-            <EntityType Name="YY1_ABRECHNUNGSWEGVType" sap:semantics="aggregate" sap:label="VH - ABRECHNUNGSWEGV" sap:content-version="1">
+            <EntityType Name="YY1_ABRECHNUNGSWEGVType" sap:semantics="aggregate" sap:label="VH - ABRECHNUNGSWEG" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="ID"/>
                 </Key>

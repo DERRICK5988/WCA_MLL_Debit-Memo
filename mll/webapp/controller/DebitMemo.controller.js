@@ -171,31 +171,31 @@ sap.ui.define([
         * This event is to validate if the row is valid to be cancelled
         * Only allow to select same billing doc [bCreditMemoExist]
         * Only allow to select billing is not cancel or partial cancel [bValidate]
+        * Only allow to cancel invoice if actual customer is maintained [bActualCustomerExist]
         * Flag bSelected when selected row
         * @public
         */
         onDebitMemoRowSelected: function (oEvent) {
             debugger;
-            var oSelectedItem = this._returnSelectedItem("idDebitMemoTable");
+            var oSelectedItem = this._returnSelectedItem("idDebitMemoTable"),
+                bCancelEnabled = false,
+                bCreditMemoExist = false,
+                bActualCustomerExist = false;
             this.getModel("DebitMemo").setProperty("/bSelected", oEvent.getSource().getSelectedIndices().length > 0);
             this.getModel("DebitMemo").setProperty("/bValidate", !oSelectedItem.bDiff);
+            bCancelEnabled = !oSelectedItem.bDiff;
 
-            var bCreditMemoExist = false;
-            // var bMissingAbrechnungsweg = false;
-            for (const { CreditMemoRequest, CancelledAmount, NetAmount, YY1_Abrechnungsweg_BDI } of oSelectedItem.aSelectedItems) {
-                if (CreditMemoRequest && CancelledAmount === NetAmount && CancelledAmount > 0) {
-                    bCreditMemoExist = true;
+            for (const { CreditMemoRequest, CancelledAmount, NetAmount, YY1_ActualCustomer_BDI } of oSelectedItem.aSelectedItems) {
+                // Disable cancel button if credit memo (cancelled invoiced) found or actual customer is not maintained in billing doc.
+                bCancelEnabled = !(CreditMemoRequest && CancelledAmount === NetAmount && CancelledAmount > 0 || !YY1_ActualCustomer_BDI);
+                this.getModel("DebitMemo").setProperty("/bCreditMemoExist", !!CreditMemoRequest);
+                this.getModel("DebitMemo").setProperty("/bActualCustomerExist", !!YY1_ActualCustomer_BDI);
+                // Break the loop if found any error
+                if (!bCancelEnabled) {
                     break;
                 }
-                // if (!YY1_Abrechnungsweg_BDI) {
-                //     bMissingAbrechnungsweg = true;
-                // }
-                // if (bCreditMemoExist && bMissingAbrechnungsweg) {
-                //     break;
-                // }
             }
-            this.getModel("DebitMemo").setProperty("/bCreditMemoExist", bCreditMemoExist);
-            // this.getModel("DebitMemo").setProperty("/bMissingAbrechnungsweg", bMissingAbrechnungsweg);
+            this.getModel("DebitMemo").setProperty("/bCancelEnabled", bCancelEnabled);
         },
 
         /**
@@ -249,7 +249,7 @@ sap.ui.define([
                 }
             }
             this.oBusyDialog.setText(this.getResourceBundle().getText("FetctDmrMsg")).open();
-            await this._fetchDebitMemoPreBilling({ "debitMemo": { aFilters: aFilters }, oModel: this.getModel("YY1_V_BILLINGDOC_DMR_CDS") });
+            await this._fetchDebitMemoPreBilling({ "debitMemo": { aFilters: aFilters, oParams: { "$top": 2000 } }, oModel: this.getModel("YY1_V_BILLINGDOC_DMR_CDS") });
             // await this._fetchDebitMemoPreBilling({ "debitMemo": { aFilters: aFilters, oParams: { threshold: 200 } }, oModel: this.getModel("YY1_V_BILLINGDOC_DMR_CDS") });
         },
         // OnPressMenu: function (oEvent, sFragmentName, sId) {
@@ -567,21 +567,6 @@ sap.ui.define([
             // this._validateBtnEnabled(aSelectedItems);
             return { bDiff: aDiffBillDoc.length > 1 ? true : false, aSelectedHdr: aSelectedHdr, aSelectedItems: aSelectedItems }
         },
-        // _handleWizItemChanged: function (oEvent) {
-        //     var oContext = oEvent.getParameter("context");
-        //     // Enable forecast button by verifying ServiceRendredDateItem > current year/ month
-        //     if (oEvent.getParameters().path === "ServiceRendredDateItem") {
-        //         var oModelContent = oContext.oModel.getProperty(oContext.sPath);
-        //         oContext.oModel.setProperty("/oForecast/bEnabled", oModelContent.ServiceRendredDateItem && +(oModelContent.ServiceRendredDateItem.getFullYear() + "" + oModelContent.ServiceRendredDateItem.getMonth() + 1) > +(new Date().getFullYear() + "" + new Date().getMonth() + 1) ? true : false)
-        //     }
-        // },
-        // _validateBtnEnabled: function (aItems) {
-        //     this.getModel("DebitMemo").setProperty("/oForecast/bEnabled", aItems.some(o =>
-        //         o.ServiceRendredDateItem &&
-        //         +(o.ServiceRendredDateItem.getFullYear() + "" + ((o.ServiceRendredDateItem.getMonth() + 1).toString().padStart(2, '0') + 1)) > +(new Date().getFullYear() + "" + ((new Date().getMonth() + 1).toString().padStart(2, '0') + 1))
-        //     ))
-        // },
-
         /**
         * @private
         */

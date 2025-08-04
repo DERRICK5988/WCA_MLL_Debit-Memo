@@ -94,6 +94,14 @@ server:
           - url: https://my403379-api.s4hana.cloud.sap
             authenticationType: BasicAuthentication
             path: /sap
+          - url: https://my403692-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            destination: S4HC-Customizing-my403692-Basic
+            path: /sap/opu/odata/sap/YY1_ABRECHNUNGSWEGV_CDS/
+          - url: https://my403692-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            destination: S4HC-Customizing-my403692-Basic
+            path: /sap/opu/odata/sap/YY1_ACTUAL_CUST_CDS/
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:
@@ -130,10 +138,6 @@ server:
             metadataPath: ./webapp/localService/API_CREDIT_MEMO_REQUEST_SRV/metadata.xml
             mockdataPath: ./webapp/localService/API_CREDIT_MEMO_REQUEST_SRV/data
             generateMockData: true
-          - urlPath: /sap/opu/odata/sap/YY1_ABRECHNUNGSWEGV_CDS
-            metadataPath: ./webapp/localService/YY1_ABRECHNUNGSWEGV_CDS/metadata.xml
-            mockdataPath: ./webapp/localService/YY1_ABRECHNUNGSWEGV_CDS/data
-            generateMockData: true
           - urlPath: /sap/opu/odata/sap/YY1_BILLINGDOC_CDS
             metadataPath: ./webapp/localService/YY1_BILLINGDOC_CDS/metadata.xml
             mockdataPath: ./webapp/localService/YY1_BILLINGDOC_CDS/data
@@ -158,12 +162,16 @@ server:
             metadataPath: ./webapp/localService/YY1_LABIDV_CDS/metadata.xml
             mockdataPath: ./webapp/localService/YY1_LABIDV_CDS/data
             generateMockData: true
-          - urlPath: /sap/opu/odata/sap/YY1_ACTUAL_CUST_CDS
-            metadataPath: ./webapp/localService/YY1_ACTUAL_CUST_CDS/metadata.xml
-            mockdataPath: ./webapp/localService/YY1_ACTUAL_CUST_CDS/data
-            generateMockData: true
           - urlPath: /sap/opu/odata/sap/YY1_CUSTOMER_REF_CDS
             metadataPath: ./webapp/localService/YY1_CUSTOMER_REF_CDS/metadata.xml
             mockdataPath: ./webapp/localService/YY1_CUSTOMER_REF_CDS/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/YY1_ABRECHNUNGSWEGV_CDS
+            metadataPath: ./webapp/localService/YY1_ABRECHNUNGSWEGV_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/YY1_ABRECHNUNGSWEGV_CDS/data
+            generateMockData: true
+          - urlPath: /sap/opu/odata/sap/YY1_ACTUAL_CUST_CDS
+            metadataPath: ./webapp/localService/YY1_ACTUAL_CUST_CDS/metadata.xml
+            mockdataPath: ./webapp/localService/YY1_ACTUAL_CUST_CDS/data
             generateMockData: true
         annotations: []

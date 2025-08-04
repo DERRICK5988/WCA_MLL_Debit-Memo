@@ -65,15 +65,6 @@
           "odataVersion": "2.0"
         }
       },
-      "YY1_ABRECHNUNGSWEGV_CDS": {
-        "uri": "/sap/opu/odata/sap/YY1_ABRECHNUNGSWEGV_CDS/",
-        "type": "OData",
-        "settings": {
-          "annotations": [],
-          "localUri": "localService/YY1_ABRECHNUNGSWEGV_CDS/metadata.xml",
-          "odataVersion": "2.0"
-        }
-      },
       "YY1_BILLINGDOC_CDS": {
         "uri": "/sap/opu/odata/sap/YY1_BILLINGDOC_CDS/",
         "type": "OData",
@@ -128,21 +119,30 @@
           "odataVersion": "2.0"
         }
       },
-      "YY1_ACTUAL_CUST_CDS": {
-        "uri": "/sap/opu/odata/sap/YY1_ACTUAL_CUST_CDS/",
-        "type": "OData",
-        "settings": {
-          "annotations": [],
-          "localUri": "localService/YY1_ACTUAL_CUST_CDS/metadata.xml",
-          "odataVersion": "2.0"
-        }
-      },
       "YY1_CUSTOMER_REF_CDS": {
         "uri": "/sap/opu/odata/sap/YY1_CUSTOMER_REF_CDS/",
         "type": "OData",
         "settings": {
           "annotations": [],
           "localUri": "localService/YY1_CUSTOMER_REF_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "YY1_ABRECHNUNGSWEGV_CDS": {
+        "uri": "/sap/opu/odata/sap/YY1_ABRECHNUNGSWEGV_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YY1_ABRECHNUNGSWEGV_CDS/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      },
+      "YY1_ACTUAL_CUST_CDS": {
+        "uri": "/sap/opu/odata/sap/YY1_ACTUAL_CUST_CDS/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/YY1_ACTUAL_CUST_CDS/metadata.xml",
           "odataVersion": "2.0"
         }
       }
@@ -261,18 +261,6 @@
           }
         }
       },
-      "YY1_ABRECHNUNGSWEGV_CDS": {
-        "dataSource": "YY1_ABRECHNUNGSWEGV_CDS",
-        "preload": true,
-        "settings": {
-          "defaultBindingMode": "TwoWay",
-          "defaultCountMode": "Inline",
-          "refreshAfterChange": false,
-          "metadataUrlParams": {
-            "sap-value-list": "none"
-          }
-        }
-      },
       "YY1_BILLINGDOC_CDS": {
         "dataSource": "YY1_BILLINGDOC_CDS",
         "preload": true,
@@ -331,13 +319,18 @@
         "preload": true,
         "settings": {}
       },
-      "YY1_ACTUAL_CUST_CDS": {
-        "dataSource": "YY1_ACTUAL_CUST_CDS",
+      "YY1_CUSTOMER_REF_CDS": {
+        "dataSource": "YY1_CUSTOMER_REF_CDS",
         "preload": true,
         "settings": {}
       },
-      "YY1_CUSTOMER_REF_CDS": {
-        "dataSource": "YY1_CUSTOMER_REF_CDS",
+      "YY1_ABRECHNUNGSWEGV_CDS": {
+        "dataSource": "YY1_ABRECHNUNGSWEGV_CDS",
+        "preload": true,
+        "settings": {}
+      },
+      "YY1_ACTUAL_CUST_CDS": {
+        "dataSource": "YY1_ACTUAL_CUST_CDS",
         "preload": true,
         "settings": {}
       }

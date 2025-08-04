@@ -35,7 +35,7 @@
     </edmx:Reference>
     <edmx:DataServices m:DataServiceVersion="2.0">
         <Schema Namespace="YY1_ACTUAL_CUST_CDS" xml:lang="en" sap:schema-version="1" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
-            <EntityType Name="YY1_ACTUAL_CUSTType" sap:semantics="aggregate" sap:label="VH - Actual customer" sap:content-version="1">
+            <EntityType Name="YY1_ACTUAL_CUSTType" sap:semantics="aggregate" sap:label="VH - Actual Customer" sap:content-version="1">
                 <Key>
                     <PropertyRef Name="ID"/>
                 </Key>

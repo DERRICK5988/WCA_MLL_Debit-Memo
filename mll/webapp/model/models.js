@@ -22,13 +22,16 @@ sap.ui.define([
              * @returns {sap.ui.model.json.JSONModel} The credit memo model.
              */
             createDebitMemoModel: function () {
-                var s4Base = window.location.hostname.includes("protest") ? "myprod123" :
-                    window.location.hostname.includes("pro774184b2") ? "my403692" :
+                debugger;
+                var s4Base = window.location.hostname.includes("pro697a8440") ? "my404517" : // Production
+                    window.location.hostname.includes("pro774184b2") ? "my403692" : // Quality
                         "my403379"; // Dev as default
                 return new JSONModel({
                     bSelected: false,
                     bValidate: false,
+                    bActualCustomerExist: false,
                     bCreditMemoExist: false,
+                    bCancelEnabled: false,
                     bWizValidation: true,
                     iSelectedStepIndex: 0,
                     bStepBtnVisible: false,

@@ -94,6 +94,14 @@ server:
           - url: https://my403379-api.s4hana.cloud.sap
             authenticationType: BasicAuthentication
             path: /sap
+          - url: https://my403692-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            destination: S4HC-Customizing-my403692-Basic
+            path: /sap/opu/odata/sap/YY1_ABRECHNUNGSWEGV_CDS/
+          - url: https://my403692-api.s4hana.cloud.sap
+            authenticationType: BasicAuthentication
+            destination: S4HC-Customizing-my403692-Basic
+            path: /sap/opu/odata/sap/YY1_ACTUAL_CUST_CDS/
     - name: fiori-tools-appreload
       afterMiddleware: compression
       configuration:

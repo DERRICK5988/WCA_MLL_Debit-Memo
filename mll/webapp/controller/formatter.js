@@ -14,6 +14,11 @@ sap.ui.define(["sap/ui/core/format/DateFormat", "sap/ui/core/format/NumberFormat
                 pattern: sFormat
             });
         },
+        /**
+        * Format date
+        * @public
+        * @param {string} sDate: Incoming date
+        */
         formatDate: function (sDate) {
             if (sDate) {
                 var date = new Date(parseInt(sDate.substr(6)));
@@ -24,6 +29,12 @@ sap.ui.define(["sap/ui/core/format/DateFormat", "sap/ui/core/format/NumberFormat
             }
             return "";
         },
+        /**
+        * Format date
+        * @public
+        * @param {string} sDate: Incoming date
+        * * @param {string} sFormat: Incoming date pattern
+        */
         formatDate1: function (sDate, sFormat) {
             if (sDate) {
                 var date = new Date(sDate);
@@ -41,36 +52,6 @@ sap.ui.define(["sap/ui/core/format/DateFormat", "sap/ui/core/format/NumberFormat
             } else {
                 return "Success";
             }
-        },
-        addMonth: function (vDate, increment, bLastDayMth) {
-            if (!vDate) {
-                return null;
-            }
-            var dDate = vDate;
-            if (bLastDayMth) {
-                var nextMonth = new Date(dDate.getFullYear(), dDate.getMonth() + 1, 1);
-                dDate = new Date(nextMonth.getFullYear(), nextMonth.getMonth() + 1, 0);
-            } else {
-                dDate = new Date(dDate.setMonth(dDate.getMonth() + increment));
-            }
-            return dDate;
-        },
-        validateType: function (Value, type) {
-            if (type === "Edm.DateTime") {
-                Value = (Value) ? new Date(new Date(Value).setHours(8, 0, 0, 0)) : null;
-            } else if (type === "Edm.Decimal") {
-                Value = (Value > 0) ? Value : "";
-            } else if (type === "Edm.String") {
-                Value = Value || "";
-            } else {
-                Value = Value;
-            }
-            return Value;
-        },
-        checkQuantity: function (billingQuantity, billingQuantityCheck) {
-            var isValid = billingQuantity <= billingQuantityCheck;
-            this.getView().getModel("DebitMemo").setProperty("/bWizValidation", isValid);
-            return isValid ? "None" : "Error";
         },
         checkAmount: function (sNetAmount, sNetAmountCheck, sCancelledAmount) {
             var isValid = (Number(sNetAmount) + Number(sCancelledAmount)) <= Number(sNetAmountCheck);
